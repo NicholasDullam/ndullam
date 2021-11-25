@@ -44,7 +44,7 @@ const useShell = (props) => {
         }
     }
 
-    const [prompt, setPrompt] = useState(props.prompts || 'myshell')
+    const [prompt, setPrompt] = useState(props.prompt || 'myshell')
     const [history, setHistory] = useState(props.history || [])
     const [backlog, setBacklog] = useState(props.backlog || [])
     const [buffer, setBuffer] = useState(props.buffer || '')

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Communicode, Zookeep } from '.';
-import { Shell, Simulator } from '../components';
-
+import React, { useEffect, useRef, useState } from 'react'
+import { Communicode, Zookeep, Resume } from '.'
+import { Shell, Simulator } from '../components'
+import { Document, Page, pdfjs } from 'react-pdf'
 const Home = (props) => {
     const [subshells, setSubshells] = useState({})
     const subshellsRef = useRef(subshells)
@@ -20,6 +20,7 @@ const Home = (props) => {
     const environments = {
         'communicode' : {
             render: <Communicode/>,
+            prompt: 'communicode',
             commands: {
                 exit: {
                     callback: () => {
@@ -65,7 +66,23 @@ const Home = (props) => {
                             delete newSubshells[activeSubshellRef.current]
                             return { ...newSubshells }
                         })
-                        ``
+                        
+                        const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
+                        if (next) setActiveSubshell(next[0])
+                    }
+                }
+            }
+        },
+        'resume' : {
+            render: <Resume/>,
+            commands: {
+                exit: {
+                    callback: () => {
+                        setSubshells((newSubshells) => {
+                            delete newSubshells[activeSubshellRef.current]
+                            return { ...newSubshells }
+                        })
+                        
                         const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
                         if (next) setActiveSubshell(next[0])
                     }
@@ -78,11 +95,11 @@ const Home = (props) => {
         'projects' : {
             callback: (args) => {
                 return <div style={{ display: 'flex', flexDirection: 'column'}}>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('communicode', environments['communicode'])}> Communicode </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('sustainably', environments['sustainably'])}> Sustainably </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling merchant', environments['traveling merchant'])}> Traveling Merchant <span style={{ color: 'red', fontStyle: 'italic' }}> IN PROGRESS </span> </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('zookeep', environments['zookeep'])}> Zookeep <span style={{ color: 'red', fontStyle: 'italic' }}> IN PROGRESS </span> </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}> Simulator <span style={{ color: 'red', fontStyle: 'italic' }}> IN PROGRESS </span> </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('communicode', environments['communicode'])}> communicode </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('sustainably', environments['sustainably'])}> sustainably </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling merchant', environments['traveling merchant'])}> traveling merchant <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('zookeep', environments['zookeep'])}> zookeep <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}> simulator <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
                 </div>
             },
             description: '',
@@ -97,21 +114,20 @@ const Home = (props) => {
         },
         'open' : {
             callback: (args) => {
-                if (args.length < 1) return 'Missing parameters'
+                if (args.length < 1) return <div style={{ display: 'flex', flexDirection: 'column'}}>
+                    {
+                        Object.entries(environments).map((pair) => {
+                            let [key, environment] = pair
+                            return <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell(key, environment)}> {key} </span>
+                        })
+                    } 
+                </div>
                 if (!environments[args[0]]) return 'Environment does not exist'
                 handleCreateSubshell(args[0], environments[args[0]])
                 return <span> Opening <span style={{ color: 'blue' }}>{args[0]}</span> in a subshell...</span>
             },
             description: '',
             params: []  
-        },
-        'closeall' : {
-            callback: (args) => {
-                setSubshells({})
-                return <span> Closed <span style={{ color: 'blue' }}>{subshells.length}</span> subshells </span>
-            },
-            description: '',
-            params: []   
         }
     }
 
@@ -159,8 +175,8 @@ const Home = (props) => {
                                 Object.entries(subshells).map((pair, i) => {
                                     let [key, subshell] = pair
                                     return (
-                                        <div key={i} onClick={() => setActiveSubshell(key)} style={{ cursor: 'pointer', borderRadius: '25px' }}>
-                                            <p style={{ margin: '0px', color: 'white', fontFamily: 'Menlo', padding: '20px', borderRadius: '15px 15px 0px 0px', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
+                                        <div key={i} onClick={() => setActiveSubshell(key)} style={{ cursor: 'pointer' }}>
+                                            <p style={{ margin: '0px', color: 'white', fontFamily: 'Menlo', padding: '20px', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
                                         </div>
                                     )
                                 })

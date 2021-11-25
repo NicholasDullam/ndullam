@@ -1,12 +1,9 @@
-import React, { Component, createRef, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ReactComponent as faucet } from '../images/faucet.svg'
 import styled from 'styled-components'
 
 const Container = styled.canvas`
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow-y: auto;
+
 `
 
 const Faucet = styled(faucet)`
@@ -17,24 +14,32 @@ const Faucet = styled(faucet)`
 `
 
 const Simulator = (props) => {
-    const [gravity, setGravity] = useState(true)
+    const [gravity, setGravity] = useState(10)
     const [collision, setCollision] = useState(true)
-    const [maxParticles, setMaxParticles] = useState(20)
+    const [maxParticles, setMaxParticles] = useState(200)
     const [rate, setRate] = useState(20)
     const [particles, setParticles] = useState([])
+    const [prevRender, setPrevRender] = useState(Date.now())
+    const [computeTime, setComputeTime] = useState(0)
+    const [limit, setLimit] = useState(null)
 
     const canvasRef = useRef()
     const containerRef = useRef()
     const particlesRef = useRef(particles)
+    const prevRenderRef = useRef(prevRender)
 
     useEffect(() => {
-        let interval = setInterval(draw, 10)
+        let interval = setInterval(draw, 1)
         return () => clearInterval(interval)
     }, [])
 
     useEffect(() => {
         particlesRef.current = particles
     }, [particles])
+
+    useEffect(() => {
+        prevRenderRef.current = prevRender
+    }, [prevRender])
 
     const generateParticles = (amount) => {
         let render = []
@@ -47,7 +52,7 @@ const Simulator = (props) => {
                         posY: 560,
                         velocityX: Math.random() * (Math.round(Math.random()) ? 1 : -1) * .5,
                         velocityY: Math.random() * 1,
-                        elasticity: .75,
+                        elasticity: 1,
                         mass: 1000,
                         nextX: 0,
                         nextY: 0
@@ -61,22 +66,25 @@ const Simulator = (props) => {
 
     const draw = () => {
         if (!canvasRef.current) return
+        let time = Date.now()
+        setComputeTime(time - prevRenderRef.current)
         let context = canvasRef.current.getContext("2d")
         context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         let render = [...particlesRef.current, ...generateParticles(rate)]
-        render = updateParticles(render)
-        render = wallCollisions(render, canvasRef.current)
-        if (collision) render = unitCollisions(render)
+        render = updateParticles(render, time - prevRenderRef.current)
+        render = wallCollisions(render, canvasRef.current, time - prevRenderRef.current)
+        if (collision) render = unitCollisions(render, time - prevRenderRef.current)
         renderParticles(render, context)
         setParticles(render)
+        setPrevRender(time)
     }
 
-    const updateParticles = (particles) => {
+    const updateParticles = (particles, time) => {
         for (let i = 0; i < particles.length; i++) {
             let particle = particles[i]
             particle.velocityY += gravity
-            particle.nextX = particle.posX + particle.velocityX
-            particle.nextY = particle.posY + particle.velocityY
+            particle.nextX = particle.posX + particle.velocityX * (time / 1000)
+            particle.nextY = particle.posY + particle.velocityY * (time / 1000)
         }
 
         return particles
@@ -101,13 +109,13 @@ const Simulator = (props) => {
         return particles
     }
 
-    const unitCollisions = (particles) => {
+    const unitCollisions = (particles, time) => {
         for (let i = 0; i < particles.length; i++) {
             let particle = particles[i]
             for (let j = i + 1; j < particles.length; j++) {
                 let collider = particles[j]
                 if (areCollided(particle, collider)) {
-                    let result = calcCollision(particle, collider)
+                    let result = calcCollision(particle, collider, time)
                     particles[i] = result[0]
                     particles[j] = result[1]
                 }
@@ -124,7 +132,7 @@ const Simulator = (props) => {
         return distance <= (particle.radius + collider.radius)
     }
 
-    const calcCollision = (particle, collider) => {
+    const calcCollision = (particle, collider, time) => {
         var dx = particle.nextX - collider.nextX
         var dy = particle.nextY - collider.nextY
 
@@ -154,10 +162,10 @@ const Simulator = (props) => {
         collider.velocityX = Math.cos(collisionAngle) * final_velocityX_2 + Math.cos(collisionAngle + Math.PI/2) * final_velocityY_2
         collider.velocityY = Math.sin(collisionAngle) * final_velocityX_2 + Math.sin(collisionAngle + Math.PI/2) * final_velocityY_2
 
-        particle.nextX = (particle.nextX += particle.velocityX)
-        particle.nextY = (particle.nextY += particle.velocityY)
-        collider.nextX = (collider.nextX += collider.velocityX)
-        collider.nextY = (collider.nextY += collider.velocityY)
+        particle.nextX = particle.nextX += particle.velocityX * (time / 1000)
+        particle.nextY = particle.nextY += particle.velocityY * (time / 1000)
+        collider.nextX = collider.nextX += collider.velocityX * (time / 1000)
+        collider.nextY = collider.nextY += collider.velocityY * (time / 1000)
 
         return [particle, collider]
     }
@@ -176,10 +184,10 @@ const Simulator = (props) => {
     }
 
     return (
-        <div ref={containerRef} style={{ position: 'relative', height: '100%', width: '100%' }}>
-            {/*<p style={{ position: 'absolute', top: '10px', left: '10px', color: 'white', fontSize: '13px', fontFamily: 'Menlo' }}> fps: {fps} </p>*/}
+        <div ref={containerRef} style={{ position: 'relative', height: '100%', width: '100%', color: 'white' }}>
+            <p style={{ position: 'absolute', top: '30px', left: '30px', color: 'white', fontSize: '13px', fontFamily: 'Menlo' }}> fps: {Math.round(1000 / computeTime)} </p>
             <Container ref={canvasRef} height={containerRef.current ? containerRef.current.getBoundingClientRect().height : 0} width={containerRef.current ? containerRef.current.getBoundingClientRect().width : 0}/>
-            <Faucet style={{ position: 'absolute', top: '50%', right: '-2px' }}/>
+           { /* <Faucet style={{ position: 'absolute', top: '50%', right: '-2px' }}/> */}
         </div>
     )
 }
