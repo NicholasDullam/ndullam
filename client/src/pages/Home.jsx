@@ -176,7 +176,7 @@ const Home = (props) => {
                                     let [key, subshell] = pair
                                     return (
                                         <div key={i} onClick={() => setActiveSubshell(key)} style={{ cursor: 'pointer' }}>
-                                            <p style={{ margin: '0px', color: 'white', fontFamily: 'Menlo', padding: '20px', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
+                                            <p style={{ margin: '0px', color: 'white', padding: '20px', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
                                         </div>
                                     )
                                 })

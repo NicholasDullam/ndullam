@@ -184,10 +184,9 @@ const Simulator = (props) => {
     }
 
     return (
-        <div ref={containerRef} style={{ position: 'relative', height: '100%', width: '100%', color: 'white' }}>
-            <p style={{ position: 'absolute', top: '30px', left: '30px', color: 'white', fontSize: '13px', fontFamily: 'Menlo' }}> fps: {Math.round(1000 / computeTime)} </p>
+        <div ref={containerRef} style={{ position: 'relative', height: '100%', width: '100%', color: 'white', fontFamily: 'Menlo' }}>
+            <p style={{ position: 'absolute', top: '30px', left: '30px', color: 'white', fontSize: '13px' }}> fps: {Math.round(1000 / computeTime)} </p>
             <Container ref={canvasRef} height={containerRef.current ? containerRef.current.getBoundingClientRect().height : 0} width={containerRef.current ? containerRef.current.getBoundingClientRect().width : 0}/>
-           { /* <Faucet style={{ position: 'absolute', top: '50%', right: '-2px' }}/> */}
         </div>
     )
 }

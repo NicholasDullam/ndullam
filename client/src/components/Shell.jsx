@@ -127,7 +127,7 @@ const Shell = (props) => {
 
     return (
         <div style={{ height: 'calc(100% + 60px)', padding: '30px', ...props.style }} onClick={handleFocus}>
-            <div ref={contentRef} style={{ display: 'flex', flexDirection: 'column', fontFamily: 'Menlo', padding: '10px', position: 'relative' }}>
+            <div ref={contentRef} style={{ display: 'flex', flexDirection: 'column', padding: '10px', position: 'relative' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {
                         shell.history.slice(props.sub ? shell.history.length - 2 : 0, shell.history.length).map((line, i) => {
@@ -139,7 +139,7 @@ const Shell = (props) => {
                 </div>
                 <div style={{ display: 'flex' }}>
                     <code> {`${shell.prompt}>`}&nbsp; </code>
-                    <input onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onSelect={handleSelection} ref={inputRef} value={buffer} onChange={handleChange} type='text' style={{ backgroundColor: 'inherit', border: 'none', color: 'white', padding: '0px', highlight: 'none', outline: 'none', fontSize: '16px', fontFamily: 'Menlo', color: 'transparent', margin: '0px', textShadow: '0px 0px 0px #fff', width: '100%' }} onKeyPress={handleKeyPress} onKeyDown={handleKeyDown}/>
+                    <input onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onSelect={handleSelection} ref={inputRef} value={buffer} onChange={handleChange} type='text' style={{ backgroundColor: 'inherit', border: 'none', color: 'white', padding: '0px', highlight: 'none', outline: 'none', fontSize: '16px', color: 'transparent', margin: '0px', textShadow: '0px 0px 0px #fff', width: '100%' }} onKeyPress={handleKeyPress} onKeyDown={handleKeyDown}/>
                     { focused ? <Cursor style={{ height: '1.2ch', width: '.8ch', borderBottom: '1px solid white', borderRight: '1px solid white', borderRadius: '1px', position: `absolute`, left: `calc(${getInputBounds().left}px + min(${(getInputBounds().selection - 1)}ch, ${getInputBounds().width || 0}px) + 4px)`, top: getInputBounds().top, transition: `top 150ms ease, left 150ms ease` }}/> : null }
                 </div>
             </div>
