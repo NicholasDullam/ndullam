@@ -9,15 +9,15 @@ const useShell = (props) => {
                 setPrompt(args[0])
                 return <span>Prompt changed to <span style={{ color: 'blue' }}> {args[0]}</span></span>
             },
-            description: '',
-            params: []
+            description: 'changes shell prompt',
+            params: ['<STR>']
         },
         clear: {
             callback: (args) => {
                 setHistory([])
                 return null
             },
-            description: '',
+            description: 'clears shell history',
             params: []
         },
         echo: {
@@ -26,16 +26,19 @@ const useShell = (props) => {
                 args.forEach((arg) => string += `${arg} `)
                 return string
             },
-            description: '',
-            params: []
+            description: 'prints all parameteres',
+            params: ['<STR>*']
         },
         help: {
             callback: (args) => {
                 let listings = Object.entries(commands)
                 return listings.map((listing) => {
                     let [key, command] = listing
-                    return key !== 'help' ? <div>
-                        <span style={{ color: 'blue' }}> {key}: </span>
+                    return key !== 'help' ? <div style={{ display: 'flex', flexDirection: 'column'}}>
+                        <span style={{ color: 'blue' }}> {key} </span>
+                        <span style={{ color: 'green' }}> DESC: {command.description} </span>
+                        <span style={{ color: 'green' }}> USAGE: {key} {command.params.map((param) => `${param} `)} </span>
+                        <span style={{ color: 'blue' }}> </span>
                     </div> : null
                 })
             },

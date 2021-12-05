@@ -16,6 +16,16 @@ const Home = (props) => {
     useEffect(() => {
         activeSubshellRef.current = activeSubshell
     }, [activeSubshell])
+    
+    const exit = () => {
+        setSubshells((newSubshells) => {
+            delete newSubshells[activeSubshellRef.current]
+            return { ...newSubshells }
+        })
+        
+        const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
+        if (next) setActiveSubshell(next[0])
+    }
 
     const environments = {
         'communicode' : {
@@ -23,15 +33,7 @@ const Home = (props) => {
             prompt: 'communicode',
             commands: {
                 exit: {
-                    callback: () => {
-                        setSubshells((newSubshells) => {
-                            delete newSubshells[activeSubshellRef.current]
-                            return { ...newSubshells }
-                        })
-                        
-                        const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
-                        if (next) setActiveSubshell(next[0])
-                    }
+                    callback: exit
                 }
             }
         },
@@ -42,15 +44,7 @@ const Home = (props) => {
             render: <Zookeep/>,
             commands: {
                 exit: {
-                    callback: () => {
-                        setSubshells((newSubshells) => {
-                            delete newSubshells[activeSubshellRef.current]
-                            return { ...newSubshells }
-                        })
-                        
-                        const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
-                        if (next) setActiveSubshell(next[0])
-                    }
+                    callback: exit
                 }
             }
         },
@@ -61,15 +55,7 @@ const Home = (props) => {
             render: <Simulator/>,            
             commands: {
                 exit: {
-                    callback: () => {
-                        setSubshells((newSubshells) => {
-                            delete newSubshells[activeSubshellRef.current]
-                            return { ...newSubshells }
-                        })
-                        
-                        const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
-                        if (next) setActiveSubshell(next[0])
-                    }
+                    callback: exit
                 }
             }
         },
@@ -77,15 +63,7 @@ const Home = (props) => {
             render: <Resume/>,
             commands: {
                 exit: {
-                    callback: () => {
-                        setSubshells((newSubshells) => {
-                            delete newSubshells[activeSubshellRef.current]
-                            return { ...newSubshells }
-                        })
-                        
-                        const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
-                        if (next) setActiveSubshell(next[0])
-                    }
+                    callback: exit
                 }
             }
         }
@@ -109,7 +87,7 @@ const Home = (props) => {
             callback: (args) => {
                 return <span> Contact me by email, <span style={{ color: 'blue' }}>npdullam@gmail.com</span></span>
             },
-            description: '',
+            description: 'lists all available contact information',
             params: []
         },
         'open' : {
