@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Communicode, Zookeep, Resume } from '.'
+import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant } from '.'
 import { Shell, Simulator } from '../components'
 import { Document, Page, pdfjs } from 'react-pdf'
 const Home = (props) => {
@@ -38,10 +38,17 @@ const Home = (props) => {
             }
         },
         'sustainably' : {
-
+            render: <Sustainably/>,
+            prompt: 'sustainably',
+            commands: {
+                exit: {
+                    callback: exit
+                }
+            }
         },
         'zookeep' : {
             render: <Zookeep/>,
+            prompt: 'zookeep',
             commands: {
                 exit: {
                     callback: exit
@@ -49,10 +56,17 @@ const Home = (props) => {
             }
         },
         'traveling merchant' : {
-
+            render: <TravelingMerchant/>,
+            prompt: 'travelingmerchant',
+            commands: {
+                exit: {
+                    callback: exit
+                }
+            }
         },
         'simulator' : {
-            render: <Simulator/>,            
+            render: <Simulator/>,  
+            prompt: 'simulator',          
             commands: {
                 exit: {
                     callback: exit
@@ -61,6 +75,7 @@ const Home = (props) => {
         },
         'resume' : {
             render: <Resume/>,
+            prompt: 'resume',
             commands: {
                 exit: {
                     callback: exit
