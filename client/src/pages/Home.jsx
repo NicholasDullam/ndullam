@@ -121,9 +121,9 @@ const Home = (props) => {
                         })
                     } 
                 </div>
-                if (!environments[args[0]]) return 'Environment does not exist'
-                handleCreateSubshell(args[0], environments[args[0]])
-                return <span> Opening <span style={{ color: '#1E90FF' }}>{args[0]}</span> in a subshell...</span>
+                if (!environments[args[0].toLowerCase()]) return 'Environment does not exist'
+                handleCreateSubshell(args[0], environments[args[0].toLowerCase()])
+                return <span> Opening <span style={{ color: '#1E90FF' }}>{args[0].toLowerCase()}</span> in a subshell...</span>
             },
             description: 'opens the parametrized environment in a subshell; listing all if no parameter is passed',
             params: ['<PROJECT_NAME>?']  

@@ -57,7 +57,7 @@ const useShell = (props) => {
     const input = (value) => {
         let args = split(value)
         setHistory((hist) => [...hist, `${prompt}> ${value}`])
-        let instance = commands[args[0]] ? commands[args[0]].callback(args.splice(1, args.length)) : (args[0] ? <span> Command <span style={{ color: 'red' }}>{args[0]}</span> not found </span> : null)
+        let instance = args[0] && commands[args[0].toLowerCase()] ? commands[args[0].toLowerCase()].callback(args.splice(1, args.length)) : (args[0] ? <span> Command <span style={{ color: 'red' }}>{args[0].toLowerCase()}</span> not found </span> : null)
         if (instance) setHistory((hist) => [...hist, instance])
         if (args[0]) setBacklog([value, ...backlog])
         setBuffer('')
