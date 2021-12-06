@@ -21,6 +21,7 @@ const Simulator = (props) => {
     const [particles, setParticles] = useState([])
     const [prevRender, setPrevRender] = useState(Date.now())
     const [computeTime, setComputeTime] = useState(0)
+    const [collisions, setCollisions] = useState(0)
     const [limit, setLimit] = useState(null)
 
     const canvasRef = useRef()
@@ -110,11 +111,13 @@ const Simulator = (props) => {
     }
 
     const unitCollisions = (particles, time) => {
+        let col = 0
         for (let i = 0; i < particles.length; i++) {
             let particle = particles[i]
             for (let j = i + 1; j < particles.length; j++) {
                 let collider = particles[j]
                 if (areCollided(particle, collider)) {
+                    col += 1
                     let result = calcCollision(particle, collider, time)
                     particles[i] = result[0]
                     particles[j] = result[1]
@@ -122,6 +125,7 @@ const Simulator = (props) => {
             }
         }
 
+        setCollisions((c) => c + col)
         return particles
     }
 
@@ -185,7 +189,8 @@ const Simulator = (props) => {
 
     return (
         <div ref={containerRef} style={{ position: 'relative', height: '100%', width: '100%', color: 'white', fontFamily: 'Menlo' }}>
-            <p style={{ position: 'absolute', top: '30px', left: '30px', color: 'white', fontSize: '13px' }}> fps: {Math.round(1000 / computeTime)} </p>
+            <p style={{ position: 'absolute', top: '30px', left: '30px', color: 'white', fontSize: '13px' }}> fps: {Math.round(1000 / computeTime)}</p>
+            <p style={{ position: 'absolute', top: '30px', right: '30px', color: 'white', fontSize: '13px' }}> collisions: {collisions} </p>
             <Container ref={canvasRef} height={containerRef.current ? containerRef.current.getBoundingClientRect().height : 0} width={containerRef.current ? containerRef.current.getBoundingClientRect().width : 0}/>
         </div>
     )

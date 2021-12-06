@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant } from '.'
 import { Shell, Simulator } from '../components'
 
+// @TODO collision counter, explain difference between open and projects
+
 const Home = (props) => {
     const [subshells, setSubshells] = useState({})
     const subshellsRef = useRef(subshells)
@@ -162,6 +164,14 @@ const Home = (props) => {
                 </div>
             },
             description: ':)',
+            params: []
+        },
+        'resume': {
+            callback: (args) => {
+                handleCreateSubshell('resume', environments['resume'])
+                return <span> Opening <span style={{ color: '#1E90FF' }}>resume</span> in a subshell...</span>
+            },
+            description: 'opens resume in a new subshell',
             params: []
         }
     }
