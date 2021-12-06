@@ -11,7 +11,7 @@ const Sustainably = (props) => {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <h1> Sustainably </h1>
                     <a href={'https://app.stnbly.io/dashboard'} target={'_blank'} style={{ textDecoration: 'none', highlight: 'none', marginLeft: 'auto' }}>
-                        <Button style={{ marginLeft: 'auto' }}>
+                        <Button style={{ marginLeft: 'auto', margin: '5px' }}>
                             <FiLink style={{ marginRight: '8px' }}/>
                             <p style={{ margin: '0px', textDecoration: 'none', highlight: 'none'  }}> Visit </p>
                         </Button>
@@ -26,14 +26,15 @@ const Sustainably = (props) => {
                     <Tag> Express.js </Tag>
                     <Tag> Stripe </Tag>
                 </div>
-                <h6> Communicode connects techies with non-profits in need. I lead all visual & experience decisions to develop a product that appealed to a diverse dual-toned audience. </h6>
+                <h6> Acting as a real-time weight loss servicer, Sustainably supports meal plan generation, coaching, tracking, recalibration, etc; while helping people make long-lasting fitness transformations. </h6>
                 <h3> Description </h3>
-
+                Sustainably is a SaaS web app geared towards helping clients lose weight. It served as the expansion of my client's personal training business (Justin Bauer Fitness) into a more affordable and scalable method of getting people to reach their fitness goal. 
                 <h3> Role |<span style={{ opacity: '.7', fontSize: '14px' }}> Development Lead </span> </h3>
-
+                At Sustainably, I served as the Development Lead, creating and managing our MVP while introducing various functional iterations as the company matured. While programming the product in it's entirety, I designed an intuitive user experience for new and power users, while ensuring backend scalability and version control through a Github organization.
                 <h3> Creating a SaaS </h3>
-
+                When developing Sustainably as my first paid-access model, it was important to note the efficacy of design. When creating the sign-up, the sign-in, even the in-app experiences, I drove the design towards increasing user interactions and overall retention; reducing churn through our subsequent functional iterations. 
                 <h3> Key Takeaways </h3>
+                <p> Working at Sustainably was my first full-time experience managing an industry-level project, contracted for a client of mine. I realized that, despite entering a position without a mentor, learning and accelerating my skillset was possible; offering enough to create an MVP and a subsequent functional iteration to an active business. </p>
             </div>
         </div>
     )
