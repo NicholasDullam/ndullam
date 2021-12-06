@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant } from '.'
 import { Shell, Simulator } from '../components'
-import { Document, Page, pdfjs } from 'react-pdf'
+
 const Home = (props) => {
     const [subshells, setSubshells] = useState({})
     const subshellsRef = useRef(subshells)
@@ -33,7 +33,8 @@ const Home = (props) => {
             prompt: 'communicode',
             commands: {
                 exit: {
-                    callback: exit
+                    callback: exit,
+                    desc: 'Exits subshell'
                 }
             }
         },
@@ -42,7 +43,8 @@ const Home = (props) => {
             prompt: 'sustainably',
             commands: {
                 exit: {
-                    callback: exit
+                    callback: exit,
+                    desc: 'Exits subshell'
                 }
             }
         },
@@ -51,7 +53,8 @@ const Home = (props) => {
             prompt: 'zookeep',
             commands: {
                 exit: {
-                    callback: exit
+                    callback: exit,
+                    desc: 'Exits subshell'
                 }
             }
         },
@@ -60,7 +63,8 @@ const Home = (props) => {
             prompt: 'travelingmerchant',
             commands: {
                 exit: {
-                    callback: exit
+                    callback: exit,
+                    desc: 'Exits subshell'
                 }
             }
         },
@@ -69,7 +73,8 @@ const Home = (props) => {
             prompt: 'simulator',          
             commands: {
                 exit: {
-                    callback: exit
+                    callback: exit,
+                    desc: 'Exits subshell'
                 }
             }
         },
@@ -78,7 +83,8 @@ const Home = (props) => {
             prompt: 'resume',
             commands: {
                 exit: {
-                    callback: exit
+                    callback: exit,
+                    desc: 'Exits subshell'
                 }
             }
         }
@@ -95,12 +101,12 @@ const Home = (props) => {
                     <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}> simulator <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
                 </div>
             },
-            description: '',
+            description: 'lists all current projects',
             params: []
         },
         'contact' : {
             callback: (args) => {
-                return <span> Contact me by email, <span style={{ color: 'blue' }}>npdullam@gmail.com</span></span>
+                return <span> Contact me by email, <span style={{ color: '#1E90FF' }}>npdullam@gmail.com</span></span>
             },
             description: 'lists all available contact information',
             params: []
@@ -117,10 +123,46 @@ const Home = (props) => {
                 </div>
                 if (!environments[args[0]]) return 'Environment does not exist'
                 handleCreateSubshell(args[0], environments[args[0]])
-                return <span> Opening <span style={{ color: 'blue' }}>{args[0]}</span> in a subshell...</span>
+                return <span> Opening <span style={{ color: '#1E90FF' }}>{args[0]}</span> in a subshell...</span>
             },
-            description: '',
-            params: []  
+            description: 'opens the parametrized environment in a subshell; listing all if no parameter is passed',
+            params: ['<PROJECT_NAME>?']  
+        },
+        'easteregg' : {
+            callback: (args) => {
+                let egg = [
+                    '                                     ',
+                    '              ████████               ',                   
+                    '            ██        ██             ',                  
+                    '          ██▒▒▒▒        ██           ',                   
+                    '        ██▒▒▒▒▒▒      ▒▒▒▒██         ',                
+                    '        ██▒▒▒▒▒▒      ▒▒▒▒██         ',                   
+                    '      ██  ▒▒▒▒        ▒▒▒▒▒▒██       ',                   
+                    '      ██                ▒▒▒▒██       ',                   
+                    '    ██▒▒      ▒▒▒▒▒▒          ██     ',                   
+                    '    ██      ▒▒▒▒▒▒▒▒▒▒        ██     ',                   
+                    '    ██      ▒▒▒▒▒▒▒▒▒▒    ▒▒▒▒██     ',                   
+                    '    ██▒▒▒▒  ▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒██     ',                   
+                    '      ██▒▒▒▒  ▒▒▒▒▒▒    ▒▒▒▒██       ',                   
+                    '      ██▒▒▒▒            ▒▒▒▒██       ',                   
+                    '        ██▒▒              ██         ',                   
+                    '          ████        ████           ',                   
+                    '              ████████               ',
+                    '                                     '   
+                ]
+
+                return <div>
+                    {
+                        egg.map((entry) => {
+                            return <div style={{ whiteSpace: 'break-spaces'}}>
+                                {entry}
+                            </div>
+                        })
+                    }
+                </div>
+            },
+            description: ':)',
+            params: []
         }
     }
 
@@ -153,14 +195,22 @@ const Home = (props) => {
 
     return (
         <div style={{ height: '100%', width: '100%', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ width: '50%', backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll' }}>
+            <div style={{ width: window.innerWidth > 600 ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
                 <div style={{ height: 'calc(100% + 60px)', display: 'flex', flexDirection: 'column' }}>
                     <Shell restore={{ commands, history: [
-                        "Hello, I'm Nicholas Dullam",                          
+                        <div style={{ whiteSpace: 'pre-wrap'}}>
+                            <div>/* </div>
+                            <div> * Hello, I'm Nicholas Dullam </div>
+                            <div> * - To get started, enter <span style={{ color: '#1E90FF' }}>projects</span> or <span style={{ color: '#1E90FF' }}>open</span></div>
+                            <div> * - Click a response, or open an environment by entering <span style={{ color: '#1E90FF'}}>open <span style={{ color: 'orange'}}>{'<PROJECT_NAME>'}</span></span></div>
+                            <div> * - Need help? Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands and their function</div>
+                            <div> * Happy exploring :D </div>
+                            <div style={{ whiteSpace: 'pre-wrap'}}> */ {'\n'} </div>
+                        </div>                         
                     ] }}/>
                 </div>
             </div>
-            <div style={{ width: '50%', backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative' }}>
+            <div style={{ width: window.innerWidth > 600 ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
                 { Object.entries(subshells).length ? <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowX: 'hidden' }}>
                     <div style={{ display: 'flex', backgroundColor: 'black', zIndex: '5', position: 'sticky', top: '0px' }}>
                         <div style={{ overflowX: 'scroll', display: 'flex' }}>
@@ -184,7 +234,7 @@ const Home = (props) => {
                     </div>
                 </div> : <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '16px', fontFamily: 'Menlo' }}>
                     <p style={{ margin: '0px' }}> No current subshells </p>
-                    <p style={{ margin: '0px', opacity: '.7', marginTop: '5px' }}> Enter <span style={{ color: 'blue' }}>projects</span> to get started </p>
+                    <p style={{ margin: '0px', opacity: '.7', marginTop: '5px' }}> Enter <span style={{ color: '#1E90FF' }}>projects</span> to get started </p>
                 </div> }
             </div>
         </div>
