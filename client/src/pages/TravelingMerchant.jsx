@@ -9,7 +9,7 @@ const TravelingMerchant = (props) => {
         <div>
             <img src={travelingMerchant1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
             <div style={{ padding: '30px', paddingTop: '10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll' }}>
                     <h1> Traveling Merchant </h1>
                     <div style={{ display: 'flex', marginLeft: 'auto' }}>
                         <a href={'https://github.com/NicholasDullam/traveling_merchant'} target={'_blank'} style={{ textDecoration: 'none', highlight: 'none', marginLeft: 'auto', margin: '5px' }}>

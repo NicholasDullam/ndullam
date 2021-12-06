@@ -8,7 +8,7 @@ const Sustainably = (props) => {
         <div>
             <img src={sustainably1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
             <div style={{ padding: '30px', paddingTop: '10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll' }}>
                     <h1> Sustainably </h1>
                     <a href={'https://app.stnbly.io/dashboard'} target={'_blank'} style={{ textDecoration: 'none', highlight: 'none', marginLeft: 'auto' }}>
                         <Button style={{ marginLeft: 'auto', margin: '5px' }}>
