@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant } from '.'
-import { Shell, Simulator } from '../components'
+import { Loading, Shell, Simulator } from '../components'
 
 // @TODO collision counter, explain difference between open and projects
 
@@ -209,6 +209,7 @@ const Home = (props) => {
                 <div style={{ height: 'calc(100% + 60px)', display: 'flex', flexDirection: 'column' }}>
                     <Shell restore={{ commands, history: [
                         <div style={{ whiteSpace: 'pre-wrap'}}>
+                            <Loading/>
                             <div>/* </div>
                             <div> * Hello, I'm Nicholas Dullam </div>
                             <div> * - To get started, enter <span style={{ color: '#1E90FF' }}>projects</span> or <span style={{ color: '#1E90FF' }}>open</span></div>

@@ -5,6 +5,7 @@ import Simulator from './Simulator'
 import Shell from './Shell'
 import Button from './Button'
 import Tag from './Tag'
+import Loading from './Loading'
 
 export { 
     Nav,
@@ -13,5 +14,6 @@ export {
     Simulator,
     Shell,
     Button,
-    Tag
+    Tag,
+    Loading
 }
