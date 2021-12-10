@@ -2,10 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ReactComponent as faucet } from '../images/faucet.svg'
 import styled from 'styled-components'
 
-const Container = styled.canvas`
-
-`
-
 const Faucet = styled(faucet)`
     stroke: white;
     transition: opacity .2s ease-in;
@@ -191,7 +187,7 @@ const Simulator = (props) => {
         <div ref={containerRef} style={{ position: 'relative', height: '100%', width: '100%', color: 'white', fontFamily: 'Menlo' }}>
             <p style={{ position: 'absolute', top: '30px', left: '30px', color: 'white', fontSize: '13px' }}> fps: {Math.round(1000 / computeTime)}</p>
             <p style={{ position: 'absolute', top: '30px', right: '30px', color: 'white', fontSize: '13px' }}> collisions: {collisions} </p>
-            <Container ref={canvasRef} height={containerRef.current ? containerRef.current.getBoundingClientRect().height : 0} width={containerRef.current ? containerRef.current.getBoundingClientRect().width : 0}/>
+            <canvas ref={canvasRef} height={containerRef.current ? containerRef.current.getBoundingClientRect().height : 0} width={containerRef.current ? containerRef.current.getBoundingClientRect().width : 0}/>
         </div>
     )
 }
