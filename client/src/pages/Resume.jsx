@@ -4,6 +4,7 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import resume from '../images/resume.pdf'
 import { FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
+import { LoadingIcon } from '../components';
 
 const Download = styled.a`
     transition: transform 300ms ease, background-color 300ms ease, color 300ms ease;
@@ -22,7 +23,7 @@ const Resume = (props) => {
     return (
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
             <div style={{ position: 'relative', height: '100%', width: '100%', color: 'white' }}>
-                <Viewer theme={'dark'} fileUrl={resume}/>
+                <Viewer theme={'dark'} fileUrl={resume} renderLoader={() => <LoadingIcon/>}/>
                 <Download href={resume} target={'_blank'} style={{ position: 'absolute', top: '20px', right: '20px', borderRadius: '25px', padding: '12px 18px 12px 18px', display: 'flex', textDecoration: 'none' }}>
                     <FiDownload style={{ marginRight: '8px' }}/>
                     <p style={{ margin: '0px' }}> Download </p>

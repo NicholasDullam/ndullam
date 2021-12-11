@@ -6,6 +6,7 @@ import Shell from './Shell'
 import Button from './Button'
 import Tag from './Tag'
 import Loading from './Loading'
+import LoadingIcon from './LoadingIcon'
 
 export { 
     Nav,
@@ -15,5 +16,6 @@ export {
     Shell,
     Button,
     Tag,
-    Loading
+    Loading,
+    LoadingIcon
 }
