@@ -7,7 +7,7 @@ const Communicode = (props) => {
         <div style={{ color: 'white', fontFamily: 'Menlo' }}>
             <img src={Communicode1} className="w-full h-[200px] object-cover"/>
             <div className="p-8 pt-3">
-                <h1 className="text-4xl font-bold my-6"> Communicode </h1>
+                <h1 className="text-4xl font-bold my-5"> Communicode </h1>
                 <div className="flex mb-5 overflow-x-scroll">
                     <Tag> Python </Tag>
                     <Tag> Numpy </Tag>
