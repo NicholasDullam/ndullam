@@ -128,7 +128,7 @@ const Shell = (props) => {
     return (
         <div style={{ height: 'calc(100% + 60px)', padding: '30px', ...props.style }} onClick={handleFocus}>
             <div ref={contentRef} style={{ display: 'flex', flexDirection: 'column', padding: '10px', position: 'relative' }}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="flex flex-col test">
                     {
                         shell.history.slice(props.sub ? shell.history.length - 2 : 0, shell.history.length).map((line, i) => {
                             return (

@@ -8,7 +8,7 @@ const Zookeep = (props) => {
     return (
         <div style={{ color: 'white' }}>
             <img src={zookeep1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
-            <div style={{ padding: '30px', paddingTop: '10px' }}>
+            <div className="p-8 pt-3">
                 <div className="mt-3 mb-2" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll' }}>
                     <h1 className="text-4xl font-bold mb-0"> ZooKeep </h1>
                     <div style={{ display: 'flex', marginLeft: 'auto' }}>
@@ -22,7 +22,7 @@ const Zookeep = (props) => {
                         </a>
                     </div>
                 </div>
-                <div style={{ display: 'flex', marginBottom: '20px', overflowX: 'scroll' }}>
+                <div className="flex mb-5 overflow-x-scroll">
                     <Tag> Heroku </Tag>
                     <Tag> MongoDB </Tag>
                     <Tag> Node.js </Tag>

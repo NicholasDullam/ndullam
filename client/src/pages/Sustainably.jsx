@@ -7,7 +7,7 @@ const Sustainably = (props) => {
     return (
         <div>
             <img src={sustainably1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
-            <div style={{ padding: '30px', paddingTop: '10px' }}>
+            <div className="p-8 pt-3">
                 <div className="mt-3 mb-2" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> Sustainably </h1>
                     <a href={'https://app.stnbly.io/dashboard'} target={'_blank'} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300 ml-auto m-1.5">
@@ -15,7 +15,7 @@ const Sustainably = (props) => {
                         <p style={{ margin: '0px', textDecoration: 'none', highlight: 'none'  }}> Visit </p>
                     </a>
                 </div>
-                <div style={{ display: 'flex', marginBottom: '20px', overflowX: 'scroll' }}>
+                <div className="flex mb-5 overflow-x-scroll">
                     <Tag> Heroku </Tag>
                     <Tag> AWSS3 </Tag>
                     <Tag> MongoDB </Tag>

@@ -5,10 +5,10 @@ import { Tag } from '../components'
 const Communicode = (props) => {
     return (
         <div style={{ color: 'white', fontFamily: 'Menlo' }}>
-            <img src={Communicode1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
-            <div style={{ padding: '30px', paddingTop: '10px' }}>
-                <h1 className="text-4xl font-bold my-5"> Communicode </h1>
-                <div style={{ display: 'flex', marginBottom: '20px', overflowX: 'scroll' }}>
+            <img src={Communicode1} className="w-full h-[200px] object-cover"/>
+            <div className="p-8 pt-3">
+                <h1 className="text-4xl font-bold my-6"> Communicode </h1>
+                <div className="flex mb-5 overflow-x-scroll">
                     <Tag> Python </Tag>
                     <Tag> Numpy </Tag>
                     <Tag> GCP </Tag>

@@ -15,7 +15,7 @@ const App = (props) => {
     })
 
     return (
-      <div className="App" style={{ height: '100vh', width: '100%' }}>
+      <div className="h-screen w-full">
         <Router>
           <Switch>
             <Route path='/' exact component={Home}/>
