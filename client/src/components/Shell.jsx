@@ -140,7 +140,7 @@ const Shell = (props) => {
                 <div style={{ display: 'flex' }}>
                     <code> {`${shell.prompt}>`}&nbsp; </code>
                     <input onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onSelect={handleSelection} ref={inputRef} value={buffer} onChange={handleChange} type='text' style={{ backgroundColor: 'inherit', border: 'none', color: 'white', padding: '0px', highlight: 'none', outline: 'none', fontSize: '16px', color: 'transparent', margin: '0px', textShadow: '0px 0px 0px #fff', width: '100%' }} onKeyPress={handleKeyPress} onKeyDown={handleKeyDown}/>
-                    { focused ? <Cursor style={{ height: '1.2ch', width: '.8ch', borderBottom: '1px solid white', borderRight: '1px solid white', borderRadius: '1px', position: `absolute`, left: `calc(${getInputBounds().left}px + min(${(getInputBounds().selection - 1)}ch, ${getInputBounds().width || 0}px) + 4px)`, top: getInputBounds().top, transition: `top 150ms ease, left 150ms ease` }}/> : null }
+                    { focused ? <Cursor style={{ height: '1.2ch', width: '.8ch', borderBottom: '1px solid white', borderRight: '1px solid white', borderRadius: '1px', position: `absolute`, left: `calc(${getInputBounds().left}px + min(${(getInputBounds().selection - 1)}ch, ${getInputBounds().width || 0}px) + 4px)`, top: getInputBounds().top - 4, transition: `top 150ms ease, left 150ms ease` }}/> : null }
                 </div>
             </div>
         </div>

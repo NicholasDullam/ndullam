@@ -245,8 +245,8 @@ const Home = (props) => {
                         <Shell sub key={activeSubshell} id={activeSubshell} style={{ padding: '0px', height: '100%' }} restore={subshells[activeSubshell]} handleExit={handleExit}/>
                     </div>
                 </div> : <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '16px', fontFamily: 'Menlo' }}>
-                    <p style={{ margin: '0px' }}> No current subshells </p>
-                    <p style={{ margin: '0px', opacity: '.7', marginTop: '5px' }}> Enter <span style={{ color: '#1E90FF' }}>projects</span> to get started </p>
+                    <p> No current subshells </p>
+                    <p className="opacity-70"> Enter <span style={{ color: '#1E90FF' }}>projects</span> to get started </p>
                 </div> }
             </div>
         </div>
