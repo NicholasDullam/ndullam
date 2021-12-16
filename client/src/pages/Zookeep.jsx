@@ -32,7 +32,7 @@ const Zookeep = (props) => {
                 <h6> An experimental project, seeking to test the integrations of information systems through an intuitive admin-level user experience </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
                 <p> ZooKeep is a zoo-management platform, offering an experience geared at increasing the efficacy of management integrations. This project was started as an experimental design, testing user experience with more complex manipulation of information systems through CS 348 (Information Systems) at Purdue.</p>
-                <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span style={{ opacity: '.7', fontSize: '14px' }}> Developer </span> </h3>
+                <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Developer </span> </h3>
                 <p>When working on ZooKeep, as served as one of three developers; programming both the frontend and backend implementations while focusing on continuous integrations and database management. </p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating an Effective User Experience </h3>
                 <p> User experience, especially when dealing with high-level interactions, requires design that is both intuitive and responsive. Creating navigation that is straight-forward, including the minimum interactions to complete a function, and ensuring that all interactions are direct and understood are crucial in providing the user with the response that they expect, when they expect it.</p>

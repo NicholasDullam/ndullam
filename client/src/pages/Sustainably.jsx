@@ -27,7 +27,7 @@ const Sustainably = (props) => {
                 <h6 className="mt-5"> Acting as a real-time weight loss servicer, Sustainably supports meal plan generation, coaching, tracking, recalibration, etc; while helping people make long-lasting fitness transformations. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
                 Sustainably is a SaaS web app geared towards helping clients lose weight. It served as the expansion of my client's personal training business (Justin Bauer Fitness) into a more affordable and scalable method of getting people to reach their fitness goal. 
-                <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span style={{ opacity: '.7', fontSize: '14px' }}> Development Lead </span> </h3>
+                <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Development Lead </span> </h3>
                 At Sustainably, I served as the Development Lead, creating and managing our MVP while introducing various functional iterations as the company matured. While programming the product in it's entirety, I designed an intuitive user experience for new and power users, while ensuring backend scalability and version control through a Github organization.
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating a SaaS </h3>
                 When developing Sustainably as my first paid-access model, it was important to note the efficacy of design. When creating the sign-up, the sign-in, even the in-app experiences, I drove the design towards increasing user interactions and overall retention; reducing churn through our subsequent functional iterations. 
