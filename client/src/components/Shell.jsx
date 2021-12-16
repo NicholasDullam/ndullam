@@ -132,7 +132,7 @@ const Shell = (props) => {
                     {
                         shell.history.slice(props.sub ? shell.history.length - 2 : 0, shell.history.length).map((line, i) => {
                             return (
-                                <code key={i} style={{ whiteSpace: false ? 'break-spaces' : ''}}>{line}</code>
+                                <code key={i} className="p-0 m-0" style={{ whiteSpace: false ? 'break-spaces' : ''}}>{line}</code>
                             )
                         })
                     }
