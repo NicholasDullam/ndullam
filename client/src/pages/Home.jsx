@@ -217,7 +217,7 @@ const Home = (props) => {
                             <div> * - To exit a subshell, enter <span style={{ color: '#1E90FF' }}>exit</span> into the subshell's command prompt</div>
                             <div> * - Need help? Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands and their function</div>
                             <div> * Happy exploring :D </div>
-                            <div style={{ whiteSpace: 'pre-wrap'}}> */ {'\n'} </div>
+                            <div style={{ whiteSpace: 'pre-wrap' }}> */ {'\n'} </div>
                         </div>                         
                     ] }}/>
                 </div>

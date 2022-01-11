@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import PaymentRouter from './PaymentRouter'
 import { Home } from '../pages'
 
 const App = (props) => {
@@ -19,6 +20,7 @@ const App = (props) => {
         <Router>
           <Switch>
             <Route path='/' exact component={Home}/>
+            <Route path='/payment' component={PaymentRouter}/>
           </Switch>
         </Router>
       </div>
