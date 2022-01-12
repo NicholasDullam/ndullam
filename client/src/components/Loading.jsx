@@ -24,7 +24,7 @@ const Container = styled.div`
 const Loading = (props) => {
     return (
         <Container style={{ position: 'fixed', height: '100%', width: '100%', backgroundColor: 'black', zIndex: '5', top: '0px', left: '0px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <LoadingIcon/>
+            <LoadingIcon size={20}/>
         </Container>
     )
 }

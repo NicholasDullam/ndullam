@@ -7,6 +7,8 @@ import Button from './Button'
 import Tag from './Tag'
 import Loading from './Loading'
 import LoadingIcon from './LoadingIcon'
+import PaymentNav from "./PaymentNav"
+import FriendNav from './FriendNav'
 
 export { 
     Nav,
@@ -17,5 +19,7 @@ export {
     Button,
     Tag,
     Loading,
-    LoadingIcon
+    LoadingIcon,
+    PaymentNav,
+    FriendNav
 }

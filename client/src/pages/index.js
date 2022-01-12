@@ -4,6 +4,7 @@ import Communicode from './Communicode'
 import Zookeep from './Zookeep'
 import TravelingMerchant from './TravelingMerchant'
 import Resume from './Resume'
+import PaymentHome from "./PaymentHome"
 
 export { 
     Home,
@@ -11,5 +12,6 @@ export {
     Communicode,
     Zookeep,
     TravelingMerchant,
-    Resume
+    Resume,
+    PaymentHome
 }

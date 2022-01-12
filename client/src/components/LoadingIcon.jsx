@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Square = styled.rect`
-    width: 20px;
-    height: 20px;
+    width: ${props => props.size}px;
+    height: ${props => props.size}px;
     fill: white;
 
     transform: scale(1);
@@ -36,10 +36,10 @@ const Square = styled.rect`
 
 const LoadingIcon = (props) => {
     return (
-        <svg style={{ width: '80px', height: '80px' }}> 
-            <Square/>
-            <Square y={'20px'} delay={750}/>
-            <Square x={'20px'} delay={750}/>
+        <svg style={{ width: `${props.size * 4}px`, height: `${props.size * 4}px` }}> 
+            <Square size={props.size}/>
+            <Square size={props.size} y={props.size} delay={750}/>
+            <Square size={props.size} x={props.size} delay={750}/>
         </svg>
     )
 }
