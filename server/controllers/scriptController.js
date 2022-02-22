@@ -89,10 +89,11 @@ const runScript = async (req, res) => {
     try { 
         const target = await Script.findById(_id)
         if (!target) throw new Error('Script does not exist')
-        let file = path.join(__dirname, '..', '..', 'tmp', `${_id}.py`);
-        fs.writeFileSync(file, target.code)
-        let response = await run(file, args)
-        fs.unlinkSync(file)
+        let file = path.join(__dirname, '..', '..', 'tmp');
+        if (!fs.existsSync(file)) fs.mkdirSync(file)
+        fs.writeFileSync(file + `${_id}.py`, target.code)
+        let response = await run(file + `${_id}.py`, args)
+        fs.unlinkSync(file + `${_id}.py`)
         return res.status(200).json({ response: response.response.toString(), time: response.time })
     } catch (error) {
         console.log(error)
