@@ -85,7 +85,7 @@ const runScript = async (req, res) => {
         fs.writeFileSync(file, target.code)
         fs.writeFileSync(path.join(dir, 'data.json'), JSON.stringify(req.body))
         let response = await run(dir)
-        //fs.rmSync(dir, { recursive: true, force: true });
+        fs.rmSync(dir, { recursive: true, force: true });
         return res.status(200).json({ response: response.response.toString(), time: response.time })
     } catch (error) {
         console.log(error)
