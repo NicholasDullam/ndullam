@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PaymentRouter from './PaymentRouter'
-import { Home } from '../pages'
+import { Create, Home, Login } from '../pages'
 
 const App = (props) => {
     const [width, setWidth] = useState(0)
@@ -20,6 +20,8 @@ const App = (props) => {
         <Router>
           <Switch>
             <Route path='/' exact component={Home}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/create' component={Create}/>
             <Route path='/payment' component={PaymentRouter}/>
           </Switch>
         </Router>

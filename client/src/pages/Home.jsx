@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant } from '.'
+import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms } from '.'
 import { Loading, Shell, Simulator } from '../components'
 
 // @TODO collision counter, explain difference between open and projects
@@ -31,7 +31,7 @@ const Home = (props) => {
 
     const environments = {
         'communicode' : {
-            render: <Communicode/>,
+            render: Communicode,
             prompt: 'communicode',
             commands: {
                 exit: {
@@ -41,7 +41,7 @@ const Home = (props) => {
             }
         },
         'sustainably' : {
-            render: <Sustainably/>,
+            render: Sustainably,
             prompt: 'sustainably',
             commands: {
                 exit: {
@@ -51,7 +51,7 @@ const Home = (props) => {
             }
         },
         'zookeep' : {
-            render: <Zookeep/>,
+            render: Zookeep,
             prompt: 'zookeep',
             commands: {
                 exit: {
@@ -61,7 +61,7 @@ const Home = (props) => {
             }
         },
         'traveling merchant' : {
-            render: <TravelingMerchant/>,
+            render: TravelingMerchant,
             prompt: 'travelingmerchant',
             commands: {
                 exit: {
@@ -71,7 +71,7 @@ const Home = (props) => {
             }
         },
         'simulator' : {
-            render: <Simulator/>,  
+            render: Simulator,  
             prompt: 'simulator',          
             commands: {
                 exit: {
@@ -81,8 +81,18 @@ const Home = (props) => {
             }
         },
         'resume' : {
-            render: <Resume/>,
+            render: Resume,
             prompt: 'resume',
+            commands: {
+                exit: {
+                    callback: exit,
+                    desc: 'Exits subshell'
+                }
+            }
+        },
+        'algorithms' : {
+            render: Algorithms,
+            prompt: 'algorithms',
             commands: {
                 exit: {
                     callback: exit,
@@ -203,6 +213,10 @@ const Home = (props) => {
         })
     }
 
+    const renderSubshell = (Component, props) => {
+        return <Component {...props} shell={subshells[activeSubshell]}/>
+    }
+
     return (
         <div style={{ height: '100%', width: '100%', display: 'flex', position: 'relative', overflow: 'hidden' }}>
             <div style={{ width: window.innerWidth > 600 ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
@@ -239,7 +253,7 @@ const Home = (props) => {
                         </div>
                     </div>
                     <div style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
-                        { subshells[activeSubshell].render }
+                        { renderSubshell(subshells[activeSubshell].render, {}) }
                     </div>
                     <div style={{ marginTop: 'auto', padding: '20px', position: 'sticky', bottom: '0px', backgroundColor: 'rgba(20,20,20,1)' }}>
                         <Shell sub key={activeSubshell} id={activeSubshell} style={{ padding: '0px', height: '100%' }} restore={subshells[activeSubshell]} handleExit={handleExit}/>

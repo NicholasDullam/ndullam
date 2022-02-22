@@ -15,8 +15,13 @@ const createUser = (req, body) => api.post('/users', req, body)
 const getUsers = (req) => api.get('/users', req)
 const getUserById = (user_id, req) => api.get(`/users/${user_id}`, req)
 const getFriends = (user_id, req) => api.get(`/users/${user_id}/friends`, req)
-const updateUserById = (user_id, req, body) => api.put(`/users/${user_id}`, req, body)
-const deleteUserById = (user_id, req, body) => api.delete(`/users/${user_id}`)
+const updateUserById = (user_id, req, body) => api.put(`/users/${user_id}`, body, req)
+const deleteUserById = (user_id, req) => api.delete(`/users/${user_id}`, req)
+
+// script routes
+const getScripts = (req) => api.get('/scripts', req)
+const getScriptById = (script_id, req) => api.get(`/scripts/${script_id}`, req)
+const runScript = (script_id, req, body) => api.post(`/scripts/${script_id}`, body ,req)
 
 export {
     login,
@@ -27,5 +32,8 @@ export {
     getUserById,
     getFriends,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    getScripts,
+    getScriptById,
+    runScript
 }
