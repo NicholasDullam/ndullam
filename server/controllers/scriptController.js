@@ -2,28 +2,21 @@ const Script = require('../models/script')
 const path = require('path')
 const fs = require('fs')
 
-const run = (file, args) => new Promise((success, failure) => {
-    const { spawn } = require('child_process')
+const run = (dir) => new Promise((success, failure) => {
+    const { spawn } = require('child_process')    
     const start = Date.now()
-    const program = spawn('python', [file, ...args])
-    
-    program.stdout.on('data', (response) => {
-        success({ response, time: Date.now() - start })
-    })
-
-    program.stderr.on('data', (error) => {
-        console.log(error.toString())
-        failure(error)
-    })
+    const program = spawn('python', [path.join(__dirname, '..', 'python', 'tester.py'), dir])
+    program.stdout.on('data', (response) => success({ response, time: Date.now() - start }))
+    program.stderr.on('data', (error) => failure(error.toString()))
 })
 
 const createScript = async (req, res) => {
-    const { _id, type, description, code, language } = req.body
+    const { _id, type, description, code, args, language } = req.body
     try {
         if (process.env.NODE_ENV === 'production') throw new Error('Scripts can only be added in the devkit')
         const target = await Script.findById(_id)
         if (target) throw new Error('Script already exists')
-        let script = new Script({ _id, type, description, code, language })
+        let script = new Script({ _id, type, description, code, args, language })
         script = await script.save()
         return res.status(200).json(script)
     } catch (error) {
@@ -82,22 +75,21 @@ const getScripts = async (req, res) => {
 
 const runScript = async (req, res) => {
     const { _id } = req.params
-    const { args } = req.body
-
-    console.log(req.body)
 
     try { 
         const target = await Script.findById(_id)
         if (!target) throw new Error('Script does not exist')
-        let file = path.join(__dirname, '..', '..', 'tmp');
-        if (!fs.existsSync(file)) fs.mkdirSync(file)
-        fs.writeFileSync(file + `${_id}.py`, target.code)
-        let response = await run(file + `${_id}.py`, args)
-        fs.unlinkSync(file + `${_id}.py`)
+        let dir = path.join(__dirname, '..', '..', 'tmp', _id);
+        let file = path.join(dir, 'solver.py')
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+        fs.writeFileSync(file, target.code)
+        fs.writeFileSync(path.join(dir, 'data.json'), JSON.stringify(req.body))
+        let response = await run(dir)
+        //fs.rmSync(dir, { recursive: true, force: true });
         return res.status(200).json({ response: response.response.toString(), time: response.time })
     } catch (error) {
         console.log(error)
-        return res.status(400).json({ error: error.message })
+        return res.status(400).json({ error: error.message || error })
     }
 
 }

@@ -5,6 +5,7 @@ const Script = new mongoose.Schema({
     type: 'String',
     description: 'String',
     code: 'String',
+    args: 'Array',
     language: 'String'
 }, {
     timestamps: {

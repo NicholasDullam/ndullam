@@ -22,7 +22,7 @@ const Algorithms = (props) => {
     const renderAlgorithms = () => {
         if (!scripts) return null
         return <div>
-            <h3 className="text-xl font-bold mt-5 mb-2"> Browse </h3>
+            <h3 className="text-xl font-bold mb-5"> Browse </h3>
             {
                 scripts.map((script) => {
                     let date = new Date(script.created_at)
