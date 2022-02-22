@@ -80,8 +80,10 @@ const runScript = async (req, res) => {
     try { 
         const target = await Script.findById(_id)
         if (!target) throw new Error('Script does not exist')
-        let dir = path.join(__dirname, '..', '..', 'tmp', _id);
+        let tmp = path.join(__dirname, '..', '..', 'tmp')
+        let dir = path.join(tmp, _id)
         let file = path.join(dir, 'solver.py')
+        if (!fs.existsSync(tmp)) fs.mkdirSync(tmp)
         if (!fs.existsSync(dir)) fs.mkdirSync(dir)
         fs.writeFileSync(file, target.code)
         fs.writeFileSync(path.join(dir, 'data.json'), JSON.stringify(req.body))
