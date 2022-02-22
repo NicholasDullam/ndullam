@@ -12,6 +12,7 @@ const run = (dir) => new Promise((success, failure) => {
 
 const createScript = async (req, res) => {
     const { _id, type, description, code, args, language } = req.body
+    console.log(args)
     try {
         if (process.env.NODE_ENV === 'production') throw new Error('Scripts can only be added in the devkit')
         const target = await Script.findById(_id)
