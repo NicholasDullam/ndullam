@@ -89,7 +89,7 @@ const runScript = async (req, res) => {
     try { 
         const target = await Script.findById(_id)
         if (!target) throw new Error('Script does not exist')
-        let file = path.join(__dirname, '..', 'python', `${_id}.py`);
+        let file = path.join(__dirname, '..', 'tmp', `${_id}.py`);
         fs.writeFileSync(file, target.code)
         let response = await run(file, args)
         fs.unlinkSync(file)
