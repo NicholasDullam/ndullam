@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms } from '.'
 import { Loading, Shell, Simulator } from '../components'
+import { IoClose } from 'react-icons/io5'
 
 // @TODO collision counter, explain difference between open and projects
 
@@ -26,7 +27,22 @@ const Home = (props) => {
         })
         
         const next = Object.entries(subshellsRef.current).find((pair) => pair[0] !== activeSubshellRef.current)
-        if (next) setActiveSubshell(next[0])
+        setActiveSubshell(next[0])
+    }
+
+    const closeTab = (e, subshell) => {
+        e.stopPropagation()
+        
+        setSubshells((sample) => {
+            delete sample[subshell]
+            return { ...sample }
+        })
+       
+        if (activeSubshell !== subshell) return
+
+        const active = Object.entries(subshells).find((pair) => Number(pair[0]) !== subshell)
+
+        setActiveSubshell(Number(active[0])) 
     }
 
     const environments = {
@@ -214,12 +230,13 @@ const Home = (props) => {
     }
 
     const renderSubshell = (Component, props) => {
+        if (!Component) return
         return <Component {...props} shell={subshells[activeSubshell]}/>
     }
 
     return (
         <div style={{ height: '100%', width: '100%', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ width: window.innerWidth > 600 ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
+            <div style={{ width: window.innerWidth > 800 ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
                 <div style={{ height: 'calc(100% + 60px)', display: 'flex', flexDirection: 'column' }}>
                     <Shell restore={{ commands, history: [
                         <div style={{ whiteSpace: 'pre-wrap'}}>
@@ -236,7 +253,7 @@ const Home = (props) => {
                     ] }}/>
                 </div>
             </div>
-            <div style={{ width: window.innerWidth > 600 ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
+            <div style={{ width: window.innerWidth > 800 ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
                 { Object.entries(subshells).length ? <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowX: 'hidden' }}>
                     <div style={{ display: 'flex', backgroundColor: 'black', zIndex: '5', position: 'sticky', top: '0px' }}>
                         <div style={{ overflowX: 'scroll', display: 'flex' }}>
@@ -244,8 +261,11 @@ const Home = (props) => {
                                 Object.entries(subshells).map((pair, i) => {
                                     let [key, subshell] = pair
                                     return (
-                                        <div key={i} onClick={() => setActiveSubshell(key)} style={{ cursor: 'pointer' }}>
-                                            <p style={{ margin: '0px', color: 'white', padding: '20px', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
+                                        <div key={i} onClick={() => setActiveSubshell(key)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease',  padding: '20px' }}>
+                                            <p className="mr-2" style={{ color: 'white', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
+                                            <div onClick={(e) => closeTab(e, key)} className="text-neutral-600 hover:bg-neutral-800 rounded-full p-[2px] transition-all duration-300">
+                                                <IoClose/>
+                                            </div>
                                         </div>
                                     )
                                 })
@@ -253,7 +273,7 @@ const Home = (props) => {
                         </div>
                     </div>
                     <div style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
-                        { renderSubshell(subshells[activeSubshell].render, {}) }
+                        { subshells[activeSubshell] ? renderSubshell(subshells[activeSubshell].render, {}) : null }
                     </div>
                     <div style={{ marginTop: 'auto', padding: '20px', position: 'sticky', bottom: '0px', backgroundColor: 'rgba(20,20,20,1)' }}>
                         <Shell sub key={activeSubshell} id={activeSubshell} style={{ padding: '0px', height: '100%' }} restore={subshells[activeSubshell]} handleExit={handleExit}/>
