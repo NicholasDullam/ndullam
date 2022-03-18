@@ -1,7 +1,5 @@
 # ndullam
-Personal website
 ### What is this?
-
 ### Getting Started
 To prepare the production build and install relevant dependencies run...
 ```
