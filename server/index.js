@@ -2,8 +2,9 @@
 var dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const express = require("express")
-const path = require("path")
+const express = require('express')
+const compression = require('compression')
+const path = require('path')
 const app = express()
 const sslRedirect = require('heroku-ssl-redirect')
 const db = require('./db')
@@ -13,7 +14,10 @@ app.use(cookieParser())
 
 // DB Declaration
 db.on('error', console.error.bind(console, 'MongoDB Connection Error:'))
+
+// JSON parsing and text compression
 app.use(express.json())
+app.use(compression())
 
 // Route Declarations
 const authRouter = require('./routes/authRouter')
