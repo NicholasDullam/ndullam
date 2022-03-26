@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms } from '.'
 import { Loading, Shell, Simulator } from '../components'
 import { IoClose } from 'react-icons/io5'
+import { BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
 
 // @TODO collision counter, explain difference between open and projects
 
@@ -124,9 +125,9 @@ const Home = (props) => {
                 return <div style={{ display: 'flex', flexDirection: 'column'}}>
                     <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('communicode', environments['communicode'])}> communicode </span>
                     <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('sustainably', environments['sustainably'])}> sustainably </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling merchant', environments['traveling merchant'])}> traveling merchant <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('zookeep', environments['zookeep'])}> zookeep <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}> simulator <span style={{ color: 'red', fontStyle: 'italic' }}> *in progress* </span> </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling merchant', environments['traveling merchant'])}> traveling merchant </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('zookeep', environments['zookeep'])}> zookeep </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}> simulator </span>
                 </div>
             },
             description: 'lists all current projects',
@@ -134,7 +135,11 @@ const Home = (props) => {
         },
         'contact' : {
             callback: (args) => {
-                return <span> Contact me by email, <span style={{ color: '#1E90FF' }}>npdullam@gmail.com</span></span>
+                return <div className="flex-col">
+                    <div> Contact me by email, <a href={'mailto: npdullam@gmail.com'} style={{ color: '#1E90FF' }}>npdullam@gmail.com</a></div>
+                    <div> Message me on LinkedIn, <a href={'https://www.linkedin.com/in/ndullam/'} style={{ color: '#1E90FF' }}>https://www.linkedin.com/in/ndullam/</a></div>
+                    <div> Check out my Github, <a href={'https://github.com/NicholasDullam'} style={{ color: '#1E90FF' }}>https://github.com/NicholasDullam</a></div>
+                </div>
             },
             description: 'lists all available contact information',
             params: []
@@ -154,7 +159,7 @@ const Home = (props) => {
                 return <span> Opening <span style={{ color: '#1E90FF' }}>{args[0].toLowerCase()}</span> in a subshell...</span>
             },
             description: 'opens the parametrized environment in a subshell; listing all if no parameter is passed',
-            params: ['<PROJECT_NAME>?']  
+            params: ['<ENV_NAME>?']  
         },
         'easteregg' : {
             callback: (args) => {
@@ -244,10 +249,10 @@ const Home = (props) => {
                             <div>/* </div>
                             <div> * Hello, I'm Nicholas Dullam </div>
                             <div> * - To get started, enter <span style={{ color: '#1E90FF' }}>projects</span> or <span style={{ color: '#1E90FF' }}>open</span></div>
-                            <div> * - Click a response, or open an environment by entering <span style={{ color: '#1E90FF'}}>open <span style={{ color: 'orange'}}>{'<PROJECT_NAME>'}</span></span></div>
+                            <div> * - Click a response, or open an environment by entering <span style={{ color: '#1E90FF'}}>open <span style={{ color: 'orange'}}>{'<ENV_NAME>'}</span></span></div>
                             <div> * - To exit a subshell, enter <span style={{ color: '#1E90FF' }}>exit</span> into the subshell's command prompt</div>
                             <div> * - Need help? Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands and their function</div>
-                            <div> * Happy exploring :D </div>
+                            <div> * Happy exploring :) </div>
                             <div style={{ whiteSpace: 'pre-wrap' }}> */ {'\n'} </div>
                         </div>                         
                     ] }}/>
@@ -282,6 +287,11 @@ const Home = (props) => {
                     <p> No current subshells </p>
                     <p className="opacity-70"> Enter <span style={{ color: '#1E90FF' }}>projects</span> to get started </p>
                 </div> }
+            </div>
+            <div className="fixed bottom-6 text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer">
+                <a target='_blank' href='https://github.com/NicholasDullam'><BsGithub/></a>
+                <a target='_blank' href='https://www.linkedin.com/in/ndullam/'><BsLinkedin/></a>
+                <a target='_blank' href='https://stackoverflow.com/users/12109958/nicholas-dullam'><BsStackOverflow/></a>
             </div>
         </div>
     )
