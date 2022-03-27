@@ -289,9 +289,9 @@ const Home = (props) => {
                 </div> }
             </div>
             <div className="fixed bottom-6 text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer">
-                <a target='_blank' href='https://github.com/NicholasDullam'><BsGithub/></a>
-                <a target='_blank' href='https://www.linkedin.com/in/ndullam/'><BsLinkedin/></a>
-                <a target='_blank' href='https://stackoverflow.com/users/12109958/nicholas-dullam'><BsStackOverflow/></a>
+                <a className="hover:text-neutral-300 transition-all duration-300" target='_blank' href='https://github.com/NicholasDullam'><BsGithub/></a>
+                <a className="hover:text-neutral-300 transition-all duration-300" target='_blank' href='https://www.linkedin.com/in/ndullam/'><BsLinkedin/></a>
+                <a className="hover:text-neutral-300 transition-all duration-300" target='_blank' href='https://stackoverflow.com/users/12109958/nicholas-dullam'><BsStackOverflow/></a>
             </div>
         </div>
     )
