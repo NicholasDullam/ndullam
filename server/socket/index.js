@@ -141,6 +141,12 @@ const nextRound = (room_id) => {
         user.points += calculateScore(user.hand)
         user.hand = []
     })
+    let index = room.users.findIndex((user) => user.id === room.start)
+    index += 1
+    if (index === room.users.length) index = 0
+    room.start = room.users[index].id
+    room.turn = room.users[index].id
+    room.complete = null
     return startGame(room_id)
 }
 
@@ -186,6 +192,7 @@ const replaceCard = (room_id, user_id, card_id) => {
         card: user.draw
     }
     user.draw = null
+    if (!user.hand.find((item) => item.flipped === false)) room.complete = user.id
     return nextTurn(room_id)
 }
 

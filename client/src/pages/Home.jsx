@@ -3,6 +3,7 @@ import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithm
 import { Loading, Shell, Simulator } from '../components'
 import { IoClose } from 'react-icons/io5'
 import { BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
+import { BsArrowsFullscreen } from 'react-icons/bs'
 
 // @TODO collision counter, explain difference between open and projects
 
@@ -12,6 +13,8 @@ const Home = (props) => {
 
     const [activeSubshell, setActiveSubshell] = useState(null)
     const activeSubshellRef = useRef(activeSubshell)
+
+    const [fullscreen, setFullscreen] = useState(false)
 
     useEffect(() => {
         subshellsRef.current = subshells
@@ -251,7 +254,7 @@ const Home = (props) => {
 
     return (
         <div style={{ height: '100%', width: '100%', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ width: window.innerWidth > 800 ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
+            <div style={{ width: window.innerWidth > 800 && !fullscreen ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
                 <div style={{ height: 'calc(100% + 60px)', display: 'flex', flexDirection: 'column' }}>
                     <Shell restore={{ commands, history: [
                         <div style={{ whiteSpace: 'pre-wrap'}}>
@@ -268,7 +271,10 @@ const Home = (props) => {
                     ] }}/>
                 </div>
             </div>
-            <div style={{ width: window.innerWidth > 800 ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
+            <div style={{ width: window.innerWidth > 800 && !fullscreen ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
+                { Object.entries(subshells).length ? <div onClick={() => setFullscreen(!fullscreen)} className='text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer' style={{ position: 'absolute', zIndex: '1000', top: '100px', right: '50px' }}>
+                    <BsArrowsFullscreen/>
+                </div> : null }
                 { Object.entries(subshells).length ? <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowX: 'hidden' }}>
                     <div style={{ display: 'flex', backgroundColor: 'black', zIndex: '5', position: 'sticky', top: '0px' }}>
                         <div style={{ overflowX: 'scroll', display: 'flex' }}>
@@ -277,7 +283,7 @@ const Home = (props) => {
                                     let [key, subshell] = pair
                                     return (
                                         <div key={i} onClick={() => setActiveSubshell(key)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', backgroundColor: key === activeSubshell ? 'rgba(255,255,255,.05)' : '', transition: 'background-color 300ms ease',  padding: '20px' }}>
-                                            <p className="mr-2" style={{ color: 'white', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}> {subshell.name} </p>
+                                            <p className="mr-2" style={{ color: 'white', textOverflow: 'ellipsis', whiteSpace: 'nowrap', userSelect: 'none' }}> {subshell.name} </p>
                                             <div onClick={(e) => closeTab(e, key)} className="text-neutral-600 hover:bg-neutral-800 rounded-full p-[2px] transition-all duration-300">
                                                 <IoClose/>
                                             </div>

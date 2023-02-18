@@ -12,7 +12,7 @@ const Golf = (props) => {
 
     useEffect(() => {
         console.log(window.location.origin, process.env.REACT_APP_ENV)
-        const socket = io(process.env.REACT_APP_ENV === 'production' ? window.location.origin : 'http://localhost:8000', {
+        const socket = io(process.env.NODE_ENV === 'production' ? window.location.origin : 'http://localhost:8000', {
             auth: {
                 user_id: userID
             }
@@ -76,7 +76,14 @@ const Golf = (props) => {
     return (
         <div style={{ height: 'calc(100% - 40px)', position: 'relative'}}>
             <div className="p-8 pt-3" style={{ height: '100%' }}>
-                <h1 className="text-4xl font-bold my-5"> Golf {connected ? 'Connected' : 'Disconnected'} </h1>
+                <h1 className="text-4xl font-bold my-5"> Golf </h1>
+                <div className="flex items-center transform rounded-3xl no-underline py-2 px-3 shadow-md bg-neutral-700 transition-all duration-300" style={{ position: 'absolute', top: '35px', right: '100px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <p>{ connected ? 'Connected' : 'Disconnected' }</p>
+                    <div style={{ position: 'relative' }}>
+                        <div style={{ height: '10px', width: '10px', borderRadius: '50%' }} className={`${connected ? 'bg-green-400' : 'bg-red-400'}`}/>
+                        <div style={{ height: '10px', width: '10px', borderRadius: '50%', position: 'absolute', top: '0px', left: '0px' }} className={`${connected ? 'bg-green-400' : 'bg-red-400'} animate-ping`}/>
+                    </div>
+                </div>
                 { room ? <GolfRoom socket={socket} room={room} setRoom={setRoom} user_id={userID}/> : <div>
                     { renderRooms() }
                     <Button onClick={() => createRoom(Math.round(Math.random() * 1000))}> Create Room </Button>

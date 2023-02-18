@@ -1,5 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import cardBack from '../images/card_back.png'
+import { Shell } from '../components'
+
+const cardDisplays = {
+    "ace" : "A",
+    "2" : "2",
+    "3" : "3",
+    "4" : "4",
+    "5" : "5",
+    "6" : "6",
+    "7" : "7",
+    "8" : "8",
+    "9" : "9",
+    "10" : "10",
+    "jack" : "J",
+    "queen" : "Q",
+    "king" : "K"
+}
 
 const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     const [user, setUser] = useState(room.users.find((item) => item.id === user_id))
@@ -59,6 +76,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     }, []);
 
     const drawCard = (room_id, user_id, discard) => {
+        if (room.complete === room.turn) return
         if (user.draw || user.id !== room.turn) return
         socket.emit('draw_card', {
             room_id,
@@ -76,12 +94,13 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     }
 
     const replaceHandler = (room_id, user_id, card_id) => {
+        if (room.complete === room.turn) return
         if (user.draw) return replace(room_id, user_id, card_id)
         flip(room_id, user_id, card_id)
     }
 
     const flip = (room_id, user_id, card_id) => {
-        if (user.hand.reduce((prev, curr) => prev + (curr.flipped ? 1 : 0), 0) === 2) return
+        if (user.hand.reduce((prev, curr) => prev + (curr.flipped ? 1 : 0), 0) >= 2) return
         socket.emit('flip_card', {
             room_id,
             user_id,
@@ -96,6 +115,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     }
 
     const discardHandler = (room_id, user_id) => {
+        if (room.complete === room.turn) return
         if (user.id !== room.turn) return
         if (user.draw) return discard(room_id, user_id)
         drawCard(room_id, user_id, true)
@@ -125,19 +145,20 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         return <div style={{ display: 'flex', gap: '5px', flexDirection: 'column' }}>
             {
                 temp.draw ? <div className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
-                    <p style={{ position: 'absolute', top: '2px', left: '4px' }}> {temp.draw.value.toUpperCase()[0]} </p>
-                    <p style={{ position: 'absolute', bottom: '2px', right: '6px', transform: 'rotate(180deg)' }}> {temp.draw.value.toUpperCase()[0]} </p>
+                    <p style={{ position: 'absolute', top: '2px', left: '4px', userSelect: 'none' }}> {cardDisplays[temp.draw.value]} </p>
+                    <p style={{ position: 'absolute', bottom: '2px', right: '4px', transform: 'rotate(180deg)', userSelect: 'none' }}> {cardDisplays[temp.draw.value]} </p>
                 </div> : null
             }
+            <div style={{ width: temp.id === room.turn || room.complete === temp.id ? '100%' : '0px', transition: 'all 300ms ease', height: '5px', backgroundColor: room.complete === temp.id ? 'rgba(74,222,128)' : 'white', borderRadius: '10px', margin: '20px 0px' }}/>
             <div style={{ display: 'flex', gap: '5px' }}>
                 {
                     temp.hand.map((card, i) => {
                         if (i > temp.hand.length / 2 - 1) return 
                         return <div onClick={() => user.id === temp.id ? replaceHandler(room.id, temp.id, i) : null} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
                             {card.flipped ? <>
-                                <p style={{ position: 'absolute', top: '2px', left: '4px' }}> {card.card.value.toUpperCase()[0]} </p>
-                                <p style={{ position: 'absolute', bottom: '2px', right: '6px', transform: 'rotate(180deg)' }}> {card.card.value.toUpperCase()[0]} </p>
-                            </> : <img src={cardBack} style={{ borderRadius: '5px' }}/> }
+                                <p style={{ position: 'absolute', userSelect: 'none', top: '2px', left: '4px' }}> {cardDisplays[card.card.value]} </p>
+                                <p style={{ position: 'absolute', userSelect: 'none', bottom: '2px', right: '4px', transform: 'rotate(180deg)' }}> {cardDisplays[card.card.value]} </p>
+                            </> : <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/> }
                         </div>
                     })
                 }
@@ -148,9 +169,9 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         if (i < temp.hand.length / 2) return 
                         return <div onClick={() => user.id === temp.id ? replaceHandler(room.id, temp.id, i) : null} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
                             {card.flipped ? <>
-                                <p style={{ position: 'absolute', top: '2px', left: '4px' }}> {card.card.value.toUpperCase()[0]} </p>
-                                <p style={{ position: 'absolute', bottom: '2px', right: '6px', transform: 'rotate(180deg)' }}> {card.card.value.toUpperCase()[0]} </p>
-                            </> : <img src={cardBack} style={{ borderRadius: '5px' }}/> }
+                                <p style={{ position: 'absolute', top: '2px', left: '4px', userSelect: 'none' }}> {cardDisplays[card.card.value]} </p>
+                                <p style={{ position: 'absolute', bottom: '2px', right: '4px', transform: 'rotate(180deg)', userSelect: 'none' }}> {cardDisplays[card.card.value]} </p>
+                            </> : <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/> }
                         </div>
                     })
                 }
@@ -197,27 +218,28 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                 <div style={{ display: 'flex', gap: '50px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <div onClick={() => drawCard(room.id, user_id, false)} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
-
+                            <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/>
                         </div>
-                        <p style={{ textAlign: 'center' }}> Deck </p>
+                        <p style={{ textAlign: 'center', userSelect: 'none' }}> Deck </p>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <div onClick={() => discardHandler(room.id, user_id)} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
                             { room.discard.length ? <>
-                                <p style={{ position: 'absolute', top: '2px', left: '4px' }}> {room.discard[room.discard.length - 1].value.toUpperCase()[0]} </p>
-                                <p style={{ position: 'absolute', bottom: '2px', right: '6px', transform: 'rotate(180deg)' }}> {room.discard[room.discard.length - 1].value.toUpperCase()[0]} </p>
-                            </> : <p style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }}> Empty </p> }
+                                <p style={{ position: 'absolute', top: '2px', left: '4px', userSelect: 'none' }}> {cardDisplays[room.discard[room.discard.length - 1].value]} </p>
+                                <p style={{ position: 'absolute', bottom: '2px', right: '4px', transform: 'rotate(180deg)', userSelect: 'none' }}> {cardDisplays[room.discard[room.discard.length - 1].value]} </p>
+                            </> : <p style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', userSelect: 'none' }}> Empty </p> }
                         </div>
-                        <p style={{ textAlign: 'center' }}> Discard </p>
+                        <p style={{ textAlign: 'center', userSelect: 'none' }}> Discard </p>
                     </div>
                 </div>
-                <p style={{ textAlign: 'center' }}> {room.turn === user.id ? 'Your' : `${room.turn}'s`} turn </p>
+                { room.complete !== room.turn ? <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {room.turn === user.id ? 'Your' : `${room.turn}'s`} {room.complete ? 'last' : null} turn </p> : 
+                    <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> Round complete </p> }
             </div>
 
             { /* Player hand */ }
-            <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)'}}>
+            <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
                 { renderHand(room.users[userIndex]) }
-                <p style={{ textAlign: 'center' }}> Your hand </p>
+                <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> Your hand </p>
             </div>
 
             {/* Left players */}
@@ -227,8 +249,8 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         return <div>
                             <div style={{ transform: 'rotate(90deg)' }}>
                                 { renderHand(user) }
+                                <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {user.id}'s hand </p>
                             </div>
-                            <p style={{ textAlign: 'center' }}> {user.id}'s hand </p>
                         </div>
                     })
                 }
@@ -241,8 +263,8 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         return <div>
                             <div style={{ transform: 'rotate(-90deg)' }}>
                                 { renderHand(user) }
+                                <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {user.id}'s hand </p>
                             </div>
-                            <p style={{ textAlign: 'center' }}> {user.id}'s hand </p>
                         </div>
                     })
                 }
@@ -291,6 +313,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                     }) }
                 </div>
             }
+            { /* <Shell/> */ }
         </div>
     )
 }
