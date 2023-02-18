@@ -11,7 +11,7 @@ const Golf = (props) => {
     const [userID, setUserID] = useState(Math.round(Math.random() * 1000))
 
     useEffect(() => {
-        const socket = io(process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}` : 'http://localhost:8000', {
+        const socket = io(process.env.NODE_ENV === 'production' ? window.location.origin : 'http://localhost:8000', {
             auth: {
                 user_id: userID
             }
@@ -27,7 +27,6 @@ const Golf = (props) => {
 
         socket.on('join', (response) => {
             setRoom(response)
-            console.log(response)
         })
 
         socket.on('connect', () => {
