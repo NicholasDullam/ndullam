@@ -1,19 +1,21 @@
 // Imports
-var dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const express = require('express')
 const compression = require('compression')
+const http = require('http')
 const path = require('path')
 const app = express()
-const sslRedirect = require('heroku-ssl-redirect')
-const db = require('./db')
+const server = http.createServer(app)
+const enforce = require('express-sslify')
+
+require('dotenv').config()
+require('./db')
+require('./socket')(server)
 
 // Cookie Plugin
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 app.use(cookieParser())
-
-// DB Declaration
-db.on('error', console.error.bind(console, 'MongoDB Connection Error:'))
 
 // JSON parsing and text compression
 app.use(express.json())
@@ -53,4 +55,4 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/', (req, res) => res.sendFile(path.resolve('../client', 'build', 'index.html')))
 
 // Server Start
-app.listen(process.env.PORT || 8000, () => console.log(`Server running on port ${process.env.PORT || 8000}`))
+server.listen(process.env.PORT || 8000, () => console.log(`Server running on port ${process.env.PORT || 8000}`))

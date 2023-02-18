@@ -9,6 +9,8 @@ import Create from "./Create"
 import Login from "./Login"
 import Algorithms from "./Algorithms"
 import Script from "./Script"
+import Golf from './Golf'
+import GolfRoom from './GolfRoom'
 
 export { 
     Home,
@@ -21,5 +23,7 @@ export {
     Create,
     Login,
     Algorithms,
-    Script
+    Script,
+    Golf,
+    GolfRoom
 }

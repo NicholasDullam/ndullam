@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms } from '.'
+import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms, Golf } from '.'
 import { Loading, Shell, Simulator } from '../components'
 import { IoClose } from 'react-icons/io5'
 import { BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
@@ -110,6 +110,16 @@ const Home = (props) => {
         'algorithms' : {
             render: Algorithms,
             prompt: 'algorithms',
+            commands: {
+                exit: {
+                    callback: exit,
+                    desc: 'Exits subshell'
+                }
+            }
+        },
+        'golf' : {
+            render: Golf,
+            prompt: 'golf',
             commands: {
                 exit: {
                     callback: exit,
