@@ -4,6 +4,7 @@ import { Loading, Shell, Simulator } from '../components'
 import { IoClose } from 'react-icons/io5'
 import { BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
 import { BsArrowsFullscreen } from 'react-icons/bs'
+import { useParams } from 'react-router'
 
 // @TODO collision counter, explain difference between open and projects
 
@@ -15,6 +16,12 @@ const Home = (props) => {
     const activeSubshellRef = useRef(activeSubshell)
 
     const [fullscreen, setFullscreen] = useState(false)
+
+    const { env_id } = useParams()
+
+    useEffect(() => {
+        if (env_id) handleCreateSubshell(env_id, environments[env_id])
+    }, [])
 
     useEffect(() => {
         subshellsRef.current = subshells

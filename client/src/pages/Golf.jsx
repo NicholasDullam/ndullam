@@ -3,18 +3,31 @@ import { GolfRoom } from './'
 import { Button } from "../components"
 import io from 'socket.io-client';
 
+const getUserID = () => {
+    let user_id = localStorage.getItem('user_id')
+    if (!user_id) {
+        user_id = Math.round(Math.random() * 100000)
+        localStorage.setItem('user_id', user_id)
+    }
+
+    return user_id
+}
+
 const Golf = (props) => {
     const [rooms, setRooms] = useState([])
     const [room, setRoom] = useState(null)
     const [socket, setSocket] = useState(null)
     const [connected, setConnected] = useState(false)
-    const [userID, setUserID] = useState(Math.round(Math.random() * 1000))
+    const [userID, setUserID] = useState(getUserID())
+    const [username, setUsername] = useState(null)
+    const [ready, setReady] = useState(null)
 
     useEffect(() => {
-        console.log(window.location.origin, process.env.REACT_APP_ENV)
+        if (!ready) return
         const socket = io(process.env.NODE_ENV === 'production' ? window.location.origin : 'http://localhost:8000', {
             auth: {
-                user_id: userID
+                user_id: userID,
+                username
             }
         });
 
@@ -45,7 +58,7 @@ const Golf = (props) => {
           socket.off('rooms');
           socket.close()
         };
-    }, []);
+    }, [ready]);
 
     const joinRoom = (room_id) => {
         socket.emit('join_room', {
@@ -60,8 +73,7 @@ const Golf = (props) => {
     }
 
     const renderRooms = () => {
-        return <div>
-            <h3 className="text-xl font-bold mb-5"> Browse </h3>
+        return <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '10px' }}>
             {
                 rooms.map((room) => {
                     return <div onClick={() => joinRoom(room.id)} className="cursor-pointer flex bg-black hover:text-black hover:bg-white hover:scale-[101%] shadow-md transition-all duration-300 p-3 rounded-lg text-sm">
@@ -73,10 +85,23 @@ const Golf = (props) => {
         </div>
     }
 
+    const handleUsernameChange = (e) => {
+        if (e.key !== 'Enter') return
+        setUsername(e.target.value)
+        setReady(true)
+    }
+
     return (
         <div style={{ height: 'calc(100% - 40px)', position: 'relative'}}>
             <div className="p-8 pt-3" style={{ height: '100%' }}>
                 <h1 className="text-4xl font-bold my-5"> Golf </h1>
+                { !ready ? <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'all 300ms ease', border: 'none' }}>
+                    <span> Enter a username </span>
+                    <input autoFocus onKeyDown={handleUsernameChange} style={{ padding: '10px', backgroundColor: 'rgba(255,255,255,.05)', borderRadius: '15px', marginTop: '10px', textAlign: 'center' }}/>
+                </div> : null }
+                { room === null ? <button onClick={() => createRoom(Math.round(Math.random() * 1000))} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300">
+                    <p> Create Room </p>
+                </button> : null }
                 <div className="flex items-center transform rounded-3xl no-underline py-2 px-3 shadow-md bg-neutral-700 transition-all duration-300" style={{ position: 'absolute', top: '35px', right: '100px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <p>{ connected ? 'Connected' : 'Disconnected' }</p>
                     <div style={{ position: 'relative' }}>
@@ -86,7 +111,6 @@ const Golf = (props) => {
                 </div>
                 { room ? <GolfRoom socket={socket} room={room} setRoom={setRoom} user_id={userID}/> : <div>
                     { renderRooms() }
-                    <Button onClick={() => createRoom(Math.round(Math.random() * 1000))}> Create Room </Button>
                 </div> }
             </div>
         </div>

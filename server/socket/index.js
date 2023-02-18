@@ -4,7 +4,7 @@ const rooms = []
 const suits = ['hearts', 'diamonds', 'spades', 'clubs']
 const values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
 const card_points = {
-    'ace' : -2,
+    'ace' : -4,
     '2': 2,
     '3' : 3,
     '4' : 4,
@@ -60,23 +60,32 @@ const leaveRoom = (room_id, user_id) => {
     const room = getRoom(room_id)
     if (!room) return 
     room.users = room.users.filter((user) => user.id !== user_id)
+    room.spectators = room.spectators.filter((spectator) => spectator.id !== user_id)
     const index = rooms.findIndex((item) => item.id === room.id)
     if (room.users.length === 0) rooms.splice(index, 1)
+    else if (room.admin === user_id) room.admin = room.users[0].id
     return room
 }
 
-const joinRoom = (room_id, user_id) => {
+const joinRoom = (room_id, user_id, username) => {
     const room = getRoom(room_id)
     if (!room) return
-    room.users.push({
+    if (room.users.find((user) => user.id === user_id) || room.spectators.find((user) => user.id === user_id)) return room
+    if (!room.active || room.complete === room.turn) room.users.push({
         id: user_id,
+        name: username,
         points: 0,
+        history: [],
         hand: []
+    })
+    else room.spectators.push({
+        id: user_id,
+        name: username
     })
     return room
 }
 
-const createRoom = (room_id, user_id) => {
+const createRoom = (room_id, user_id, username) => {
     rooms.push({
         id: room_id,
         admin: user_id,
@@ -88,11 +97,14 @@ const createRoom = (room_id, user_id) => {
         discard: [],
         active: false,
         card_count: 8,
+        spectators: [],
         users: [
             {
                 id: user_id,
+                name: username,
                 points: 0,
                 hand: [],
+                history: [],
                 draw: null
             }
         ]
@@ -105,6 +117,18 @@ const createRoom = (room_id, user_id) => {
 
 const startGame = (room_id) => {
     const room = getRoom(room_id)
+    room.spectators.forEach((spectator) => {
+        room.users.push({
+            id: spectator.id,
+            name: spectator.name,
+            points: 0,
+            hand: [],
+            history: [],
+            draw: null
+        })
+    })
+    room.spectators = []
+
     for (let i = 0; i < room.card_count; i++) {
         for (let j = 0; j < room.users.length; j++) {
             room.users[j].hand.push({
@@ -137,15 +161,12 @@ const calculateScore = (hand) => {
 const nextRound = (room_id) => {
     const room = getRoom(room_id)
     room.deck = generateDeck(2)
-    room.users.forEach((user) => {
-        user.points += calculateScore(user.hand)
-        user.hand = []
-    })
     let index = room.users.findIndex((user) => user.id === room.start)
     index += 1
     if (index === room.users.length) index = 0
     room.start = room.users[index].id
     room.turn = room.users[index].id
+    room.users.forEach((user) => user.hand = [])
     room.complete = null
     return startGame(room_id)
 }
@@ -155,7 +176,12 @@ const nextTurn = (room_id) => {
     let index = room.users.findIndex((user) => room.turn === user.id)
     index = index + 1
     if (index === room.users.length) index = 0
-    //if (room.users[index] === room.complete) // handle round end
+    if (room.users[index].id === room.complete) room.users.forEach((user) => {
+        const round = calculateScore(user.hand)
+        user.hand.forEach((card) => card.flipped = true)
+        user.points += round
+        user.history.push(round)
+    })
     room.turn = room.users[index].id
     return room
 }
@@ -192,7 +218,7 @@ const replaceCard = (room_id, user_id, card_id) => {
         card: user.draw
     }
     user.draw = null
-    if (!user.hand.find((item) => item.flipped === false)) room.complete = user.id
+    if (!user.hand.find((item) => item.flipped === false) && !room.complete) room.complete = user.id
     return nextTurn(room_id)
 }
 
@@ -207,6 +233,7 @@ module.exports = (server) => {
     io.use((socket, next) => {
         console.log(`User ${socket.handshake.auth.user_id}`)
         socket.user_id = socket.handshake.auth.user_id
+        socket.username = socket.handshake.auth.username
         next()
     })
 
@@ -233,7 +260,7 @@ module.exports = (server) => {
         // Create a golf room
         socket.on('create_room', (body) => {
             socket.join(body.room_id)
-            const room = createRoom(body.room_id, socket.user_id)
+            const room = createRoom(body.room_id, socket.user_id, socket.username)
             io.sockets.emit('rooms', rooms)
             socket.emit('join', room)
         })
@@ -241,7 +268,7 @@ module.exports = (server) => {
         // Join a golf room
         socket.on('join_room', (body) => {
             socket.join(body.room_id)
-            const room = joinRoom(body.room_id, socket.user_id)
+            const room = joinRoom(body.room_id, socket.user_id, socket.username)
             socket.emit('join', room)
             io.sockets.emit('rooms', rooms)
             socket.broadcast.to(body.room_id).emit('user_joined', room)
