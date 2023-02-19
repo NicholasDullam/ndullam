@@ -20,7 +20,7 @@ const App = (props) => {
         <Router>
           <Switch>
             <Route path='/:env_id' component={Home}/>
-
+            <Route path='/' exact component={Home}/>
             {/*<Route path='/login' component={Login}/>
               <Route path='/create' component={Create}/>
               <Route path='/payment' component={PaymentRouter}/>*/}
