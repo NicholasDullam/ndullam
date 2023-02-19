@@ -301,6 +301,16 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
 
             {/* Scoreboard */}
             <div style={{ position: 'absolute', bottom: '40px', left: '20px' }}>
+                {
+                    room.spectators.length ? <div style={{ marginBottom: '20px' }}>
+                        <p> Spectators </p>
+                        {
+                            room.spectators.map((item) => {
+                                return <p key={item.id}> {item.name} </p>
+                            })
+                        }
+                    </div> : null 
+                }
                 <p> Scoreboard </p>
                 {
                     room.users.map((item) => {
