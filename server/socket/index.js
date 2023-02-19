@@ -299,7 +299,7 @@ module.exports = (server) => {
 
         socket.on('mouse_move', (body) => {
             const room = getRoom(body.room_id)
-            if (socket.user_id !== room.turn) return
+            if (!room || socket.user_id !== room.turn) return
             socket.broadcast.to(body.room_id).emit('mouse_move', body)
         })
 
