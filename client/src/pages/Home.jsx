@@ -279,7 +279,7 @@ const Home = (props) => {
                 </div>
             </div>
             <div style={{ width: window.innerWidth > 800 && !fullscreen ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
-                { Object.entries(subshells).length ? <div onClick={() => setFullscreen(!fullscreen)} className='text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer' style={{ position: 'absolute', zIndex: '1000', top: '100px', right: '50px' }}>
+                { Object.entries(subshells).length ? <div onClick={() => setFullscreen(!fullscreen)} className='text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer' style={{ position: 'absolute', zIndex: '1000', top: '100px', right: '30px' }}>
                     <BsArrowsFullscreen/>
                 </div> : null }
                 { Object.entries(subshells).length ? <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowX: 'hidden' }}>

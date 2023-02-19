@@ -262,7 +262,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             <div style={{ position: 'absolute', bottom: '50%', left: '50%', transform: 'translateX(-50%) translateY(50%)'}}>
                 <div style={{ display: 'flex', gap: '50px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        <div onClick={() => drawCard(room.id, user_id, false)} style={{ overflow: 'hidden' }} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
+                        <div onClick={() => drawCard(room.id, user_id, false)} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative', overflow: 'hidden' }}>
                             <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/>
                         </div>
                         <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '5px' }}> Deck </p>
