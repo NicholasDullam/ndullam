@@ -295,6 +295,12 @@ module.exports = (server) => {
             io.to(body.room_id).emit('next_round', room)
         })
 
+        socket.on('mouse_move', (body) => {
+            const room = getRoom(body.room_id)
+            if (socket.user_id !== room.turn) return
+            socket.broadcast.to(body.room_id).emit('mouse_move', body)
+        })
+
         socket.on('flip_card', (body) => {
             const room = flipCard(body.room_id, socket.user_id, body.card_id)
             io.to(body.room_id).emit('flip', room)

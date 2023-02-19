@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import cardBack from '../images/card_back.png'
 import { Shell } from '../components'
 import styled from 'styled-components'
@@ -39,14 +39,38 @@ const cardDisplays = {
 
 const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     const [user, setUser] = useState(room.users.find((item) => item.id === user_id))
+    const [cursor, setCursor] = useState({ })
+    const [lastPolled, setLastPolled] = useState({ })
+    const [prevRoom, setPrevRoom] = useState(null)
+    const pollingRate = 50
+
+
+    const gameRef = useRef()
 
     useEffect(() => {
+        if (prevRoom?.turn !== room.turn) setCursor({ x: 0, y: 0 })
         setUser(room.users.find((item) => item.id === user_id) || room.spectators.find((item) => item.id === user_id))
+        const mouseHandler = (e) => {
+            setLastPolled((temp) => {
+                if (temp + pollingRate > Date.now()) return temp
+                const container = gameRef.current.getBoundingClientRect()
+                socket.emit('mouse_move', { x: e.clientX - container.x, y: e.clientY - container.y, room_id: room.id })
+                return Date.now()
+            })
+        }
+        gameRef.current.addEventListener('mousemove', mouseHandler)
+        setPrevRoom(room)
+        return () => gameRef.current.removeEventListener('mousemove', mouseHandler) 
     }, [room])
 
     useEffect(() => { 
         socket.on('leave', (body) => {
             setRoom(null)
+        })
+
+        socket.on('mouse_move', (body) => {
+            console.log('getting mouse movements')
+            setCursor(body)
         })
 
         socket.on('start', (body) => {
@@ -176,10 +200,10 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                     temp.hand.map((card, i) => {
                         if (i > temp.hand.length / 2 - 1) return 
                         return <div onClick={() => user.id === temp.id ? replaceHandler(room.id, temp.id, i) : null} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
-                            {card.flipped ? <>
+                            {card.flipped ? <div style={{ overflow: 'hidden' }}>
                                 <p style={{ position: 'absolute', userSelect: 'none', top: '2px', left: '4px' }}> {cardDisplays[card.card.value]} </p>
                                 <p style={{ position: 'absolute', userSelect: 'none', bottom: '2px', right: '4px', transform: 'rotate(180deg)' }}> {cardDisplays[card.card.value]} </p>
-                            </> : <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/> }
+                            </div> : <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/> }
                         </div>
                     })
                 }
@@ -189,10 +213,10 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                     temp.hand.map((card, i) => {
                         if (i < temp.hand.length / 2) return 
                         return <div onClick={() => user.id === temp.id ? replaceHandler(room.id, temp.id, i) : null} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
-                            {card.flipped ? <>
+                            { card.flipped ? <div style={{ overflow: 'hidden' }}>
                                 <p style={{ position: 'absolute', top: '2px', left: '4px', userSelect: 'none' }}> {cardDisplays[card.card.value]} </p>
                                 <p style={{ position: 'absolute', bottom: '2px', right: '4px', transform: 'rotate(180deg)', userSelect: 'none' }}> {cardDisplays[card.card.value]} </p>
-                            </> : <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/> }
+                            </div> : <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/> }
                         </div>
                     })
                 }
@@ -238,7 +262,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             <div style={{ position: 'absolute', bottom: '50%', left: '50%', transform: 'translateX(-50%) translateY(50%)'}}>
                 <div style={{ display: 'flex', gap: '50px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        <div onClick={() => drawCard(room.id, user_id, false)} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
+                        <div onClick={() => drawCard(room.id, user_id, false)} style={{ overflow: 'hidden' }} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative' }}>
                             <img src={cardBack} style={{ borderRadius: '3px', userSelect: 'none' }}/>
                         </div>
                         <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '5px' }}> Deck </p>
@@ -322,7 +346,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     }
 
     return (
-        <div style={{ height: '100%', position: 'relative' }}>
+        <div style={{ height: '100%', position: 'relative' }} ref={gameRef}>
             <div style={{ display: 'flex', gap: '10px' }}>
                 <button onClick={() => leaveRoom(room.id, user_id)} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300">
                     <p>Leave</p>
@@ -334,6 +358,12 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                     <p>Next Round</p>
                 </button> : null }
             </div>
+            { room.turn !== user?.id ? <div style={{ position: 'absolute', top: cursor.y, left: cursor.x, transition: 'all 100ms ease', zIndex: '10' }}>
+                <div style={{ display: 'flex' }}>
+                    <div style={{ backgroundColor: 'cyan', height: '8px', width: '8px', marginRight: '3px' }}/>
+                    <p style={{ color: 'cyan' }}> {room.users.find((temp) => temp.id === room.turn).name} </p>
+                </div>
+            </div> : null }
             <h4 className="text-xl my-5"> Room {room.id} </h4>
             { room.active ? <h4 className="text-m my-5"> Round {room.round} </h4> : null }
             {
