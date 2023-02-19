@@ -277,7 +277,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '5px' }}> Discard </p>
                     </div>
                 </div>
-                { room.complete !== room.turn ? <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {room.turn === user?.id ? 'Your' : `${room.users.find((item) => item.id === room.turn).name}'s`} {room.complete ? 'last' : null} turn </p> : 
+                { room.complete !== room.turn ? <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {room.turn === user?.id ? 'Your' : `${room.users.find((item) => item.id === room.turn)?.name}'s`} {room.complete ? 'last' : null} turn </p> : 
                     <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> Round complete </p> }
             </div>
 
@@ -361,7 +361,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             { room.turn !== user?.id ? <div style={{ position: 'absolute', top: cursor.y, left: cursor.x, transition: 'all 100ms ease', zIndex: '10' }}>
                 <div style={{ display: 'flex' }}>
                     <div style={{ backgroundColor: 'cyan', height: '8px', width: '8px', marginRight: '3px' }}/>
-                    <p style={{ color: 'cyan' }}> {room.users.find((temp) => temp.id === room.turn).name} </p>
+                    <p style={{ color: 'cyan' }}> {room.users.find((temp) => temp.id === room.turn)?.name} </p>
                 </div>
             </div> : null }
             <h4 className="text-xl my-5"> Room {room.id} </h4>

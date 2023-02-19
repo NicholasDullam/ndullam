@@ -59,11 +59,13 @@ const getUser = (room, user_id) => {
 const leaveRoom = (room_id, user_id) => {
     const room = getRoom(room_id)
     if (!room) return 
+    const userIndex = room.users.findIndex((user) => user.id === user_id)
     room.users = room.users.filter((user) => user.id !== user_id)
     room.spectators = room.spectators.filter((spectator) => spectator.id !== user_id)
     const index = rooms.findIndex((item) => item.id === room.id)
     if (room.users.length === 0) rooms.splice(index, 1)
-    else if (room.admin === user_id) room.admin = room.users[0].id
+    if (room.admin === user_id && room.users.length) room.admin = room.users[0].id
+    if (room.turn === user_id && room.users.length && userIndex === room.users.length) room.turn = room.users[0].id
     return room
 }
 
