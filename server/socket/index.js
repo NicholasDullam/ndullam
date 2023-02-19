@@ -170,6 +170,7 @@ const nextRound = (room_id) => {
     room.start = room.users[index].id
     room.turn = room.users[index].id
     room.users.forEach((user) => user.hand = [])
+    room.discard = []
     room.complete = null
     return startGame(room_id)
 }

@@ -257,6 +257,8 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             acrossPlayer = room.users[getNextIndex(room.users, iterator)]
         }
 
+        leftPlayers.reverse()
+
         return <div>
             { /* Deck */ }
             <div style={{ position: 'absolute', bottom: '50%', left: '50%', transform: 'translateX(-50%) translateY(50%)'}}>
