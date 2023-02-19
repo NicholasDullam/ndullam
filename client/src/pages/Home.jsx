@@ -267,11 +267,11 @@ const Home = (props) => {
                         <div style={{ whiteSpace: 'pre-wrap'}}>
                             <Loading/>
                             <div>/* </div>
-                            <div> * Hello, I'm Nicholas Dullam </div>
+                            <div> * Hi! I'm Nicholas Dullam </div>
                             <div> * - To get started, enter <span style={{ color: '#1E90FF' }}>projects</span> or <span style={{ color: '#1E90FF' }}>open</span></div>
                             <div> * - Click a response, or open an environment by entering <span style={{ color: '#1E90FF'}}>open <span style={{ color: 'orange'}}>{'<ENV_NAME>'}</span></span></div>
                             <div> * - To exit a subshell, enter <span style={{ color: '#1E90FF' }}>exit</span> into the subshell's command prompt</div>
-                            <div> * - Need help? Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands and their function</div>
+                            <div> * - Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands and their function</div>
                             <div> * Happy exploring :) </div>
                             <div style={{ whiteSpace: 'pre-wrap' }}> */ {'\n'} </div>
                         </div>                         
