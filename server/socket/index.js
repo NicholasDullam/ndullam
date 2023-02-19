@@ -43,6 +43,7 @@ const generateDeck = (numberOfDecks = 1) => {
     }
 
     shuffleArray(deck)
+    shuffleArray(deck)
     return deck
 }
 
@@ -153,7 +154,7 @@ const calculateScore = (hand) => {
     for (let i = 0; i < pairCount; i++) pairs.push([hand[i].card, hand[i + pairCount].card])
     pairs.forEach((pair) => {
         const [firstCard, secondCard] = pair
-        if (firstCard.value === secondCard.value  && firstCard.value === 'ace') points += -4
+        if (firstCard.value === secondCard.value && firstCard.value === 'ace') points += -8
         else if (firstCard.value === secondCard.value) points += 0
         else points += card_points[firstCard.value] + card_points[secondCard.value]
     })

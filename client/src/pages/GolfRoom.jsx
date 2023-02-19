@@ -242,7 +242,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             let remainder = room.users.length - 1
             for (let i = 0; i < remainder; i++) {
                 iterator = getNextIndex(room.users, iterator)
-                if (i === Math.ceil(remainder / 2)) acrossPlayer = room.users[iterator]
+                if (i === Math.floor(remainder / 2)) acrossPlayer = room.users[iterator]
                 else if (i < remainder / 2 - 1) leftPlayers.push(room.users[iterator])
                 else rightPlayers.push(room.users[iterator])
             }
@@ -317,10 +317,10 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
 
             {/* Across players */}
             { acrossPlayer ? <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)'}}>
+                <p style={{ textAlign: 'center', marginBottom: '10px' }}> {acrossPlayer.name}'s hand </p>
                 <div style={{ transform: 'rotate(180deg)' }}>
                     { renderHand(acrossPlayer) }
                 </div>
-                <p style={{ textAlign: 'center' }}> {acrossPlayer.name}'s hand </p>
             </div> : null }
 
             {/* Scoreboard */}
