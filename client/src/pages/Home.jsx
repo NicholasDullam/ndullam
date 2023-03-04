@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms, Golf } from '.'
 import { Loading, Shell, Simulator } from '../components'
 import { IoClose } from 'react-icons/io5'
-import { BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
+import { BsChevronBarDown, BsChevronDown, BsFullscreenExit, BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
 import { BsArrowsFullscreen } from 'react-icons/bs'
 import { useParams } from 'react-router'
 
@@ -16,6 +16,7 @@ const Home = (props) => {
     const activeSubshellRef = useRef(activeSubshell)
 
     const [fullscreen, setFullscreen] = useState(false)
+    const [subshellExpanded, setSubshellExpanded] = useState(true)
 
     const { env_id } = useParams()
 
@@ -130,6 +131,7 @@ const Home = (props) => {
         'golf' : {
             render: Golf,
             prompt: 'golf',
+            can_fullscreen: true,
             commands: {
                 exit: {
                     callback: exit,
@@ -229,6 +231,7 @@ const Home = (props) => {
 
     const handleCreateSubshell = (name, environment) => {
         let id = Date.now()
+
         setSubshells((newSubshells) => {
             return {
                 ...newSubshells, 
@@ -261,7 +264,7 @@ const Home = (props) => {
 
     return (
         <div style={{ height: '100%', width: '100%', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ width: window.innerWidth > 800 && !fullscreen ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
+            <div style={{ width: window.innerWidth > 800 && !fullscreen || !subshells[activeSubshell]?.can_fullscreen ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
                 <div style={{ height: 'calc(100% + 60px)', display: 'flex', flexDirection: 'column' }}>
                     <Shell restore={{ commands, history: [
                         <div style={{ whiteSpace: 'pre-wrap'}}>
@@ -278,9 +281,9 @@ const Home = (props) => {
                     ] }}/>
                 </div>
             </div>
-            <div style={{ width: window.innerWidth > 800 && !fullscreen ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
-                { Object.entries(subshells).length ? <div onClick={() => setFullscreen(!fullscreen)} className='text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer' style={{ position: 'absolute', zIndex: '1000', top: '100px', right: '30px' }}>
-                    <BsArrowsFullscreen/>
+            <div style={{ width: window.innerWidth > 800 && !fullscreen || !subshells[activeSubshell]?.can_fullscreen ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
+                { Object.entries(subshells).length && subshells[activeSubshell].can_fullscreen ? <div onClick={() => setFullscreen(!fullscreen)} className='text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer' style={{ position: 'absolute', zIndex: '1000', top: '100px', right: '30px' }}>
+                    { !fullscreen ? <BsArrowsFullscreen/> : <BsFullscreenExit/> }
                 </div> : null }
                 { Object.entries(subshells).length ? <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowX: 'hidden' }}>
                     <div style={{ display: 'flex', backgroundColor: 'black', zIndex: '5', position: 'sticky', top: '0px' }}>
@@ -303,7 +306,8 @@ const Home = (props) => {
                     <div style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
                         { subshells[activeSubshell] ? renderSubshell(subshells[activeSubshell].render, {}) : null }
                     </div>
-                    <div style={{ marginTop: 'auto', padding: '20px', position: 'sticky', bottom: '0px', backgroundColor: 'rgba(20,20,20,1)' }}>
+                    <div style={{ marginTop: 'auto', padding: '20px', position: 'sticky', bottom: '0px', backgroundColor: 'rgba(20,20,20,1)', position: 'relative', marginBottom: !subshellExpanded ? '-50px' : '0px', transition: 'all 300ms ease' }}>
+                        <BsChevronDown onClick={() => setSubshellExpanded(!subshellExpanded)} style={{ position: 'absolute', top: '10px', left: '50%', transform: `translateX(-50%) ${subshellExpanded ? 'rotate(180deg)' : ''}`, transition: 'all 300ms ease'}} />
                         <Shell sub key={activeSubshell} id={activeSubshell} style={{ padding: '0px', height: '100%' }} restore={subshells[activeSubshell]} handleExit={handleExit}/>
                     </div>
                 </div> : <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '16px', fontFamily: 'Menlo' }}>

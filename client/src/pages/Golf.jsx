@@ -99,7 +99,7 @@ const Golf = (props) => {
                     <span> Enter a username </span>
                     <input autoFocus onKeyDown={handleUsernameChange} style={{ padding: '10px', backgroundColor: 'rgba(255,255,255,.05)', borderRadius: '15px', marginTop: '10px', textAlign: 'center' }}/>
                 </div> : null }
-                { room === null ? <button onClick={() => createRoom(Math.round(Math.random() * 1000))} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300">
+                { room === null && ready ? <button onClick={() => createRoom(Math.round(Math.random() * 1000))} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300">
                     <p> Create Room </p>
                 </button> : null }
                 <div className="flex items-center transform rounded-3xl no-underline py-2 px-3 shadow-md bg-neutral-700 transition-all duration-300" style={{ position: 'absolute', top: '35px', right: '80px', display: 'flex', alignItems: 'center', gap: '10px' }}>
