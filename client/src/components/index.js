@@ -9,6 +9,7 @@ import Loading from './Loading'
 import LoadingIcon from './LoadingIcon'
 import PaymentNav from "./PaymentNav"
 import FriendNav from './FriendNav'
+import ProfilePicture from './ProfilePicture'
 
 export { 
     Nav,
@@ -21,5 +22,6 @@ export {
     Loading,
     LoadingIcon,
     PaymentNav,
-    FriendNav
+    FriendNav,
+    ProfilePicture
 }

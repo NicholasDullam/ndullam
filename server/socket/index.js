@@ -70,13 +70,14 @@ const leaveRoom = (room_id, user_id) => {
     return room
 }
 
-const joinRoom = (room_id, user_id, username) => {
+const joinRoom = (room_id, user_id, username, profilePicture) => {
     const room = getRoom(room_id)
     if (!room) return
     if (room.users.find((user) => user.id === user_id) || room.spectators.find((user) => user.id === user_id)) return room
     if (!room.active || room.complete === room.turn) room.users.push({
         id: user_id,
         name: username,
+        profile_picture: profilePicture,
         points: 0,
         history: [],
         hand: []
@@ -88,7 +89,7 @@ const joinRoom = (room_id, user_id, username) => {
     return room
 }
 
-const createRoom = (room_id, user_id, username) => {
+const createRoom = (room_id, user_id, username, profilePicture) => {
     rooms.push({
         id: room_id,
         admin: user_id,
@@ -105,6 +106,7 @@ const createRoom = (room_id, user_id, username) => {
             {
                 id: user_id,
                 name: username,
+                profile_picture: profilePicture,
                 points: 0,
                 hand: [],
                 history: [],
@@ -264,7 +266,7 @@ module.exports = (server) => {
         // Create a golf room
         socket.on('create_room', (body) => {
             socket.join(body.room_id)
-            const room = createRoom(body.room_id, socket.user_id, socket.username)
+            const room = createRoom(body.room_id, socket.user_id, socket.username, body.profile_picture)
             io.sockets.emit('rooms', rooms)
             socket.emit('join', room)
         })
@@ -272,7 +274,7 @@ module.exports = (server) => {
         // Join a golf room
         socket.on('join_room', (body) => {
             socket.join(body.room_id)
-            const room = joinRoom(body.room_id, socket.user_id, socket.username)
+            const room = joinRoom(body.room_id, socket.user_id, socket.username, body.profile_picture)
             socket.emit('join', room)
             io.sockets.emit('rooms', rooms)
             socket.broadcast.to(body.room_id).emit('user_joined', room)

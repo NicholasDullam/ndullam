@@ -284,9 +284,12 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             </div>
 
             { /* Player hand */ }
-            <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
+            <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 { renderHand(room.users[userIndex]) }
-                <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> Your hand </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '15px' }}>
+                    { room.users[userIndex].profile_picture ? <img src={room.users[userIndex].profile_picture} style={{ height: '40px', width: '40px', borderRadius: '50%' }}/> : null }
+                    <p style={{ textAlign: 'center', userSelect: 'none' }}> Your hand </p>
+                </div>
             </div>
 
             {/* Left players */}
@@ -296,7 +299,10 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         return <div>
                             <div style={{ transform: 'rotate(90deg)' }}>
                                 { renderHand(user) }
-                                <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {user.name}'s hand </p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '15px' }}>
+                                    { user.profile_picture ? <img src={user.profile_picture} style={{ height: '40px', width: '40px', borderRadius: '50%' }}/> : null }
+                                    <p style={{ textAlign: 'center', userSelect: 'none' }}> {user.name}'s hand </p>
+                                </div>
                             </div>
                         </div>
                     })
@@ -310,7 +316,10 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         return <div>
                             <div style={{ transform: 'rotate(-90deg)' }}>
                                 { renderHand(user) }
-                                <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {user.name}'s hand </p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '15px' }}>
+                                    { user.profile_picture ? <img src={user.profile_picture} style={{ height: '40px', width: '40px', borderRadius: '50%' }}/> : null }
+                                    <p style={{ textAlign: 'center', userSelect: 'none' }}> {user.name}'s hand </p>
+                                </div>                            
                             </div>
                         </div>
                     })
@@ -319,7 +328,10 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
 
             {/* Across players */}
             { acrossPlayer ? <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)'}}>
-                <p style={{ textAlign: 'center', marginBottom: '10px' }}> {acrossPlayer.name}'s hand </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
+                    { user.profile_picture ? <img src={user.profile_picture} style={{ height: '40px', width: '40px', borderRadius: '50%' }}/> : null }
+                    <p style={{ textAlign: 'center', userSelect: 'none' }}> {user.name}'s hand </p>
+                </div>
                 <div style={{ transform: 'rotate(180deg)' }}>
                     { renderHand(acrossPlayer) }
                 </div>

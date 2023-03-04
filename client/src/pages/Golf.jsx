@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { GolfRoom } from './'
-import { Button } from "../components"
+import { Button, ProfilePicture } from "../components"
 import io from 'socket.io-client';
 
 const getUserID = () => {
@@ -20,6 +20,7 @@ const Golf = (props) => {
     const [connected, setConnected] = useState(false)
     const [userID, setUserID] = useState(getUserID())
     const [username, setUsername] = useState(null)
+    const [profilePicture, setProfilePicture] = useState(null)
     const [ready, setReady] = useState(null)
 
     useEffect(() => {
@@ -62,13 +63,15 @@ const Golf = (props) => {
 
     const joinRoom = (room_id) => {
         socket.emit('join_room', {
-            room_id
+            room_id,
+            profile_picture: profilePicture
         })
     }
 
     const createRoom = (room_id) => {
         socket.emit('create_room', {
-            room_id
+            room_id,
+            profile_picture: profilePicture
         })
     }
 
@@ -87,6 +90,7 @@ const Golf = (props) => {
 
     const handleUsernameChange = (e) => {
         if (e.key !== 'Enter') return
+        if (e.target.value.length > 10) e.target.value = e.target.value.slice(0, 10)
         setUsername(e.target.value)
         setReady(true)
     }
@@ -96,6 +100,7 @@ const Golf = (props) => {
             <div className="p-8 pt-3" style={{ height: '100%' }}>
                 <h1 className="text-4xl font-bold my-5"> Golf </h1>
                 { !ready ? <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'all 300ms ease', border: 'none' }}>
+                    <ProfilePicture handleSave={setProfilePicture}/>
                     <span> Enter a username </span>
                     <input autoFocus onKeyDown={handleUsernameChange} style={{ padding: '10px', backgroundColor: 'rgba(255,255,255,.05)', borderRadius: '15px', marginTop: '10px', textAlign: 'center' }}/>
                 </div> : null }
