@@ -291,7 +291,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
             <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 { renderHand(room.users[userIndex]) }
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '15px' }}>
-                    { room.users[userIndex].profile_picture ? <img src={room.users[userIndex].profile_picture} style={{ height: '40px', width: '40px', borderRadius: '50%' }}/> : null }
+                    { room.users[userIndex]?.profile_picture ? <img src={room.users[userIndex]?.profile_picture} style={{ height: '40px', width: '40px', borderRadius: '50%' }}/> : null }
                     <p style={{ textAlign: 'center', userSelect: 'none' }}> Your hand </p>
                 </div>
             </div>
