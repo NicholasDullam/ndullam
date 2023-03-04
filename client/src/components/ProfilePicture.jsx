@@ -3,27 +3,25 @@ const colors = ['black', 'red', 'green', 'blue']
 
 const ProfilePicture = (props) => {
     const [color, setColor] = useState(colors[0])
+    const [changes, setChanges] = useState(false)
     const canvasRef = useRef()
     const prevCoordinatesRef = useRef({ x: 0, y: 0 })
     const coordinatesRef = useRef({ x: 0, y: 0 })
     const drawingRef = useRef(false)
 
     useEffect(() => {
-        if (canvasRef.current) {
-            initialFill()
-        }
+        if (canvasRef.current) initialFill()
     }, [])
     
     const initialFill = () => {
         const context = canvasRef.current.getContext('2d')
         context.fillStyle = 'white';
         context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+        setChanges(false)
     }
 
     const draw = () => {
-        console.log(prevCoordinatesRef.current, coordinatesRef.current)
         const context = canvasRef.current.getContext('2d')
-        console.log(context)
         context.beginPath();
         context.moveTo(prevCoordinatesRef.current.x, prevCoordinatesRef.current.y);
         context.lineTo(coordinatesRef.current.x, coordinatesRef.current.y);
@@ -48,6 +46,7 @@ const ProfilePicture = (props) => {
         context.fillStyle = color
         context.fillRect(coordinatesRef.current.x, coordinatesRef.current.y, 2, 2)
         context.closePath()
+        setChanges(true)
     }
 
     const handleMouseMove = (e) => {
@@ -67,6 +66,7 @@ const ProfilePicture = (props) => {
 
     const handleSave = (e) => {
         props.handleSave(canvasRef.current.toDataURL())
+        setChanges(false)
     }
 
     return <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center'}}>
@@ -83,7 +83,7 @@ const ProfilePicture = (props) => {
         </div>
         <div style={{ display: 'flex', gap: '10px' }}>
             <p onClick={initialFill} style={{ marginBottom: '20px', backgroundColor: 'white', color: 'black', padding: '6px 9px', borderRadius: '25px', fontSize: '12px', cursor: 'pointer' }}> Clear </p>
-            <p onClick={handleSave} style={{ marginBottom: '20px', backgroundColor: 'white', color: 'black', padding: '6px 9px', borderRadius: '25px', fontSize: '12px', cursor: 'pointer' }}> Save </p>
+            <p onClick={handleSave} style={{ marginBottom: '20px', backgroundColor: 'white', color: 'black', padding: '6px 9px', borderRadius: '25px', fontSize: '12px', cursor: 'pointer', opacity: changes ? '1' : '.4' }}> Save </p>
         </div>
     </div>
 }

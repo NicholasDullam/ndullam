@@ -96,7 +96,7 @@ const Golf = (props) => {
     }
 
     return (
-        <div style={{ height: 'calc(100% - 40px)', position: 'relative'}}>
+        <div style={{ height: '100%', position: 'relative'}}>
             <div className="p-8 pt-3" style={{ height: '100%' }}>
                 <h1 className="text-4xl font-bold my-5"> Golf </h1>
                 { !ready ? <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'all 300ms ease', border: 'none' }}>

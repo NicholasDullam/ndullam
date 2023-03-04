@@ -307,7 +307,7 @@ const Home = (props) => {
                         { subshells[activeSubshell] ? renderSubshell(subshells[activeSubshell].render, {}) : null }
                     </div>
                     <div style={{ marginTop: 'auto', padding: '20px', position: 'sticky', bottom: '0px', backgroundColor: 'rgba(20,20,20,1)', position: 'relative', marginBottom: !subshellExpanded ? '-50px' : '0px', transition: 'all 300ms ease' }}>
-                        <BsChevronDown onClick={() => setSubshellExpanded(!subshellExpanded)} style={{ position: 'absolute', top: '10px', left: '50%', transform: `translateX(-50%) ${subshellExpanded ? 'rotate(180deg)' : ''}`, transition: 'all 300ms ease'}} />
+                        <BsChevronDown onClick={() => setSubshellExpanded(!subshellExpanded)} style={{ position: 'absolute', top: '10px', left: '50%', transform: `translateX(-50%) ${!subshellExpanded ? 'rotate(180deg)' : ''}`, transition: 'all 300ms ease'}} />
                         <Shell sub key={activeSubshell} id={activeSubshell} style={{ padding: '0px', height: '100%' }} restore={subshells[activeSubshell]} handleExit={handleExit}/>
                     </div>
                 </div> : <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '16px', fontFamily: 'Menlo' }}>
