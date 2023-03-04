@@ -261,7 +261,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
 
         return <div>
             { /* Deck */ }
-            <div style={{ position: 'absolute', bottom: '50%', left: '50%', transform: 'translateX(-50%) translateY(50%)'}}>
+            <div style={{ position: 'absolute', bottom: '50%', left: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transform: 'translateX(-50%) translateY(50%)'}}>
                 <div style={{ display: 'flex', gap: '50px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <div onClick={() => drawCard(room.id, user_id, false)} className='hover:scale-[110%] transition-all duration-300 cursor-pointer' style={{ height: '70px', width: '50px', borderRadius: '5px', border: '1px solid white', position: 'relative', overflow: 'hidden' }}>
@@ -279,8 +279,12 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
                         <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '5px' }}> Discard </p>
                     </div>
                 </div>
-                { room.complete !== room.turn ? <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> {room.turn === user?.id ? 'Your' : `${room.users.find((item) => item.id === room.turn)?.name}'s`} {room.complete ? 'last' : null} turn </p> : 
-                    <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> Round complete </p> }
+                { room.complete !== room.turn ? <div>
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '10px', marginTop: '15px' }}>
+                        <p style={{ textAlign: 'center', userSelect: 'none' }}> {room.turn === user?.id ? 'Your' : `${room.users.find((item) => item.id === room.turn)?.name}'s`} {room.complete ? 'last' : null} turn </p>
+                        { room.users.find((item) => item.id === room.turn).profile_picture ? <img src={room.users.find((item) => item.id === room.turn).profile_picture} style={{ height: '70px', width: '70px', borderRadius: '50%' }}/> : null }
+                    </div>
+                </div> : <p style={{ textAlign: 'center', userSelect: 'none', marginTop: '10px' }}> Round complete </p> }
             </div>
 
             { /* Player hand */ }
