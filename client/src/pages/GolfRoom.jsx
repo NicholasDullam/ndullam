@@ -113,7 +113,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         })
 
         socket.on('discard', (body) => {
-            const discardSound = new Audio(discardSoundFile)
+            //const discardSound = new Audio(discardSoundFile)
             discardSound.play()
             setRoom(body)
         })
