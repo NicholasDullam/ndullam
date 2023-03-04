@@ -3,6 +3,11 @@ import cardBack from '../images/card_back.png'
 import { Shell } from '../components'
 import styled from 'styled-components'
 
+import startSoundFile from '../audio/start.mp3'
+import discardSoundFile from '../audio/discard.mp3'
+import outSoundFile from '../audio/out.wav'
+import flipSoundFile from '../audio/flip.mp3'
+
 const Card = styled.div`
     animation-name: test;
     animation-duration: 300ms;
@@ -44,7 +49,6 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
     const [prevRoom, setPrevRoom] = useState(null)
     const pollingRate = 50
 
-
     const gameRef = useRef()
 
     useEffect(() => {
@@ -69,11 +73,12 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         })
 
         socket.on('mouse_move', (body) => {
-            console.log('getting mouse movements')
             setCursor(body)
         })
 
         socket.on('start', (body) => {
+            const startSound = new Audio(startSoundFile)
+            startSound.play()
             setRoom(body)
         })
 
@@ -90,18 +95,26 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         })
 
         socket.on('draw', (body) => {
+            const flipSound = new Audio(flipSoundFile)
+            flipSound.play()
             setRoom(body)
         })
 
         socket.on('flip', (body) => {
+            const flipSound = new Audio(flipSoundFile)
+            flipSound.play()
             setRoom(body)
         })
 
         socket.on('replace', (body) => {
+            const flipSound = new Audio(flipSoundFile)
+            flipSound.play()
             setRoom(body)
         })
 
         socket.on('discard', (body) => {
+            const discardSound = new Audio(discardSoundFile)
+            discardSound.play()
             setRoom(body)
         })
         
