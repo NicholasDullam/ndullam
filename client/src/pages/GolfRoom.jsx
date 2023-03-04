@@ -83,6 +83,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         })
 
         socket.on('next_round', (body) => {
+            const startSound = new Audio(startSoundFile)
             setRoom(body)
         })
 
