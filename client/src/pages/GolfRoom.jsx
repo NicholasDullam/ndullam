@@ -51,6 +51,13 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
 
     const gameRef = useRef()
 
+    const playSoundEffect = (file) => {
+        const sound = new Audio(file)
+        sound.autoplay = true
+        sound.muted = false
+        sound.play()
+    }
+
     useEffect(() => {
         if (prevRoom?.turn !== room.turn) setCursor({ x: 0, y: 0 })
         setUser(room.users.find((item) => item.id === user_id) || room.spectators.find((item) => item.id === user_id))
@@ -77,13 +84,12 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         })
 
         socket.on('start', (body) => {
-            const startSound = new Audio(startSoundFile)
-            startSound.play()
+            playSoundEffect(startSoundFile)
             setRoom(body)
         })
 
         socket.on('next_round', (body) => {
-            const startSound = new Audio(startSoundFile)
+            playSoundEffect(startSoundFile)
             setRoom(body)
         })
 
@@ -96,20 +102,17 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         })
 
         socket.on('draw', (body) => {
-            const flipSound = new Audio(flipSoundFile)
-            flipSound.play()
+            playSoundEffect(flipSoundFile)
             setRoom(body)
         })
 
         socket.on('flip', (body) => {
-            const flipSound = new Audio(flipSoundFile)
-            flipSound.play()
+            playSoundEffect(flipSoundFile)
             setRoom(body)
         })
 
         socket.on('replace', (body) => {
-            const flipSound = new Audio(flipSoundFile)
-            flipSound.play()
+            playSoundEffect(flipSoundFile)
             setRoom(body)
         })
 
