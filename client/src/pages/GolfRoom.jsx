@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import cardBack from '../images/card_back.png'
 import { Shell } from '../components'
 import styled from 'styled-components'
@@ -53,8 +53,6 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
 
     const playSoundEffect = (file) => {
         const sound = new Audio(file)
-        sound.autoplay = true
-        sound.muted = false
         sound.play()
     }
 
@@ -74,7 +72,7 @@ const GolfRoom = ({ socket, room, setRoom, user_id }) => {
         return () => gameRef.current.removeEventListener('mousemove', mouseHandler) 
     }, [room])
 
-    useEffect(() => { 
+    useLayoutEffect(() => { 
         socket.on('leave', (body) => {
             setRoom(null)
         })
