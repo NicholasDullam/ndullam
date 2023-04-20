@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Communicode, Zookeep, Resume, Sustainably, TravelingMerchant, Algorithms, Golf } from '.'
 import { Loading, Shell, Simulator } from '../components'
 import { IoClose } from 'react-icons/io5'
-import { BsChevronBarDown, BsChevronDown, BsFullscreenExit, BsGithub, BsLinkedin, BsStackOverflow } from "react-icons/bs"
+import { BsChevronBarDown, BsChevronDown, BsFullscreenExit, BsGithub, BsLinkedin, BsStackOverflow, BsMailbox2 } from "react-icons/bs"
 import { BsArrowsFullscreen } from 'react-icons/bs'
 import { useParams } from 'react-router'
 
@@ -88,9 +88,9 @@ const Home = (props) => {
                 }
             }
         },
-        'traveling merchant' : {
+        'traveling_merchant' : {
             render: TravelingMerchant,
-            prompt: 'travelingmerchant',
+            prompt: 'traveling_merchant',
             commands: {
                 exit: {
                     callback: exit,
@@ -145,11 +145,17 @@ const Home = (props) => {
         'projects' : {
             callback: (args) => {
                 return <div style={{ display: 'flex', flexDirection: 'column'}}>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('communicode', environments['communicode'])}> communicode </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('communicode', environments['communicode'])}> communicode  </span>
                     <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('sustainably', environments['sustainably'])}> sustainably </span>
-                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling merchant', environments['traveling merchant'])}> traveling merchant </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling_merchant', environments['traveling_merchant'])}> traveling_merchant </span>
                     <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('zookeep', environments['zookeep'])}> zookeep </span>
                     <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}> simulator </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('algorithms', environments['algorithms'])}> algorithms </span>
+                    <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('golf', environments['golf'])}> golf </span>
+                    <span style={{ color: 'yellow' }}> 🚧 shell 🚧 </span>
+                    <span style={{ color: 'yellow' }}> 🚧 java_arm 🚧 </span>
+                    <span style={{ color: 'yellow' }}> 🚧 sociable 🚧 </span>
+                    <span style={{ color: 'yellow' }}> 🚧 traffic_rl 🚧 </span>
                 </div>
             },
             description: 'lists all current projects',
@@ -158,10 +164,11 @@ const Home = (props) => {
         'contact' : {
             callback: (args) => {
                 return <div className="flex-col">
-                    <div> Contact me by email, <a href={'mailto: npdullam@gmail.com'} style={{ color: '#1E90FF' }}>npdullam@gmail.com</a></div>
-                    <div> Message me on LinkedIn, <a href={'https://www.linkedin.com/in/ndullam/'} style={{ color: '#1E90FF' }}>https://www.linkedin.com/in/ndullam/</a></div>
-                    <div> Check out my Github, <a href={'https://github.com/NicholasDullam'} style={{ color: '#1E90FF' }}>https://github.com/NicholasDullam</a></div>
-                </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsMailbox2/> Email: <a target='_blank' href={'mailto: npdullam@gmail.com'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>npdullam@gmail.com</a></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsLinkedin/> LinkedIn: <a target='_blank' href={'https://www.linkedin.com/in/ndullam/'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>linkedin.com/in/ndullam/</a></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsGithub/> Github: <a target='_blank' href={'https://github.com/NicholasDullam'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>github.com/NicholasDullam</a></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsStackOverflow/> Stack: <a target='_blank' href={'https://stackoverflow.com/users/12109958/nicholas-dullam'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden', whiteSpace: 'nowrap' }}>stackoverflow.com/users/12109958/nicholas-dullam</a></div>
+                        </div>
             },
             description: 'lists all available contact information',
             params: []
@@ -170,10 +177,15 @@ const Home = (props) => {
             callback: (args) => {
                 if (args.length < 1) return <div style={{ display: 'flex', flexDirection: 'column'}}>
                     {
-                        Object.entries(environments).map((pair) => {
+                        [Object.entries(environments).map((pair) => {
                             let [key, environment] = pair
                             return <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell(key, environment)}> {key} </span>
-                        })
+                        }), [
+                            <span style={{ color: 'yellow' }}> 🚧 shell 🚧 </span>,
+                            <span style={{ color: 'yellow' }}> 🚧 java_arm 🚧 </span>,
+                            <span style={{ color: 'yellow' }}> 🚧 sociable 🚧 </span>,
+                            <span style={{ color: 'yellow' }}> 🚧 traffic_rl 🚧 </span>
+                        ]]
                     } 
                 </div>
                 if (!environments[args[0].toLowerCase()]) return 'Environment does not exist'
@@ -264,24 +276,44 @@ const Home = (props) => {
 
     return (
         <div style={{ height: '100%', width: '100%', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ width: window.innerWidth > 800 && !fullscreen || !subshells[activeSubshell]?.can_fullscreen ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
+            <div style={{ width: window.innerWidth > 800 && (!fullscreen || !subshells[activeSubshell]?.can_fullscreen) ? '50%' : (!Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', fontSize: '16px', overflowY: 'scroll', transition: 'width 300ms ease' }}>
                 <div style={{ height: 'calc(100% + 60px)', display: 'flex', flexDirection: 'column' }}>
                     <Shell restore={{ commands, history: [
                         <div style={{ whiteSpace: 'pre-wrap'}}>
                             <Loading/>
-                            <div>/* </div>
-                            <div> * Hi! I'm Nicholas Dullam </div>
-                            <div> * - To get started, enter <span style={{ color: '#1E90FF' }}>projects</span> or <span style={{ color: '#1E90FF' }}>open</span></div>
-                            <div> * - Click a response, or open an environment by entering <span style={{ color: '#1E90FF'}}>open <span style={{ color: 'orange'}}>{'<ENV_NAME>'}</span></span></div>
-                            <div> * - To exit a subshell, enter <span style={{ color: '#1E90FF' }}>exit</span> into the subshell's command prompt</div>
-                            <div> * - Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands and their function</div>
-                            <div> * Happy exploring :) </div>
-                            <div style={{ whiteSpace: 'pre-wrap' }}> */ {'\n'} </div>
+                            <div>Hi there, I'm Nich 👋 </div>
+                            <div>- To get started, enter <span style={{ color: '#1E90FF' }}>projects</span> or <span style={{ color: '#1E90FF' }}>open</span></div>
+                            <div>- Click, or open an environment by entering <span style={{ color: '#1E90FF'}}>open <span style={{ color: 'orange'}}>{'<ENV_NAME>'}</span></span></div>
+                            <div>- To exit, enter <span style={{ color: '#1E90FF' }}>exit</span> into the subshell's prompt</div>
+                            <div>- Enter <span style={{ color: '#1E90FF' }}>help</span> to see a list of commands</div>
+                            <div style={{ whiteSpace: 'pre-wrap' }}>  </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsMailbox2/> Email: <a target='_blank' href={'mailto: npdullam@gmail.com'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>npdullam@gmail.com</a></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsLinkedin/> LinkedIn: <a target='_blank' href={'https://www.linkedin.com/in/ndullam/'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>linkedin.com/in/ndullam/</a></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsGithub/> Github: <a target='_blank' href={'https://github.com/NicholasDullam'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>github.com/NicholasDullam</a></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsStackOverflow/> Stack: <a target='_blank' href={'https://stackoverflow.com/users/12109958/nicholas-dullam'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden', whiteSpace: 'nowrap' }}>stackoverflow.com/users/12109958/nicholas-dullam</a></div>
+                            <div style={{ whiteSpace: 'pre-wrap' }}>  </div>
+                            <div>🚧 This site is always under construction 🚧</div>
+                            <div style={{ whiteSpace: 'pre-wrap' }}>  </div>
+                            <div>Projects: </div>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('communicode', environments['communicode'])}>communicode  </span>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('sustainably', environments['sustainably'])}>sustainably </span>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('traveling_merchant', environments['traveling_merchant'])}>traveling_merchant </span>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('zookeep', environments['zookeep'])}>zookeep </span>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('simulator', environments['simulator'])}>simulator </span>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('algorithms', environments['algorithms'])}>algorithms </span>
+                                <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('golf', environments['golf'])}>golf </span>
+                                <span style={{ color: 'yellow' }}>🚧 shell 🚧 </span>
+                                <span style={{ color: 'yellow' }}>🚧 java_arm 🚧 </span>
+                                <span style={{ color: 'yellow' }}>🚧 sociable 🚧 </span>
+                                <span style={{ color: 'yellow' }}>🚧 traffic_rl 🚧 </span>
+                            </div>
+                            <div style={{ whiteSpace: 'pre-wrap' }}> </div>
                         </div>                         
                     ] }}/>
                 </div>
             </div>
-            <div style={{ width: window.innerWidth > 800 && !fullscreen || !subshells[activeSubshell]?.can_fullscreen ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
+            <div style={{ width: window.innerWidth > 800 && (!fullscreen || !subshells[activeSubshell]?.can_fullscreen) ? '50%' : (Object.entries(subshells).length ? '100%' : '0%'), backgroundColor: 'rgba(0,0,0,.95)', display: 'flex', flexDirection: 'column', color: 'white', position: 'relative', transition: 'width 300ms ease', overflowX: 'hidden' }}>
                 { Object.entries(subshells).length && subshells[activeSubshell].can_fullscreen ? <div onClick={() => setFullscreen(!fullscreen)} className='text-white bg-neutral-700 p-3 rounded-[25px] right-6 flex gap-3 hover:scale-110 transition-all duration-300 hover:bg-white hover:text-black cursor-pointer' style={{ position: 'absolute', zIndex: '1000', top: '100px', right: '30px' }}>
                     { !fullscreen ? <BsArrowsFullscreen/> : <BsFullscreenExit/> }
                 </div> : null }

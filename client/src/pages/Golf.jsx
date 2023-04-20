@@ -89,9 +89,12 @@ const Golf = (props) => {
     }
 
     const handleUsernameChange = (e) => {
-        if (e.key !== 'Enter') return
         if (e.target.value.length > 10) e.target.value = e.target.value.slice(0, 10)
         setUsername(e.target.value)
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.key !== 'Enter') return
         setReady(true)
     }
 
@@ -102,7 +105,8 @@ const Golf = (props) => {
                 { !ready ? <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'all 300ms ease', border: 'none' }}>
                     <ProfilePicture handleSave={setProfilePicture}/>
                     <span> Enter a username </span>
-                    <input autoFocus onKeyDown={handleUsernameChange} style={{ padding: '10px', backgroundColor: 'rgba(255,255,255,.05)', borderRadius: '15px', marginTop: '10px', textAlign: 'center' }}/>
+                    <input autoFocus onKeyDown={handleKeyPress} onChange={handleUsernameChange} style={{ padding: '10px', backgroundColor: 'rgba(255,255,255,.05)', borderRadius: '15px', marginTop: '10px', textAlign: 'center' }}/>
+                    <Button disabled style={{ marginTop: '10px' }} onClick={() => setReady(true)}>Continue</Button>
                 </div> : null }
                 { room === null && ready ? <button onClick={() => createRoom(Math.round(Math.random() * 1000))} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300">
                     <p> Create Room </p>

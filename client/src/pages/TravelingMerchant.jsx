@@ -16,10 +16,6 @@ const TravelingMerchant = (props) => {
                             <BsGithub style={{ marginRight: '8px' }}/>
                             <p style={{ margin: '0px', textDecoration: 'none', highlight: 'none'  }}> Github </p>
                         </a>
-                        <a href={'https://traveling-merchant-main.herokuapp.com/'} target={'_blank'} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300 m-1.5">
-                            <FiLink style={{ marginRight: '8px' }}/>
-                            <p style={{ margin: '0px', textDecoration: 'none', highlight: 'none'  }}> Visit </p>
-                        </a>
                     </div>
                 </div>
                 <div className="flex mb-5 overflow-x-scroll">
