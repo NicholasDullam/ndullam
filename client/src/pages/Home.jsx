@@ -295,7 +295,7 @@ const Home = (props) => {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsGithub/> Github: <a target='_blank' href={'https://github.com/NicholasDullam'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden' }}>github.com/NicholasDullam</a></div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> <BsStackOverflow/> Stack: <a target='_blank' href={'https://stackoverflow.com/users/12109958/nicholas-dullam'} style={{ color: '#1E90FF', textOverflow: 'ellipsis', width: '200px', overflow: 'hidden', whiteSpace: 'nowrap' }}>stackoverflow.com/users/12109958/nicholas-dullam</a></div>
                             <div style={{ whiteSpace: 'pre-wrap' }}>  </div>
-                            <div>🚧 This site is always under construction 🚧</div>
+                            <div>🚧 This site is constantly under construction 🚧</div>
                             <div style={{ whiteSpace: 'pre-wrap' }}>  </div>
                             <div>Projects: </div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
