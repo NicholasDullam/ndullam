@@ -1,10 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import cardBack from '../images/card_back.png'
-import { Shell } from '../components'
 import styled from 'styled-components'
 
 import startSoundFile from '../audio/start.mp3'
-import discardSoundFile from '../audio/discard.mp3'
 import outSoundFile from '../audio/out.wav'
 import flipSoundFile from '../audio/flip.mp3'
 
