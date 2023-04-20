@@ -184,8 +184,8 @@ const Home = (props) => {
                             return <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell(key, environment)}> {key} </span>
                         }), [
                             <span style={{ color: 'yellow' }}> 🚧 shell 🚧 </span>,
-                            <span style={{ color: 'yellow' }}> 🚧 load_def_pred 🚧 </span>,
-                            <span style={{ color: 'yellow' }}> 🚧 java_arm 🚧 </span>,
+                            <span style={{ color: 'yellow' }}> 🚧 midi 🚧 </span>,
+                            <span style={{ color: 'yellow' }}> 🚧 loan_def_pred 🚧 </span>,                         <span style={{ color: 'yellow' }}> 🚧 java_arm 🚧 </span>,
                             <span style={{ color: 'yellow' }}> 🚧 sociable 🚧 </span>,
                             <span style={{ color: 'yellow' }}> 🚧 traffic_rl 🚧 </span>
                         ]]
@@ -307,7 +307,8 @@ const Home = (props) => {
                                 <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('algorithms', environments['algorithms'])}>algorithms </span>
                                 <span style={{ color: 'cyan', cursor: 'pointer' }} onClick={() => handleCreateSubshell('golf', environments['golf'])}>golf </span>
                                 <span style={{ color: 'yellow' }}>🚧 shell 🚧 </span>
-                                <span style={{ color: 'yellow' }}>🚧 load_def_pred 🚧 </span>
+                                <span style={{ color: 'yellow' }}>🚧 midi 🚧 </span>
+                                <span style={{ color: 'yellow' }}>🚧 loan_def_pred 🚧 </span>
                                 <span style={{ color: 'yellow' }}>🚧 java_arm 🚧 </span>
                                 <span style={{ color: 'yellow' }}>🚧 sociable 🚧 </span>
                                 <span style={{ color: 'yellow' }}>🚧 traffic_rl 🚧 </span>
