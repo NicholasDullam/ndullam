@@ -74,7 +74,7 @@ const NewHome = (props) => {
                                 setIsResume(true)
                             }}/>
                             <NavElement label={'Projects'} onClick={() => setProjectsOpen(!projectsOpen)}/>
-                            <NavElement label={'Shell'} onClick={() => history.push('/shell')}/>
+                            <NavElement label={'Sandbox'} onClick={() => history.push('/sandbox')}/>
                         </div>
                     </div>
                 </div>

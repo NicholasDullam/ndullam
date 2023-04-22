@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import PaymentRouter from './PaymentRouter'
 import { Create, Home, Login, NewHome } from '../pages'
 import startSoundFile from '../audio/start.mp3'
@@ -40,8 +40,9 @@ const App = (props) => {
         <Router>
           <Switch>
             <Route path='/' exact component={NewHome}/>
-            <Route path='/shell/:env_id' component={Home}/>
-            <Route path='/shell' exact component={Home}/>
+            <Route path='/sandbox/:env_id' component={Home}/>
+            <Route path='/sandbox' exact component={Home}/>
+            <Route path='/' render={(props) => <Redirect to={'/'}/>}/>
             {/*<Route path='/login' component={Login}/>
               <Route path='/create' component={Create}/>
               <Route path='/payment' component={PaymentRouter}/>*/}
