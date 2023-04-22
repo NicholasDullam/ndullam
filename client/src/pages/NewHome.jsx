@@ -51,7 +51,7 @@ const NewHome = (props) => {
     const history = useHistory()
 
     return (
-        <div style={{ backgroundColor: '#111', height: '100%', height: '-webkit-fill-available', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
+        <div style={{ backgroundColor: '#111', height: '100%', height: '-webkit-fill-available', overflow: 'hidden', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
             <Loading/>
             {/* Hero */}
             <div ref={containerRef} style={{ height: '100%' }}>
