@@ -50,7 +50,6 @@ const Wave = ({ containerRef, scale, ...props }) => {
 
     const initialize = () => {
         if (!canvasRef.current) return
-        console.log(width, height, xUnits * scale, yUnits * scale, canvasRef.current.height)
         let context = canvasRef.current.getContext("2d")
         context.clearRect(0, 0, width, height)
         context.fillStyle =  "#FFFFFF";
@@ -58,7 +57,6 @@ const Wave = ({ containerRef, scale, ...props }) => {
         let temp = new Array(yUnitsRef.current).fill(0)
         temp.forEach((curr, i) => temp[i] = new Array(xUnitsRef.current).fill(0))
         temp[0][0] = 1
-        console.log(temp.length * scale, temp[0].length * scale)
         setPixels(temp)
         pixelsRef.current = temp
     }
@@ -68,7 +66,6 @@ const Wave = ({ containerRef, scale, ...props }) => {
         let frame = newFrame()
         let context = canvasRef.current.getContext("2d")
         context.clearRect(0, 0, width, height)
-        //console.log(frame.length)
         frame.forEach((row, i) => {
             row.forEach((col, j) => {
                 if (frame[i][j] > 0) {
@@ -90,7 +87,6 @@ const Wave = ({ containerRef, scale, ...props }) => {
 
     const newFrame = () => {
         let pixels = [...pixelsRef.current]
-        console.log(pixels.length * scale)
         pixelsRef.current.forEach((row, i) => {
             row.forEach((col, j) => {
                 if (pixelsRef.current[i][j] > 20) pixels[i][j] = 0
