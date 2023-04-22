@@ -78,14 +78,15 @@ const Wave = ({ containerRef, scale, ...props }) => {
 
     const getNeighbors = (i, j) => {
         const neighbors = []
-        if (i < yUnitsRef.current - 1 && pixelsRef.current[i + 1][j]) neighbors.push('south')
+        if (i < pixelsRef.current.length - 1 && pixelsRef.current[i + 1][j]) neighbors.push('south')
         if (i > 0 && pixelsRef.current[i - 1][j]) neighbors.push('north')  
-        if (j < xUnitsRef.current - 1 && pixelsRef.current[i][j + 1]) neighbors.push('east')
+        if (j < pixelsRef.current[i].length - 1 && pixelsRef.current[i][j + 1]) neighbors.push('east')
         if (j > 0 && pixelsRef.current[i][j - 1]) neighbors.push('west')  
         return neighbors
     }
 
     const newFrame = () => {
+        if (!pixelsRef.current) return
         let pixels = [...pixelsRef.current]
         pixelsRef.current.forEach((row, i) => {
             row.forEach((col, j) => {
@@ -99,8 +100,8 @@ const Wave = ({ containerRef, scale, ...props }) => {
                 directions.forEach((direction) => {
                     let chance = Math.random()
                     if (direction == 'north' && chance > 0.9 && i > 0) pixels[i - 1][j] = 1 
-                    if (direction == 'south' && chance > 0.6 && i < yUnitsRef.current - 1) pixels[i + 1][j] = 1 
-                    if (direction == 'east' && chance > 0.9 && j < xUnitsRef.current - 1) pixels[i][j + 1] = 1 
+                    if (direction == 'south' && chance > 0.6 && i < pixelsRef.current.length - 1) pixels[i + 1][j] = 1 
+                    if (direction == 'east' && chance > 0.9 && j < pixelsRef.current[i].length - 1) pixels[i][j + 1] = 1 
                     if (direction == 'west' && chance > 0.1 && j > 0) pixels[i][j - 1] = 1 
                 })
             })

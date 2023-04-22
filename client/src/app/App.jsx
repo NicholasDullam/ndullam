@@ -36,7 +36,7 @@ const App = (props) => {
     })
 
     return (
-      <div className="h-screen w-full">
+      <div className="w-full" style={{ height: '100dvh' }}>
         <Router>
           <Switch>
             <Route path='/' exact component={NewHome}/>

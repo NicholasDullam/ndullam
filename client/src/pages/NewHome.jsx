@@ -11,7 +11,6 @@ import sustainably1 from '../images/Sustainably1.png'
 import travelingMerchant1 from '../images/TravelingMerchant1.png'
 import zookeep1 from '../images/Zookeep1.jpeg'
 
-import { IoReturnUpBack } from "react-icons/io5"
 import Zookeep from "./Zookeep"
 import Resume from "./Resume"
 import { useHistory } from "react-router"
@@ -51,13 +50,13 @@ const NewHome = (props) => {
     const history = useHistory()
 
     return (
-        <div style={{ backgroundColor: '#111', height: '100%', overflow: 'hidden', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
+        <div style={{ backgroundColor: '#111', height: '100dvh', overflow: 'hidden', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
             <Loading/>
             {/* Hero */}
-            <div ref={containerRef} style={{ height: '100%' }}>
+            <div ref={containerRef} style={{ height: '100dvh' }}>
                 <Wave scale={10} containerRef={containerRef}/>
                 {/* Name banner */}
-                <div style={{ padding: '18px', position: 'absolute', bottom: '0px', width: '100%', backgroundColor: '#111'}}>
+                <div style={{ padding: '4px 12px 8px 12px', position: 'absolute', bottom: '0px', width: '100%', backgroundColor: '#111'}}>
                     <h4 style={{ fontSize: '20px', marginBottom: '-5px' }}> Nicholas Dullam </h4>
                     <h4 style={{ fontSize: '16px', color: '#666', marginBottom: '3px' }}> Development Lead </h4>
                     <div style={{ display: 'flex', gap: '8px' }}>
