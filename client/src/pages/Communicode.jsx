@@ -4,7 +4,7 @@ import { Tag } from '../components'
 
 const Communicode = (props) => {
     return (
-        <div style={{ color: 'white', fontFamily: 'Menlo' }}>
+        <div>
             <img src={Communicode1} className="w-full h-[200px] object-cover"/>
             <div className="p-8 pt-3">
                 <h1 className="text-4xl font-bold my-5"> Communicode </h1>

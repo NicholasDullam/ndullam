@@ -6,7 +6,7 @@ import { BsGithub } from 'react-icons/bs'
 
 const Zookeep = (props) => {
     return (
-        <div style={{ color: 'white' }}>
+        <div>
             <img src={zookeep1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
             <div className="p-8 pt-3">
                 <div className="mt-3 mb-2" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll' }}>

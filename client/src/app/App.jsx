@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PaymentRouter from './PaymentRouter'
-import { Create, Home, Login } from '../pages'
+import { Create, Home, Login, NewHome } from '../pages'
 import startSoundFile from '../audio/start.mp3'
 
 const App = (props) => {
@@ -39,8 +39,9 @@ const App = (props) => {
       <div className="h-screen w-full">
         <Router>
           <Switch>
-            <Route path='/:env_id' component={Home}/>
-            <Route path='/' exact component={Home}/>
+            <Route path='/' exact component={NewHome}/>
+            <Route path='/shell/:env_id' component={Home}/>
+            <Route path='/shell' exact component={Home}/>
             {/*<Route path='/login' component={Login}/>
               <Route path='/create' component={Create}/>
               <Route path='/payment' component={PaymentRouter}/>*/}

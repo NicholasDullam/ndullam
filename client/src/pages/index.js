@@ -11,6 +11,7 @@ import Algorithms from "./Algorithms"
 import Script from "./Script"
 import Golf from './Golf'
 import GolfRoom from './GolfRoom'
+import NewHome from './NewHome'
 
 export { 
     Home,
@@ -25,5 +26,6 @@ export {
     Algorithms,
     Script,
     Golf,
-    GolfRoom
+    GolfRoom,
+    NewHome
 }

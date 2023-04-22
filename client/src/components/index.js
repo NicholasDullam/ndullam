@@ -10,6 +10,7 @@ import LoadingIcon from './LoadingIcon'
 import PaymentNav from "./PaymentNav"
 import FriendNav from './FriendNav'
 import ProfilePicture from './ProfilePicture'
+import Wave from './Wave'
 
 export { 
     Nav,
@@ -23,5 +24,6 @@ export {
     LoadingIcon,
     PaymentNav,
     FriendNav,
-    ProfilePicture
+    ProfilePicture,
+    Wave
 }
