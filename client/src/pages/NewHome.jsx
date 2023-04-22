@@ -185,7 +185,7 @@ const ProjectModal = (props) => {
                 </div>
                 <p> exit </p>
             </div>
-            <div style={{ position: 'absolute', bottom: '70px', right: '-13px', opacity: scroll && !props.resume ? '1' : '0', transform: 'rotate(-90deg)', color: 'white', zIndex: '1000', overflow: 'hidden', display: 'flex', alignItems: 'center',  padding: '4px 7px', borderRadius: '25px', cursor: 'pointer', transition: 'all 300ms ease', WebkitTransformOrigin: '50% 52%' }} onClick={handleExit}>
+            <div style={{ position: 'absolute', bottom: '70px', right: '-13px', opacity: scroll && !props.resume ? '1' : '0', transform: 'rotate(-90deg)', color: 'white', zIndex: '1000', overflow: 'hidden', display: 'flex', alignItems: 'center',  padding: '4px 7px', borderRadius: '25px', cursor: 'pointer', transition: 'all 300ms ease', WebkitTransformOrigin: '50% 52%' }}>
                 <div style={{ width: '20px', height: '20px', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
                     <ArrowContainer>
                         <FiArrowUpRight style={{ transform: 'rotate(-135deg)', color: 'white' }}/>
