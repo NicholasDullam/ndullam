@@ -1,28 +1,27 @@
 import React from 'react'
 import { FiLink } from 'react-icons/fi'
 import sustainably1 from '../images/Sustainably1.png'
-import { Button, Tag } from '../components'
+import { Button, Tag, Social } from '../components'
 
 const Sustainably = (props) => {
     return (
         <div>
             <img src={sustainably1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
-            <div className="p-8 pt-3">
-                <div className="mt-3 mb-2" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
+            <div className="p-8 pt-3">     
+                <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> Sustainably </h1>
-                    <a href={'https://app.stnbly.io/dashboard'} target={'_blank'} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300 ml-auto m-1.5">
-                        <FiLink style={{ marginRight: '8px' }}/>
-                        <p style={{ margin: '0px', textDecoration: 'none', highlight: 'none'  }}> Visit </p>
-                    </a>
-                </div>
+                    <div style={{ color: 'white', marginLeft: 'auto' }}>
+                        <Social name="Visit" link='https://app.stnbly.io/dashboard'/>
+                    </div>
+                </div>  
                 <div className="flex mb-5 overflow-x-scroll">
-                    <Tag> Heroku </Tag>
-                    <Tag> AWSS3 </Tag>
-                    <Tag> MongoDB </Tag>
-                    <Tag> Node.js </Tag>
-                    <Tag> React.js </Tag>
-                    <Tag> Express.js </Tag>
-                    <Tag> Stripe </Tag>
+                    <Tag>Heroku</Tag>
+                    <Tag>AWS</Tag>
+                    <Tag>MongoDB</Tag>
+                    <Tag>Node.js</Tag>
+                    <Tag>React.js</Tag>
+                    <Tag>Express.js</Tag>
+                    <Tag>Stripe</Tag>
                 </div>
                 <h6 className="mt-5"> Acting as a real-time weight loss servicer, Sustainably supports meal plan generation, coaching, tracking, recalibration, etc; while helping people make long-lasting fitness transformations. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>

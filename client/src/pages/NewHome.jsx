@@ -1,17 +1,22 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Loading, Simulator, Wave } from "../components"
-import { FiArrowLeft, FiArrowUpRight } from 'react-icons/fi'
+import { Loading, Wave } from "../components"
+import { FiArrowUpRight } from 'react-icons/fi'
 
 import Communicode from "./Communicode"
 import Sustainably from "./Sustainably"
 import TravelingMerchant from "./TravelingMerchant"
+import Zookeep from "./Zookeep"
+import JavaARM from "./JavaARM"
+import Sociable from "./Sociable"
+import TrafficRL from "./TrafficRL"
 
 import communicode1 from '../images/communicode1.jpeg'
 import sustainably1 from '../images/Sustainably1.png'
 import travelingMerchant1 from '../images/TravelingMerchant1.png'
+import travelingMerchant2 from '../images/travelingmerchant2.png'
 import zookeep1 from '../images/Zookeep1.jpeg'
+import javaarm1 from '../images/javaarm1.png'
 
-import Zookeep from "./Zookeep"
 import Resume from "./Resume"
 import { useHistory } from "react-router"
 
@@ -38,7 +43,8 @@ const descriptions = {
     zookeep: "An experimental project, seeking to test the integrations of information systems through an intuitive admin-level user experience",
     communicode: "Communicode connects developers with non-profits in need. I lead the backend integrations, ensuring the development of a product that connected our two diverse audiences.",
     sustainably: "Acting as a real-time weight loss servicer, Sustainably supports meal plan generation, coaching, tracking, recalibration, etc; while helping people make long-lasting fitness transformations.",
-    traveling_merchant: "Trading virtual items and managing the logistics of virtual trades and transactions can be inherently difficult. Traveling Merchant was created to be the hub for any sales gone virtual."
+    traveling_merchant: "Trading virtual items and managing the logistics of virtual trades and transactions can be inherently difficult. Traveling Merchant was created to be the hub for any sales gone virtual.",
+    java_arm: "A from-scratch compiler built to support a subset of Java for ARM."
 }
 
 const NewHome = (props) => {
@@ -190,7 +196,10 @@ const ProjectModal = (props) => {
             <div ref={contentRef} className="snap-y scroll-smooth" style={{ overflowY: 'scroll', height: '100%' }} onScroll={handleScroll}>
                 { props.resume ? <Resume/> : <>
                     <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably1} onClick={() => handleOpen(<Sustainably/>)}/>
-                    <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant1} onClick={() => handleOpen(<TravelingMerchant/>)}/>
+                    <ProjectEntry description={descriptions.java_arm} height={height} active name="Java for ARM" src={javaarm1} onClick={() => handleOpen(<JavaARM/>)}/>
+                    <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={travelingMerchant2} onClick={() => handleOpen(<Sociable/>)}/>
+                    <ProjectEntry description={descriptions.sociable} height={height} active name="Traffic Deep RL" src={travelingMerchant2} onClick={() => handleOpen(<TrafficRL/>)}/>
+                    <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant/>)}/>
                     <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep/>)}/>
                     <ProjectEntry description={descriptions.communicode} height={height} date='3/18' name="Communicode" src={communicode1}  onClick={() => handleOpen(<Communicode/>)}/>
                     <ProjectEntryModal component={project} open={projectOpen}/>
@@ -215,7 +224,7 @@ const ProjectEntry = (props) => {
 
     return <div className="snap-center" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ position: 'relative', cursor: 'pointer', borderBottom: '1px solid black' }} onClick={props.onClick}>
         <div style={{ backgroundColor: `rgba(0,0,0,${isHovered ? '.5' : '.8'})`, height: '100%', width: '100%', zIndex: '100', position: 'absolute', transition: 'all 300ms ease' }}/>
-        <img src={props.src} style={{ width: '100%', height: props.height, objectFit: 'cover'}}/>
+        <img src={props.src} style={{ width: '100%', height: props.height, objectFit: 'cover', backgroundColor: 'white' }}/>
         <div style={{ position: 'absolute', bottom: '10px', left: '10px', zIndex: '101', color: 'white', overflow: 'hidden' }}>
             <p ref={containerRef} style={{ display: 'flex', position: 'relative' }}> 
                 {props.name} 

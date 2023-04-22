@@ -9,6 +9,7 @@ const Tag = styled.div`
     display: flex;
     color: black;
     margin-right: 8px; 
+    white-space: pre;
     font-size: 14px;
 `
 

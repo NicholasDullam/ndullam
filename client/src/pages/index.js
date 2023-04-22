@@ -12,6 +12,9 @@ import Script from "./Script"
 import Golf from './Golf'
 import GolfRoom from './GolfRoom'
 import NewHome from './NewHome'
+import JavaARM from './JavaARM'
+import Sociable from './Sociable'
+import TrafficRL from './TrafficRL'
 
 export { 
     Home,
@@ -27,5 +30,8 @@ export {
     Script,
     Golf,
     GolfRoom,
-    NewHome
+    NewHome,
+    JavaARM,
+    Sociable,
+    TrafficRL
 }

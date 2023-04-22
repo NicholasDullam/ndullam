@@ -1,7 +1,7 @@
 import React from 'react'
 import zookeep1 from '../images/Zookeep1.jpeg'
 import { FiLink } from 'react-icons/fi'
-import { Button, Tag } from '../components'
+import { Button, Tag, Social } from '../components'
 import { BsGithub } from 'react-icons/bs'
 
 const Zookeep = (props) => {
@@ -9,21 +9,18 @@ const Zookeep = (props) => {
         <div>
             <img src={zookeep1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
             <div className="p-8 pt-3">
-                <div className="mt-3 mb-2" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll' }}>
-                    <h1 className="text-4xl font-bold mb-0"> ZooKeep </h1>
-                    <div style={{ display: 'flex', marginLeft: 'auto' }}>
-                        <a href={'https://github.com/NicholasDullam/zookeep'} target={'_blank'} className="flex items-center transform rounded-3xl no-underline py-3 px-4 bg-black hover:text-black hover:bg-white hover:scale-110 shadow-md transition-all duration-300 m-1.5">
-                            <BsGithub style={{ marginRight: '8px' }}/>
-                            <p style={{ margin: '0px', textDecoration: 'none', highlight: 'none'  }}> Github </p>
-                        </a>
+                <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
+                    <h1 className="text-4xl font-bold mb-0"> Zookeep </h1>
+                    <div style={{ color: 'white', marginLeft: 'auto' }}>
+                        <Social name="Github" link='https://github.com/NicholasDullam/zookeep'/>
                     </div>
-                </div>
+                </div>   
                 <div className="flex mb-5 overflow-x-scroll">
-                    <Tag> Heroku </Tag>
-                    <Tag> MongoDB </Tag>
-                    <Tag> Node.js </Tag>
-                    <Tag> React.js </Tag>
-                    <Tag> Express.js </Tag>
+                    <Tag>Heroku</Tag>
+                    <Tag>MongoDB</Tag>
+                    <Tag>Node.js</Tag>
+                    <Tag>React.js</Tag>
+                    <Tag>Express.js</Tag>
                 </div>
                 <h6> An experimental project, seeking to test the integrations of information systems through an intuitive admin-level user experience </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
