@@ -51,7 +51,7 @@ const NewHome = (props) => {
     const history = useHistory()
 
     return (
-        <div style={{ backgroundColor: '#111', height: '100%', height: '-webkit-fill-available', overflow: 'hidden', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
+        <div style={{ backgroundColor: '#111', height: '100%', overflow: 'hidden', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
             <Loading/>
             {/* Hero */}
             <div ref={containerRef} style={{ height: '100%' }}>
@@ -180,7 +180,7 @@ const ProjectModal = (props) => {
                 </div>
                 <p> exit </p>
             </div>
-            <div style={{ position: 'absolute', bottom: '70px', right: '-13px', opacity: scroll ? '1' : '0', transform: 'rotate(-90deg)', color: 'white', zIndex: '1000', overflow: 'hidden', display: 'flex', alignItems: 'center',  padding: '4px 7px', borderRadius: '25px', cursor: 'pointer', transition: 'all 300ms ease', WebkitTransformOrigin: '50% 52%' }} onClick={handleExit}>
+            <div style={{ position: 'absolute', bottom: '70px', right: '-13px', opacity: scroll && !props.resume ? '1' : '0', transform: 'rotate(-90deg)', color: 'white', zIndex: '1000', overflow: 'hidden', display: 'flex', alignItems: 'center',  padding: '4px 7px', borderRadius: '25px', cursor: 'pointer', transition: 'all 300ms ease', WebkitTransformOrigin: '50% 52%' }} onClick={handleExit}>
                 <div style={{ width: '20px', height: '20px', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
                     <ArrowContainer>
                         <FiArrowUpRight style={{ transform: 'rotate(-135deg)', color: 'white' }}/>
@@ -223,7 +223,7 @@ const ProjectEntry = (props) => {
                 <FiArrowUpRight/>
                 <span style={{ width: isHovered ? 'calc(100%)' : '0px', borderBottom: '1px solid white', height: '1px', position: 'absolute', bottom: '0px', left: '0px', transition: 'all 300ms ease' }}/> 
             </p>
-            <div style={{ height: contentHeight, transition: 'all 300ms ease' }}>
+            <div style={{ height: contentHeight, maxHeight: props.height, transition: 'all 300ms ease' }}>
                 <p ref={contentRef} style={{ maxWidth: props.height, paddingTop: props.description?.length ? '10px' : '0px' }}>
                     { props.description }
                 </p> 
