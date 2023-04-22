@@ -40,11 +40,13 @@ const ArrowContainer = styled.div`
     }
 `
 const descriptions = {
-    zookeep: "An experimental project, seeking to test the integrations of information systems through an intuitive admin-level user experience",
-    communicode: "Communicode connects developers with non-profits in need. I lead the backend integrations, ensuring the development of a product that connected our two diverse audiences.",
-    sustainably: "Acting as a real-time weight loss servicer, Sustainably supports meal plan generation, coaching, tracking, recalibration, etc; while helping people make long-lasting fitness transformations.",
-    traveling_merchant: "Trading virtual items and managing the logistics of virtual trades and transactions can be inherently difficult. Traveling Merchant was created to be the hub for any sales gone virtual.",
-    java_arm: "A from-scratch compiler built to support a subset of Java for ARM."
+    zookeep: "An experimental project, seeking to test the integrations of information systems through an admin-level user experience",
+    communicode: "A startup with an aim of connecting developers with non-profits in need.",
+    sustainably: "A wellness-driven startup with an aim to help those on their fitness journey.",
+    traveling_merchant: "A hub for any sales gone virtual.",
+    java_arm: "A from-scratch compiler built to support a subset of Java for ARM.",
+    sociable: "A platform for students to explore what's active on their campus.",
+    traffic_rl: "A project aimed at optimizing traffic-light patterns for improved realistic throughput of intersections."
 }
 
 const NewHome = (props) => {
@@ -96,7 +98,7 @@ const NavElement = (props) => {
     const [isHovered, setIsHovered] = useState(false)
 
     return (
-        <div {...props} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ cursor: 'pointer', color: '#888' }}>
+        <div {...props} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ cursor: 'pointer', color: '#CCC' }}>
             <div style={{ display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'left',  borderRadius: '25px', transition: 'all 300ms ease', color: isHovered ? 'white' : '' }}>
                 <div style={{ height: '0px', width: isHovered ? '50px' : '20px', borderBottom: '1px solid', transition: 'all 300ms ease' }}/>
                 <p>{props.label}</p>
@@ -175,7 +177,7 @@ const ProjectModal = (props) => {
 
 
     return <div>
-        <div onClick={handleClose} style={{ height: '100%', width: '100%', position: 'relative', backgroundColor: `rgba(0,0,0,${props.open ? '0.7' : '0'})`, visibility: open ? 'visible' : 'hidden', position: 'fixed', top: '0px', left: '0px', transition: 'all 300ms ease' }}/>
+        <div onClick={handleClose} style={{ height: '100%', width: '100%', position: 'relative', backgroundColor: `rgba(0,0,0,${props.open ? '0.5' : '0'})`, visibility: open ? 'visible' : 'hidden', position: 'fixed', top: '0px', left: '0px', transition: 'all 300ms ease' }}/>
         <div style={{ position: 'fixed', overflow: 'hidden', right: '0px', top: '0px', height: '100%', width: '800px', maxWidth: '100%', backgroundColor: 'black', transform: ! props.open ? 'translateX(100%)' : null, transition: 'all 300ms ease' }}>
             <div style={{ position: 'absolute', top: '10px', left: '10px', color: 'white', zIndex: '3000', overflow: 'hidden', display: 'flex', alignItems: 'center', backgroundColor: '#000', padding: '4px 7px', borderRadius: '25px', cursor: 'pointer' }} onClick={handleExit}>
                 <div style={{ width: '20px', height: '20px', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
@@ -198,7 +200,7 @@ const ProjectModal = (props) => {
                     <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably1} onClick={() => handleOpen(<Sustainably/>)}/>
                     <ProjectEntry description={descriptions.java_arm} height={height} active name="Java for ARM" src={javaarm1} onClick={() => handleOpen(<JavaARM/>)}/>
                     <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={travelingMerchant2} onClick={() => handleOpen(<Sociable/>)}/>
-                    <ProjectEntry description={descriptions.sociable} height={height} active name="Traffic Deep RL" src={travelingMerchant2} onClick={() => handleOpen(<TrafficRL/>)}/>
+                    <ProjectEntry description={descriptions.traffic_rl} height={height} active name="Traffic Deep RL" src={travelingMerchant2} onClick={() => handleOpen(<TrafficRL/>)}/>
                     <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant/>)}/>
                     <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep/>)}/>
                     <ProjectEntry description={descriptions.communicode} height={height} date='3/18' name="Communicode" src={communicode1}  onClick={() => handleOpen(<Communicode/>)}/>
@@ -238,7 +240,7 @@ const ProjectEntry = (props) => {
             </div>   
         </div>
         <div className="flex items-center transition-all duration-300" style={{ position: 'absolute', bottom: '10px', right: '10px', zIndex: '101', display: 'flex', alignItems: 'center', gap: '10px', color: 'white' }}>
-            <p> { props.active ? 'Active' : props.date } </p>
+            <p> { props.active ? 'Active' : '' } </p>
             { props.active ? <div style={{ position: 'relative' }}>
                 <div style={{ height: '10px', width: '10px', borderRadius: '50%' }} className={`bg-green-400`}/>
                 <div style={{ height: '10px', width: '10px', borderRadius: '50%', position: 'absolute', top: '0px', left: '0px' }} className={`bg-green-400 animate-ping`}/>
@@ -248,8 +250,14 @@ const ProjectEntry = (props) => {
 }
 
 const ProjectEntryModal = (props) => {
-    return <div style={{ position: 'fixed', zIndex: '2000', overflowY: 'scroll', overflowX: 'hidden', right: '0px', top: '0px', height: '100%', width: '800px', maxWidth: '100%', backgroundColor: 'black', transform: ! props.open ? 'translateX(100%)' : null, transition: 'all 300ms ease' }}>
-        {props.component}
+    const contentRef = useRef()
+
+    useEffect(() => {
+        contentRef.current.scrollTop = 0
+    }, [props.open])
+
+    return <div ref={contentRef} className="scroll-smooth" style={{ position: 'fixed', zIndex: '2000', overflowY: 'scroll', overflowX: 'hidden', right: '0px', top: '0px', height: '100%', width: '800px', maxWidth: '100%', backgroundColor: 'black', transform: ! props.open ? 'translateX(100%)' : null, transition: 'all 300ms ease' }}>
+        { props.component }
         {/* <h3 className="text-xl font-bold mt-5 mb-2 p-8"> Similar Projects </h3> */}
         {/* <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably1} onClick={() => handleOpen(<Sustainably/>)}/>
         <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant1} onClick={() => handleOpen(<TravelingMerchant/>)}/>

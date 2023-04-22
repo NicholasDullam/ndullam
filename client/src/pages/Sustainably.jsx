@@ -23,7 +23,7 @@ const Sustainably = (props) => {
                     <Tag>Express.js</Tag>
                     <Tag>Stripe</Tag>
                 </div>
-                <h6 className="mt-5"> Acting as a real-time weight loss servicer, Sustainably supports meal plan generation, coaching, tracking, recalibration, etc; while helping people make long-lasting fitness transformations. </h6>
+                <h6 className="mt-5"> A wellness-driven startup with an aim to help those on their fitness journey. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
                 Sustainably is a SaaS web app geared towards helping clients lose weight. It served as the expansion of my client's personal training business (Justin Bauer Fitness) into a more affordable and scalable method of getting people to reach their fitness goal. 
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Development Lead </span> </h3>

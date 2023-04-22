@@ -18,7 +18,7 @@ const Communicode = (props) => {
                     <Tag> React.js </Tag>
                     <Tag> Express.js </Tag>
                 </div>
-                <h6 className="mt-5"> Communicode connects developers with non-profits in need. I led the backend integrations, ensuring the development of a product that connected our two diverse audiences. </h6>
+                <h6 className="mt-5"> A startup with an aim of connecting developers with non-profits in need. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
                 <p> Communicode was a start-up project that used machine learning to connect developers and designers with non-profit organizations in need of a digital update. Designers and developers would be matched with non-profit organizations based on their interests and skills, or they could browse projects posted by non-profits. </p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Vice President of Engineering </span> </h3>

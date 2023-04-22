@@ -8,7 +8,7 @@ const TrafficRL = (props) => {
             <img src={Communicode1} className="w-full h-[200px] object-cover"/>
             <div className="p-8 pt-3">
                 <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
-                    <h1 className="text-4xl font-bold mb-0"> Traffic RL </h1>
+                    <h1 className="text-4xl font-bold mb-0"> Traffic Deep RL </h1>
                 </div>                
                 <div className="flex mb-5 overflow-x-scroll">
                     <Tag>Python</Tag>
@@ -17,7 +17,7 @@ const TrafficRL = (props) => {
                     <Tag>Sumo</Tag>
                     <Tag>SumoRL</Tag>
                 </div>
-                <h6 className="mt-5"> Communicode connects developers with non-profits in need. I lead the backend integrations, ensuring the development of a product that connected our two diverse audiences. </h6>
+                <h6 className="mt-5"> A project aimed at optimizing traffic-light patterns for improved realistic throughput of intersections. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
                 <p> Communicode was a start-up project that used machine learning to connect developers and designers with non-profit organizations in need of a digital update. Designers and developers would be matched with non-profit organizations based on their interests and skills, or they could browse projects posted by non-profits. </p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Member </span> </h3>

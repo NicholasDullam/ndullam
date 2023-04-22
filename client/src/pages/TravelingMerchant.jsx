@@ -16,18 +16,18 @@ const TravelingMerchant = (props) => {
                     </div>
                 </div>      
                 <div className="flex mb-5 overflow-x-scroll">
-                    <Tag> Heroku </Tag>
-                    <Tag> MongoDB </Tag>
-                    <Tag> Node.js </Tag>
-                    <Tag> React.js </Tag>
-                    <Tag> Express.js </Tag>
-                    <Tag> Socket.io </Tag>
+                    <Tag>Heroku</Tag>
+                    <Tag>MongoDB</Tag>
+                    <Tag>Node.js</Tag>
+                    <Tag>React.js</Tag>
+                    <Tag>Express.js</Tag>
+                    <Tag>Socket.io</Tag>
                 </div>
-                <h6> Trading virtual items and managing the logistics of virtual trades and transactions can be inherently difficult. Traveling Merchant was created to be the hub for any sales gone virtual. </h6>
+                <h6> A hub for any sales gone virtual. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
                 <p> Traveling Merchant is an online marketplace focused on the sale and logistics assosciated with virtual trades and services. It was a project started on the basis of my former roommates experiences when starting his own online business; dealing with eBay, game developers, and third-party processing, I sought to solve his problems for him. The project evolved when I was given the opportunity to lead a team through CS 307 (Software Engineering I) at Purdue. Being a semester long project, I also used the project as the basis for startup analysis in ENTR 310 (Marketing for Small Ventures).</p> 
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Development Lead </span> </h3>
-                <p>Working on Traveling Merchant I've served as the Development Lead, managing a team of three developers under SCRUM and Agile principles. While performing code reviews, managing pull requests and committing head-on, I lead the project in it's technical entirety.</p>
+                <p>Working on Traveling Merchant I've served as the Development Lead, managing a team of three other developers under SCRUM and Agile principles. While performing code reviews, managing pull requests and committing head-on, I lead the project in it's technical entirety.</p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating a Marketplace </h3>
                 <p>By aiming to development a powerful online marketplace, traditionally two audiences are sought out with different user experiences; however, we looked to change that. When developing Traveling Merchant, we took the marketplace concept to the next level, integrating the buyer and seller experiences with variable commissions based on user level (affected by total site spending/earnings), and creating responsive messaging and notifications right out of the box.</p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Key Takeaways </h3>

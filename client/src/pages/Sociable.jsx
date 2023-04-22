@@ -22,15 +22,15 @@ const Sociable = (props) => {
                     <Tag>Socket.io</Tag>
                     <Tag>Azure</Tag>
                 </div>
-                <h6 className="mt-5"> Communicode connects developers with non-profits in need. I lead the backend integrations, ensuring the development of a product that connected our two diverse audiences. </h6>
+                <h6 className="mt-5"> A platform for students to explore what's active on their campus. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
-                <p> Communicode was a start-up project that used machine learning to connect developers and designers with non-profit organizations in need of a digital update. Designers and developers would be matched with non-profit organizations based on their interests and skills, or they could browse projects posted by non-profits. </p>
+                <p> College education can often be overwhelming and stressful with assignments and exams, amongst other tedious life situations. Social events allow for healthy releases of this stress and anxiety; however, it can be difficult to find these events since invitations are normally spread by word-of-mouth. sociable is designed to make taking a break from the stressful settings of college easier for Purdue students by being a unique central platform for popular social events taking place on and around Purdue’s campus. By allowing students to create and join these events individually or on the behalf of their organizations, sociable brings to the market a new, easy way for students to stay involved and socialize.  </p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Scrum Master </span> </h3>
-                At Communicode, I served as the Vice President of Engineering; overseeing integrations, server architectures, and ensuring the continuity of the backend development process as we expanded to an LLC. 
-                <h3 className="text-xl font-bold mt-5 mb-2"> Creating <i>sociable</i> </h3>
-                <p> One of my major feats at Communicode was the development of a backend matching algorithm; namely, <i>Shapiro</i>. <i>Shapiro</i> was an algorithm, written in python, based upon the principles of k-nearest neighbors clustering with adaptions driven towards optimizing our user experience. </p>
+                <p> Working on Traveling Merchant I served as the Scrum Master for the latter sprint of the project, working with a team of four other developers under SCRUM and Agile principles. We worked together to manage code reviews, pull requests, and hold our weekly standups for any notable changes made.</p>
+                <h3 className="text-xl font-bold mt-5 mb-2"> Creating a Social Network </h3>
+                <p> When working on what would prove to hold the fundamentals of a social network, we focused on two main points -- ease of scalability, and ease of access. For all schema under the project, we would held the first question on what could be expected of the collection under scale, and took our initial iterations from there. It was important to ensure that the platform had minimal hiccups, and could push the growth of the content, connections, and the baseline userbase -- all things that can grow disproportionately. While schema were an important aspect of scaling, or next step was infrastructure. While we didn't aim to deploy in excess, we planned around the use of Redis, and a reverse proxy, allowing for independent scaling of compute for content distribution (given our live features of the platform). </p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Key Takeaways </h3>
-                <p> Working at Communicode was one of my first real-world application of what I've learned throughout my life programming. I had never been exposed to web development, nor an outside work environment before this point. What I learned here pushed me into where I am today, studying Computer Science, Data Science, and Applied Statistics at Purdue. </p>
+                <p> Working on a native-first project was a new challenge for our group -- but by falling into eachothers strength, whether it be frontend, backend, or fullstack, we met our "MVP" effectively. </p>
             </div>
         </div>
     )
