@@ -2,10 +2,12 @@ import React from 'react'
 import Communicode1 from '../images/communicode1.jpeg'
 import { Tag, Social } from '../components'
 
+import sociable1 from '../images/sociable1.jpg'
+
 const Sociable = (props) => {
     return (
         <div>
-            <img src={Communicode1} className="w-full h-[200px] object-cover"/>
+            <img src={sociable1} className="w-full h-[200px] object-cover"/>
             <div className="p-8 pt-3">
                 <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> sociable </h1>

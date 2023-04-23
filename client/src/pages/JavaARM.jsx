@@ -26,7 +26,7 @@ const JavaARM = (props) => {
                 <h3 className="text-xl font-bold mt-5 mb-2"> Subset </h3>
                 As noted prior, my compiler only supports a specified subset of modern Java. The extended BNF grammar rules can be found at the link below.
                 <div style={{ color: 'white', marginTop: '20px', display: 'flex' }}>
-                    <Social name="Link" link={subset}/>
+                    <Social name="Grammar" link={subset}/>
                 </div>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating a Compiler </h3>
                 <p> While the general approach to building a compiler follows the steps of syntax, typechecking, codegen, and optimization, I took a few different with each step. Syntax-checking came in the form of first, top-down parsing with just Lex, followed by an implementation of bottom-up parsing with the use of Lex and Yacc. This approach was taken to get an underlying understanding of parsing before using a tool like Yacc. Next, with typechecking, I incorporated grammar semantics with my previously defined grammar, building an abstract syntax tree (AST) that supporting scope and symbol table entries. Finally, for the timebeing, came code generation, where I took a two-step approach of using 3AC instructions in the first pass of the AST, finally parsing to ARM assembly with the allocation of stack offsets and registers. Currently, I'm focusing on scalability of code generation with changes in instruction sets, alongside register and stack optimizations.  </p>

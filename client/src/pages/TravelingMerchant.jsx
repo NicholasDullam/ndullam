@@ -1,13 +1,13 @@
 import React from 'react'
 import { FiLink } from 'react-icons/fi'
 import { BsGithub } from 'react-icons/bs'
-import travelingMerchant1 from '../images/TravelingMerchant1.png'
+import travelingMerchant2 from '../images/travelingmerchant2.png'
 import { Button, Tag, Social } from '../components'
 
 const TravelingMerchant = (props) => {
     return (
         <div>
-            <img src={travelingMerchant1} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
+            <img src={travelingMerchant2} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
             <div className="p-8 pt-3">
                 <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> Traveling Merchant </h1>

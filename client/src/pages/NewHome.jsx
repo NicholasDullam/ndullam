@@ -11,12 +11,12 @@ import Sociable from "./Sociable"
 import TrafficRL from "./TrafficRL"
 
 import communicode1 from '../images/communicode1.jpeg'
-import sustainably1 from '../images/Sustainably1.png'
-import travelingMerchant1 from '../images/TravelingMerchant1.png'
+import sustainably2 from '../images/sustainably2.png'
 import travelingMerchant2 from '../images/travelingmerchant2.png'
 import trafficrl1 from '../images/trafficrl1.png'
 import zookeep1 from '../images/Zookeep1.jpeg'
 import javaarm1 from '../images/javaarm1.png'
+import sociable1 from '../images/sociable1.jpg'
 
 import Resume from "./Resume"
 import { useHistory } from "react-router"
@@ -199,9 +199,9 @@ const ProjectModal = (props) => {
             </div>
             <div ref={contentRef} className="snap-y scroll-smooth" style={{ overflowY: 'scroll', height: '100%' }} onScroll={handleScroll}>
                 { props.resume ? <Resume/> : <>
-                    <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably1} onClick={() => handleOpen(<Sustainably/>)}/>
+                    <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably2} onClick={() => handleOpen(<Sustainably/>)}/>
                     <ProjectEntry description={descriptions.java_arm} height={height} active name="Java for ARM" src={javaarm1} onClick={() => handleOpen(<JavaARM/>)}/>
-                    <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={travelingMerchant2} onClick={() => handleOpen(<Sociable/>)}/>
+                    <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={sociable1} onClick={() => handleOpen(<Sociable/>)}/>
                     <ProjectEntry description={descriptions.traffic_rl} height={height} active name="Traffic Deep RL" src={trafficrl1} onClick={() => handleOpen(<TrafficRL/>)}/>
                     <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant/>)}/>
                     <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep/>)}/>
