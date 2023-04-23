@@ -17,6 +17,7 @@ import trafficrl1 from '../images/trafficrl1.png'
 import zookeep1 from '../images/Zookeep1.jpeg'
 import javaarm1 from '../images/javaarm1.png'
 import sociable1 from '../images/sociable1.jpg'
+import resume from '../images/resume.pdf'
 
 import Resume from "./Resume"
 import { useHistory } from "react-router"
@@ -78,11 +79,10 @@ const NewHome = (props) => {
                         </div>
                         {/* Nav */}
                         <div>
-                            <NavElement label={'Resume'} onClick={() => {
-                                setProjectsOpen(!projectsOpen)
-                                setIsResume(true)
-                            }}/>
                             <NavElement label={'Projects'} onClick={() => setProjectsOpen(!projectsOpen)}/>
+                            <a target='_blank' href={resume}>
+                                <NavElement label={'Resume'}/>
+                            </a>
                             <NavElement label={'Sandbox'} onClick={() => history.push('/sandbox')}/>
                         </div>
                     </div>
