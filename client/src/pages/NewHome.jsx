@@ -14,6 +14,7 @@ import communicode1 from '../images/communicode1.jpeg'
 import sustainably1 from '../images/Sustainably1.png'
 import travelingMerchant1 from '../images/TravelingMerchant1.png'
 import travelingMerchant2 from '../images/travelingmerchant2.png'
+import trafficrl1 from '../images/trafficrl1.png'
 import zookeep1 from '../images/Zookeep1.jpeg'
 import javaarm1 from '../images/javaarm1.png'
 
@@ -46,7 +47,8 @@ const descriptions = {
     traveling_merchant: "A hub for any sales gone virtual.",
     java_arm: "A from-scratch compiler built to support a subset of Java for ARM.",
     sociable: "A platform for students to explore what's active on their campus.",
-    traffic_rl: "A project aimed at optimizing traffic-light patterns for improved realistic throughput of intersections."
+    traffic_rl: "A project aimed at optimizing traffic-light patterns for improved realistic throughput of intersections.",
+    tbc: "Actively updating my site to include archived projects such as a custom shell and MIDI controller. Both can be found on my github :)"
 }
 
 const NewHome = (props) => {
@@ -64,7 +66,7 @@ const NewHome = (props) => {
             <div ref={containerRef} style={{ height: '100dvh' }}>
                 <Wave scale={10} containerRef={containerRef}/>
                 {/* Name banner */}
-                <div style={{ padding: '4px 12px 8px 12px', position: 'absolute', bottom: '0px', width: '100%', backgroundColor: '#111'}}>
+                <div style={{ padding: '7px 12px', position: 'absolute', bottom: '0px', width: '100%', backgroundColor: '#111'}}>
                     <h4 style={{ fontSize: '20px', marginBottom: '-5px' }}> Nicholas Dullam </h4>
                     <h4 style={{ fontSize: '16px', color: '#666', marginBottom: '3px' }}> Development Lead </h4>
                     <div style={{ display: 'flex', gap: '8px' }}>
@@ -200,10 +202,11 @@ const ProjectModal = (props) => {
                     <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably1} onClick={() => handleOpen(<Sustainably/>)}/>
                     <ProjectEntry description={descriptions.java_arm} height={height} active name="Java for ARM" src={javaarm1} onClick={() => handleOpen(<JavaARM/>)}/>
                     <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={travelingMerchant2} onClick={() => handleOpen(<Sociable/>)}/>
-                    <ProjectEntry description={descriptions.traffic_rl} height={height} active name="Traffic Deep RL" src={travelingMerchant2} onClick={() => handleOpen(<TrafficRL/>)}/>
+                    <ProjectEntry description={descriptions.traffic_rl} height={height} active name="Traffic Deep RL" src={trafficrl1} onClick={() => handleOpen(<TrafficRL/>)}/>
                     <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant/>)}/>
                     <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep/>)}/>
                     <ProjectEntry description={descriptions.communicode} height={height} date='3/18' name="Communicode" src={communicode1}  onClick={() => handleOpen(<Communicode/>)}/>
+                    <ProjectEntry description={descriptions.tbc} height={height} date='3/18' name="Under Construction™"/>
                     <ProjectEntryModal component={project} open={projectOpen}/>
                 </> }
             </div>
@@ -226,7 +229,7 @@ const ProjectEntry = (props) => {
 
     return <div className="snap-center" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ position: 'relative', cursor: 'pointer', borderBottom: '1px solid black' }} onClick={props.onClick}>
         <div style={{ backgroundColor: `rgba(0,0,0,${isHovered ? '.5' : '.8'})`, height: '100%', width: '100%', zIndex: '100', position: 'absolute', transition: 'all 300ms ease' }}/>
-        <img src={props.src} style={{ width: '100%', height: props.height, objectFit: 'cover', backgroundColor: 'white' }}/>
+        <img onError={(e) => e.target.element.display = 'none'} src={props.src} style={{ width: '100%', height: props.height, objectFit: 'cover' }}/>
         <div style={{ position: 'absolute', bottom: '10px', left: '10px', zIndex: '101', color: 'white', overflow: 'hidden' }}>
             <p ref={containerRef} style={{ display: 'flex', position: 'relative' }}> 
                 {props.name} 

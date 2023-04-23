@@ -1,11 +1,11 @@
 import React from 'react'
-import Communicode1 from '../images/communicode1.jpeg'
+import trafficrl1 from '../images/trafficrl1.png'
 import { Social, Tag } from '../components'
 
 const TrafficRL = (props) => {
     return (
         <div>
-            <img src={Communicode1} className="w-full h-[200px] object-cover"/>
+            <img src={trafficrl1} className="w-full h-[200px] object-cover"/>
             <div className="p-8 pt-3">
                 <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> Traffic Deep RL </h1>
