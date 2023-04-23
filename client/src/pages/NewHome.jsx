@@ -206,7 +206,7 @@ const ProjectModal = (props) => {
                     <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant/>)}/>
                     <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep/>)}/>
                     <ProjectEntry description={descriptions.communicode} height={height} date='3/18' name="Communicode" src={communicode1}  onClick={() => handleOpen(<Communicode/>)}/>
-                    <ProjectEntry description={descriptions.tbc} height={height} date='3/18' name="Under Construction™"/>
+                    <ProjectEntry mobileHover description={descriptions.tbc} height={height} date='3/18' name="Under Construction™"/>
                     <ProjectEntryModal component={project} open={projectOpen}/>
                 </> }
             </div>
@@ -221,13 +221,19 @@ const ProjectEntry = (props) => {
     const containerRef = useRef()
     const contentRef = useRef()
 
+    const hasTouch = () => {
+        return 'ontouchstart' in document.documentElement
+               || navigator.maxTouchPoints > 0
+               || navigator.msMaxTouchPoints > 0;
+    }
+
     useEffect(() => {
         const dimensions = contentRef.current.getBoundingClientRect()
         if (isHovered) setContentHeight(dimensions.height)
         else setContentHeight(0)
     }, [isHovered])
 
-    return <div className="snap-center" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ position: 'relative', cursor: 'pointer', borderBottom: '1px solid black' }} onClick={props.onClick}>
+    return <div className="snap-center" onMouseEnter={() => setIsHovered(hasTouch() && !props.mobileHover ? false : true)} onMouseLeave={() => setIsHovered(false)} style={{ position: 'relative', cursor: 'pointer', borderBottom: '1px solid black' }} onClick={props.onClick}>
         <div style={{ backgroundColor: `rgba(0,0,0,${isHovered ? '.5' : '.8'})`, height: '100%', width: '100%', zIndex: '100', position: 'absolute', transition: 'all 300ms ease' }}/>
         <img onError={(e) => e.target.element.display = 'none'} src={props.src} style={{ width: '100%', height: props.height, objectFit: 'cover' }}/>
         <div style={{ position: 'absolute', bottom: '10px', left: '10px', zIndex: '101', color: 'white', overflow: 'hidden' }}>

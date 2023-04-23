@@ -9,14 +9,14 @@ const Communicode = (props) => {
             <div className="p-8 pt-3">
                 <h1 className="text-4xl font-bold my-5"> Communicode </h1>
                 <div className="flex mb-5 overflow-x-scroll">
-                    <Tag> Python </Tag>
-                    <Tag> Numpy </Tag>
-                    <Tag> GCP </Tag>
-                    <Tag> MongoDB </Tag>
-                    <Tag> Redis </Tag>
-                    <Tag> Node.js </Tag>
-                    <Tag> React.js </Tag>
-                    <Tag> Express.js </Tag>
+                    <Tag>Python</Tag>
+                    <Tag>Numpy</Tag>
+                    <Tag>GCP</Tag>
+                    <Tag>MongoDB</Tag>
+                    <Tag>Redis</Tag>
+                    <Tag>Node.js</Tag>
+                    <Tag>React.js</Tag>
+                    <Tag>Express.js</Tag>
                 </div>
                 <h6 className="mt-5"> A startup with an aim of connecting developers with non-profits in need. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
