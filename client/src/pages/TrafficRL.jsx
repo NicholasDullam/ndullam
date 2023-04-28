@@ -11,9 +11,6 @@ const TrafficRL = (props) => {
             <div className="p-8 pt-3">
                 <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> Traffic Deep RL </h1>
-                    <div style={{ color: 'white', marginLeft: 'auto' }}>
-                        <Social name="Request" link="mailto:npdullam@gmail.com"/>
-                    </div>
                 </div>                
                 <div className="flex mb-5 overflow-x-scroll">
                     <Tag>Python</Tag>
