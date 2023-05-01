@@ -1,0 +1,1 @@
+{"code":"class Testing {\n    public static void main(String[] args) {\n        System.out.println(\"Hello World\");\n        int a = 4;\n        int b = a;\n        int a = 4 + b;\n    }\n}"}

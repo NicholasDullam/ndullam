@@ -20,6 +20,7 @@ const testing = `class Testing {
 const JavaARM = (props) => {
     const [code, setCode] = useState(testing)
     const [output, setOutput] = useState('')
+    const [responseTime, setResponseTime] = useState('')
     const [loading, setLoading] = useState(false)
     const [height, setHeight] = useState(0)
 
@@ -29,7 +30,6 @@ const JavaARM = (props) => {
     useEffect(() => {
         if (!contentRef.current) return
         const dimensions = contentRef.current.getBoundingClientRect()
-        console.log(dimensions)
         setHeight(dimensions.height)
     }, [output])
 
@@ -48,10 +48,12 @@ const JavaARM = (props) => {
             }
         }, { code }).then((response) => {
             setOutput(response.data.response)
+            setResponseTime(`${response.data.time}ms`)
         }).catch((error) => {
             setOutput(error.response.data.error)
+            setResponseTime('')
         }).finally(() => {
-            loadingRef.current = setTimeout(() => setLoading(false), 2000)
+            loadingRef.current = setTimeout(() => setLoading(false), 300)
         })
     }
 
@@ -102,9 +104,9 @@ const JavaARM = (props) => {
                         <div ref={contentRef}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <b>Output</b> 
-                                { loading ? <div style={{ marginLeft: 'auto' }}>
-                                    <LoadingIcon size={5}/>
-                                </div> : null }
+                                <div style={{ marginLeft: 'auto' }}>
+                                    { loading ? <LoadingIcon size={5}/> : responseTime }
+                                </div>
                             </div>
                             <p style={{ whiteSpace: 'pre-wrap'}}><div dangerouslySetInnerHTML={{ __html: highlight(output.trimEnd(), languages.armasm) }}></div></p>                 
                         </div>

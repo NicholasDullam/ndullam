@@ -12,11 +12,12 @@ const compileCompiler = () => new Promise((success, failure) => {
 })
 
 const compileJava = async (dir) => new Promise((success, failure) => {
+    const baseline = Date.now()
     return exec(`./codegen ${dir}`, {
         cwd: path.join(__dirname, '..', 'compiler')
     }, (error, stdout, stderr) => {
         if (error) return failure(stderr.toString())
-        return success(stdout.toString())
+        return success({ response: stdout.toString(), time: Date.now() - baseline })
     })
 })
 
@@ -29,12 +30,11 @@ const compileCode = async (req, res) => {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir)
         fs.writeFileSync(file, req.body.code)
         fs.writeFileSync(path.join(dir, 'data.json'), JSON.stringify(req.body))
-        await compileJava(file)
+        const compile = await compileJava(file)
         const response = fs.readFileSync(path.join(dir, 'expr.s'))
         fs.rmSync(dir, { recursive: true, force: true });
-        return res.status(200).json({ response: response.toString() })
+        return res.status(200).json({ response: response.toString(), time: compile.time })
     } catch (error) {
-        console.log(error)
         return res.status(400).json({ error: error.message || error })
     }
 }
