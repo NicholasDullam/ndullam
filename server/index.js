@@ -8,44 +8,47 @@ const path = require('path')
 const app = express()
 const server = http.createServer(app)
 const enforce = require('express-sslify')
+const { compileCompiler } = require('./controllers/javaARMController')
 
 require('dotenv').config()
 require('./db')
 require('./socket')(server)
 
-// Cookie Plugin
-app.use(enforce.HTTPS({ trustProtoHeader: true }))
-app.use(cookieParser())
+// Compile Java for ARM
+compileCompiler().catch(() => console.log('Failed to compile Java for ARM'))
 
 // JSON parsing and text compression
 app.use(express.json())
 app.use(compression())
 
-// Route Declarations
-const authRouter = require('./routes/authRouter')
-const currencyRouter = require('./routes/currencyRouter')
-const userRouter = require('./routes/userRouter')
-const paymentRouter = require('./routes/paymentRouter')
-const friendRouter = require('./routes/friendRouter')
-const scriptRouter = require('./routes/scriptRouter')
-
 // CORS Policy
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' ? process.env.ORIGIN || '*' : 'http://localhost:3000' || '*',
-    credentials: true,
+    methods: ['POST', 'GET'],
     optionsSuccessStatus: 200
 }))
 
-app.use('/api', authRouter)
-app.use('/api', currencyRouter),
-app.use('/api', userRouter)
-app.use('/api', paymentRouter)
-app.use('/api', friendRouter)
-app.use('/api', scriptRouter)
+// Cookie Plugin
+app.use(cookieParser())
+
+// Route Declarations
+// const authRouter = require('./routes/authRouter')
+// const currencyRouter = require('./routes/currencyRouter')
+// const userRouter = require('./routes/userRouter')
+// const paymentRouter = require('./routes/paymentRouter')
+// const friendRouter = require('./routes/friendRouter')
+
+// app.use('/api', authRouter)
+// app.use('/api', currencyRouter),
+// app.use('/api', userRouter)
+// app.use('/api', paymentRouter)
+// app.use('/api', friendRouter)
+app.use('/api', require('./routes/scriptRouter'))
+app.use('/api', require('./routes/javaARMRouter'))
 
 // Client Production Hosting
-app.use(express.static('../client/build'))
 if (process.env.NODE_ENV === 'production') {
+    app.use(enforce.HTTPS({ trustProtoHeader: true }))
     app.use(express.static('../client/build'));
     app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));

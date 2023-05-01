@@ -1,10 +1,60 @@
-import React from 'react'
-import Communicode1 from '../images/communicode1.jpeg'
-import { Social, Tag } from '../components'
+import { useEffect, useRef, useState } from 'react'
+import { LoadingIcon, Social, Tag } from '../components'
 import subset from '../images/java_subset.txt'
 import javaarm1 from '../images/javaarm1.png'
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-armasm';
+import 'prismjs/themes/prism-twilight.css';
+import { BsPlay } from 'react-icons/bs';
+import { compileCode } from '../api';
+
+const testing = `class Testing {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}`
 
 const JavaARM = (props) => {
+    const [code, setCode] = useState(testing)
+    const [output, setOutput] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [height, setHeight] = useState(0)
+
+    const loadingRef = useRef()
+    const contentRef = useRef()
+
+    useEffect(() => {
+        if (!contentRef.current) return
+        const dimensions = contentRef.current.getBoundingClientRect()
+        console.log(dimensions)
+        setHeight(dimensions.height)
+    }, [output])
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(loadingRef.current)
+        }
+    }, [])
+
+    const handleRun = () => {
+        clearTimeout(loadingRef.current)
+        setLoading(true)
+        compileCode({
+            headers: {
+                "content-type": 'application/json'
+            }
+        }, { code }).then((response) => {
+            setOutput(response.data.response)
+        }).catch((error) => {
+            setOutput(error.response.data.error)
+        }).finally(() => {
+            loadingRef.current = setTimeout(() => setLoading(false), 2000)
+        })
+    }
+
     return (
         <div>
             <img src={javaarm1} className="w-full h-[200px] object-cover"/>
@@ -30,6 +80,37 @@ const JavaARM = (props) => {
                 </div>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating a Compiler </h3>
                 <p> While the general approach to building a compiler follows the steps of syntax, typechecking, codegen, and optimization, I took a few different with each step. Syntax-checking came in the form of first, top-down parsing with just Lex, followed by an implementation of bottom-up parsing with the use of Lex and Yacc. This approach was taken to get an underlying understanding of parsing before using a tool like Yacc. Next, with typechecking, I incorporated grammar semantics with my previously defined grammar, building an abstract syntax tree (AST) that supporting scope and symbol table entries. Finally, for the timebeing, came code generation, where I took a two-step approach of using 3AC instructions in the first pass of the AST, finally parsing to ARM assembly with the allocation of stack offsets and registers. Currently, I'm focusing on scalability of code generation with changes in instruction sets, alongside register and stack optimizations.  </p>
+                <div style={{ position: 'relative' }}>
+                    <Editor
+                        value={code}
+                        onValueChange={setCode}
+                        highlight={code => highlight(code, languages.java)}
+                        padding={10}
+                        tabSize={4}
+                        style={{
+                            padding: '0px',
+                            border: '1px solid #111',
+                            borderRadius: '15px',
+                            marginTop: '20px',
+                            backgroundColor: 'black',
+                            '&:hover' : { outline: 'none' },
+                            outline: 'none',
+                            boxShadow: 'none'
+                        }}
+                    />
+                    <div style={{ position: 'relative', zIndex: '-1', backgroundColor: 'black', width: '100%', border: '1px solid #111', borderRadius: '0px 0px 15px 15px', padding: '10px', paddingTop: '20px', marginTop: '-14px', outline: 'none', height: height + 30, transition: 'all 300ms ease', overflow: 'hidden' }}> 
+                        <div ref={contentRef}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <b>Output</b> 
+                                { loading ? <div style={{ marginLeft: 'auto' }}>
+                                    <LoadingIcon size={5}/>
+                                </div> : null }
+                            </div>
+                            <p style={{ whiteSpace: 'pre-wrap'}}><div dangerouslySetInnerHTML={{ __html: highlight(output.trimEnd(), languages.armasm) }}></div></p>                 
+                        </div>
+                    </div>
+                    <p onClick={handleRun} style={{ position: 'absolute', top: '10px', right: '15px', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}> <BsPlay/> Run </p>
+                </div>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Key Takeaways </h3>
                 <p> This easily became one of my proudest projects I've worked on. Rather than taking an abstracted view of processes behind modern languages, the project used low-level approaches to solve to the problems at hand -- further reenforcing my interest in gathering a deeper understanding of existing problems and their solutions. </p>
             </div>

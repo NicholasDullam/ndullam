@@ -11,8 +11,11 @@ const Algorithms = (props) => {
 
     useEffect(async () => {
         try { 
-            const buffer = await getScripts()
-            console.log(buffer)
+            const buffer = await getScripts({
+                headers: {
+                    "content-type": 'application/json'
+                }
+            })
             setScripts(buffer.data.data)
         } catch (error) { console.log(error) }
 

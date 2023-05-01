@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const api = axios.create({
 	baseURL: process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}/api` : 'http://localhost:8000/api',
-	withCredentials: true 
 })
 
 // auth routes
@@ -23,6 +22,9 @@ const getScripts = (req) => api.get('/scripts', req)
 const getScriptById = (script_id, req) => api.get(`/scripts/${script_id}`, req)
 const runScript = (script_id, req, body) => api.post(`/scripts/${script_id}`, body ,req)
 
+// compiler routes
+const compileCode = (req, body) => api.post('/java-arm/compile', body, req)
+
 export {
     login,
     logout,
@@ -35,5 +37,6 @@ export {
     deleteUserById,
     getScripts,
     getScriptById,
-    runScript
+    runScript,
+    compileCode
 }
