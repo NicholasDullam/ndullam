@@ -91,7 +91,7 @@ const JavaARM = (props) => {
                         tabSize={4}
                         style={{
                             padding: '0px',
-                            border: '1px solid #111',
+                            border: '1px solid #444',
                             borderRadius: '15px',
                             marginTop: '20px',
                             backgroundColor: 'black',
@@ -100,7 +100,7 @@ const JavaARM = (props) => {
                             boxShadow: 'none'
                         }}
                     />
-                    <div style={{ position: 'relative', zIndex: '-1', backgroundColor: 'black', width: '100%', border: '1px solid #111', borderRadius: '0px 0px 15px 15px', padding: '10px', paddingTop: '20px', marginTop: '-14px', outline: 'none', height: height + 30, transition: 'all 300ms ease', overflow: 'hidden' }}> 
+                    <div style={{ position: 'relative', zIndex: '-1', backgroundColor: 'black', width: '100%', border: '1px solid #444', borderRadius: '0px 0px 15px 15px', padding: '10px', paddingTop: '20px', marginTop: '-14px', outline: 'none', height: height + 30, transition: 'all 300ms ease', overflow: 'hidden' }}> 
                         <div ref={contentRef}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <b>Output</b> 
