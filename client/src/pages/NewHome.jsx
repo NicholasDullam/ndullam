@@ -17,6 +17,7 @@ import trafficrl1 from '../images/trafficrl1.png'
 import zookeep1 from '../images/Zookeep1.jpeg'
 import javaarm1 from '../images/javaarm1.png'
 import sociable1 from '../images/sociable1.jpg'
+import loandefault1 from '../images/loandefault1.png'
 import resume from '../images/resume.pdf'
 
 import Resume from "./Resume"
@@ -24,6 +25,7 @@ import { useHistory } from "react-router"
 
 import styled from "styled-components"
 import { useLocation } from "react-router-dom/cjs/react-router-dom"
+import LoanDefaultPrediction from "./LoanDefaultPrediction"
 
 const ArrowContainer = styled.div`
     animation-name: move;
@@ -61,7 +63,7 @@ const projects = [
     },
     {
         key: 'sociable',
-        name: 'Sociable',
+        name: 'sociable',
         src: sociable1,
         description: "A platform for students to explore what's active on their campus.",
         component: Sociable,
@@ -89,6 +91,18 @@ const projects = [
         description: "An experimental project, seeking to test the integrations of information systems through an admin-level user experience",
         component: Zookeep
     },
+    {
+        key: 'loan-default',
+        name: 'Loan Default Prediction',
+        src: loandefault1,
+        description: 'An ML investigation on the defaulting of loans.',
+        component: LoanDefaultPrediction
+    },
+    // {
+    //     key: 'midi',
+    //     name: 'MIDI Editor',
+    //     description: 'An API for the adjustment of MIDI tracks.'
+    // },
     {
         key: 'communicode',
         name: 'Communicode',
@@ -287,7 +301,7 @@ const ProjectModal = (props) => {
                     {
                         projects.map((project, i) => {
                             const Component = project.component
-                            return <ProjectEntry key={i} description={project.description} height={height} active={project.active} name={project.name} mobileHover={project.mobileHover} src={project.src} onClick={() => handleOpen(<Component key={project.key}/>)}/>
+                            return <ProjectEntry key={i} description={project.description} height={height} active={project.active} name={project.name} mobileHover={project.mobileHover} src={project.src} onClick={() => project.component ? handleOpen(<Component key={project.key}/>) : null}/>
                         })
                     }
                     {/* <ProjectEntry description={projects.sustainably.description} height={height} active name="Sustainably" src={sustainably2} onClick={() => handleOpen(<Sustainably key={'sustainably'}/>)}/>
