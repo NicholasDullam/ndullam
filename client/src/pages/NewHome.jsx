@@ -92,7 +92,7 @@ const projects = [
         component: Zookeep
     },
     {
-        key: 'loan-default',
+        key: 'loan-default-prediction',
         name: 'Loan Default Prediction',
         src: loandefault1,
         description: 'An ML investigation on the defaulting of loans.',
