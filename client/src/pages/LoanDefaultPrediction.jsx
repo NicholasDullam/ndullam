@@ -20,7 +20,7 @@ const LoanDefaultPrediction = (props) => {
                 </div>
                 <h6 className="mt-5"> An ML investigation on the defaulting of loans.</h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
-                <p> When an borrower defaults on a loan, they fail to repay their debt according to the initial arrangements set by the debtor -- a failed repayment proves to be an issue with both parties involved. Our goal was to predict whether a borrower would default on a loan, given their outlined characteristics and credit history using Principal Component Analysis, and K-nearest Neighbors. </p>
+                <p> When an borrower defaults on a loan, they fail to repay their debt according to the initial arrangements set by the debtor -- a failed repayment proves to be an issue with both parties involved. Our goal was to predict whether a borrower would default on a loan, given their outlined financial statements using Principal Component Analysis, and K-nearest Neighbors. </p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Member </span> </h3>
                 <p> Working on the project, I acted as a team member alongside two other students to follow through on our goal of accurately predicting a borrower's defaulting behavior. As teammates, we all followed through on our strengths, collaborating on the direction of the project and ensuring representative results with regular code reviews.</p>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating a Model </h3>

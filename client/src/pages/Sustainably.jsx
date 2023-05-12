@@ -25,7 +25,7 @@ const Sustainably = (props) => {
                 </div>
                 <h6 className="mt-5"> A wellness-driven startup with an aim to help those on their fitness journey. </h6>
                 <h3 className="text-xl font-bold mt-5 mb-2"> Description </h3>
-                Sustainably is a SaaS web app geared towards helping clients lose weight. It serves as the expansion of my client's personal training business (Justin Bauer Fitness) into a more affordable and scalable method of getting people to reach their fitness goal. 
+                Sustainably is a SaaS web app geared towards helping people reach their fitness goal. It expands my client's personal training business into a more affordable and scalable method of giving his customers the tools necessary to get to where they want to be.
                 <h3 className="text-xl font-bold mt-5 mb-2"> Role |<span className="text-base opacity-50"> Development Lead </span> </h3>
                 At Sustainably, I continue to serve as the Development Lead, creating and managing our MVP while introducing various functional iterations as the company's matured. While programming the product in it's entirety, I designed an intuitive user experience for new and power users, while ensuring backend scalability and version control through a Github organization.
                 <h3 className="text-xl font-bold mt-5 mb-2"> Creating a SaaS </h3>
