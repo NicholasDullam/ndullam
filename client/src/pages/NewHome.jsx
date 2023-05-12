@@ -135,7 +135,7 @@ const NewHome = (props) => {
                     <div style={{ display: 'flex', gap: '8px' }}>
                         {/* Socials */}
                         <div style={{ color: 'white' }}>
-                            <Social link={"https://github.com/NicholasDullam"} name="Github"/>
+                            <Social link={"https://github.com/NicholasDullam"} name="GitHub"/>
                             <Social link={"https://www.linkedin.com/in/ndullam/"} name="LinkedIn"/>
                             <Social link={"https://stackoverflow.com/users/12109958/nicholas-dullam"} name="Stack"/>
                         </div>
