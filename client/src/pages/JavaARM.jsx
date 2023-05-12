@@ -64,7 +64,7 @@ const JavaARM = (props) => {
                 <div className="my-5" style={{ display: 'flex', alignItems: 'center', overflowX: 'scroll'}}>
                     <h1 className="text-4xl font-bold mb-0"> Java for ARM </h1>
                     <div style={{ color: 'white', marginLeft: 'auto' }}>
-                        <Social name="Request" link="mailto:npdullam@gmail.com"/>
+                        <Social name="GitHub" link="https://github.com/NicholasDullam/arm_java"/>
                     </div>
                 </div>                      
                 <div className="flex mb-5 overflow-x-scroll">
