@@ -36,19 +36,25 @@ const App = (props) => {
     })
 
     return (
-      <div className="w-full" style={{ height: '100dvh' }}>
-        <Router>
-          <Switch>
-            <Route path='/' exact component={NewHome}/>
-            <Route path='/sandbox/:env_id' component={Home}/>
-            <Route path='/sandbox' exact component={Home}/>
-            <Route path='/' render={(props) => <Redirect to={'/'}/>}/>
-            {/*<Route path='/login' component={Login}/>
-              <Route path='/create' component={Create}/>
-              <Route path='/payment' component={PaymentRouter}/>*/}
-          </Switch>
-        </Router>
-      </div>
+        <div className="w-full" style={{ height: '100dvh' }}>
+            <Router>
+                <Switch>
+                    <Route path='/' exact component={NewHome}/>
+                    <Route path='/projects' exact component={(props) => {
+                        return <Redirect to={{ pathname: '/', search: new URLSearchParams({ p: 'open' }).toString()}}/> }}
+                    />
+                    <Route path='/projects/:env_id' exact component={(props) => {
+                        return <Redirect to={{ pathname: '/', search: new URLSearchParams({ p: 'open', e: props.match.params.env_id }).toString()}}/> }}
+                    />
+                    <Route path='/sandbox/:env_id' component={Home}/>
+                    <Route path='/sandbox' exact component={Home}/>
+                    <Route path='/' render={(props) => <Redirect to={'/'}/>}/>
+                    {/*<Route path='/login' component={Login}/>
+                    <Route path='/create' component={Create}/>
+                    <Route path='/payment' component={PaymentRouter}/>*/}
+                </Switch>
+            </Router>
+        </div>
     )
 }
 

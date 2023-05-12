@@ -23,6 +23,7 @@ import Resume from "./Resume"
 import { useHistory } from "react-router"
 
 import styled from "styled-components"
+import { useLocation } from "react-router-dom/cjs/react-router-dom"
 
 const ArrowContainer = styled.div`
     animation-name: move;
@@ -41,16 +42,67 @@ const ArrowContainer = styled.div`
         }
     }
 `
-const descriptions = {
-    zookeep: "An experimental project, seeking to test the integrations of information systems through an admin-level user experience",
-    communicode: "A startup with an aim of connecting developers with non-profits in need.",
-    sustainably: "A wellness-driven startup with an aim to help those on their fitness journey.",
-    traveling_merchant: "A hub for any sales gone virtual.",
-    java_arm: "A from-scratch compiler built to support a subset of Java for ARM.",
-    sociable: "A platform for students to explore what's active on their campus.",
-    traffic_rl: "A project aimed at optimizing traffic-light patterns for improved realistic throughput of intersections.",
-    tbc: "Actively updating my site to include archived projects such as a custom shell and MIDI controller. Both can be found on my github :)"
-}
+const projects = [
+    {
+        key: 'sustainably',
+        name: 'Sustainably',
+        src: sustainably2,
+        description: "A wellness-driven startup with an aim to help those on their fitness journey.",
+        component: Sustainably,
+        active: true
+    },
+    {
+        key: 'java-for-arm',
+        name: 'Java for ARM',
+        src: javaarm1,
+        description: "A from-scratch compiler built to support a subset of Java for ARM.",
+        component: JavaARM,
+        active: true
+    },
+    {
+        key: 'sociable',
+        name: 'Sociable',
+        src: sociable1,
+        description: "A platform for students to explore what's active on their campus.",
+        component: Sociable,
+        active: true
+    },
+    {
+        key: 'traffic-rl',
+        name: 'Traffic RL',
+        src: trafficrl1,
+        description: "A project aimed at optimizing traffic-light patterns for improved realistic throughput of intersections.",
+        component: TrafficRL,
+        active: true
+    },
+    {
+        key: 'traveling-merchant',
+        name: 'Traveling Merchant',
+        src: travelingMerchant2,
+        description: "A hub for any sales gone virtual.",
+        component: TravelingMerchant
+    },
+    {
+        key: 'zookeep',
+        name: 'Zookeep',
+        src: zookeep1,
+        description: "An experimental project, seeking to test the integrations of information systems through an admin-level user experience",
+        component: Zookeep
+    },
+    {
+        key: 'communicode',
+        name: 'Communicode',
+        src: communicode1,
+        description: "A startup with an aim of connecting developers with non-profits in need.",
+        component: Communicode
+    },
+    {
+        key: 'tbc',
+        name: 'Under Construction™',
+        description: "Actively updating my site to include archived projects such as a custom shell and MIDI controller. Both can be found on my github :)",
+        mobileHover: true
+    }
+]
 
 const NewHome = (props) => {
     const [projectsOpen, setProjectsOpen] = useState(false)
@@ -59,6 +111,16 @@ const NewHome = (props) => {
     const containerRef = useRef()
 
     const history = useHistory()
+
+    const location = useLocation()
+
+    useEffect(() => {
+        if (location.search) {
+            const params = new URLSearchParams(location.search)
+            const key = params.get('p')
+            if (key && key === 'open') setProjectsOpen(true)
+        }
+    }, [])
 
     return (
         <div style={{ backgroundColor: '#111', height: '100dvh', overflow: 'hidden', color: '#999', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
@@ -79,7 +141,10 @@ const NewHome = (props) => {
                         </div>
                         {/* Nav */}
                         <div>
-                            <NavElement label={'Projects'} onClick={() => setProjectsOpen(!projectsOpen)}/>
+                            <NavElement label={'Projects'} onClick={() => {
+                                setProjectsOpen(true)
+                                history.push({ pathname: '', search: '?' + new URLSearchParams({ p: 'open' }).toString()})
+                            }}/>
                             <a target='_blank' href={resume}>
                                 <NavElement label={'Resume'}/>
                             </a>
@@ -91,6 +156,7 @@ const NewHome = (props) => {
             <ProjectModal open={projectsOpen} resume={isResume} handleClose={() => {
                 setProjectsOpen(false)
                 setTimeout(() => setIsResume(false), 300)
+                history.push({ search: "" })
             }}/>
         </div>
     )
@@ -135,6 +201,10 @@ const ProjectModal = (props) => {
 
     const contentRef = useRef()
 
+    const history = useHistory()
+
+    const location = useLocation()
+
     const handleResize = () => {
         setHeight(window.innerHeight / 3)
     }
@@ -144,6 +214,19 @@ const ProjectModal = (props) => {
     }
 
     useEffect(() => {
+        if (location.search) {
+            const params = new URLSearchParams(location.search)
+            const key = params.get('e')
+            if (key) {
+                const project = projects.find((entry) => entry.key === key)
+                if (project) {
+                    const Component = project.component
+                    setProject(<Component key={project.key}/>)
+                    setProjectOpen(true)
+                }
+            }
+        }
+
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [])
@@ -158,6 +241,7 @@ const ProjectModal = (props) => {
     }, [props.open])
 
     const handleOpen = (component) => {
+        history.push({ pathname: '', search: '?' + new URLSearchParams({ p: 'open', e: component.key }).toString()})
         setProject(component)
         setProjectOpen(true)
     }
@@ -167,16 +251,17 @@ const ProjectModal = (props) => {
             setProjectOpen(false)
             setTimeout(() => props.handleClose(), 300)
         } else {
+            history.push({ pathname: '', search: ''})
             props.handleClose()
         }
     }
 
     const handleExit = () => {
-        if (projectOpen) setProjectOpen(false)
-        else props.handleClose()
+        if (projectOpen) {
+            history.push({ pathname: '', search: '?' + new URLSearchParams({ p: 'open' }).toString()})
+            setProjectOpen(false)
+        } else props.handleClose()
     }
-
-
 
     return <div>
         <div onClick={handleClose} style={{ height: '100%', width: '100%', position: 'relative', backgroundColor: `rgba(0,0,0,${props.open ? '0.5' : '0'})`, visibility: open ? 'visible' : 'hidden', position: 'fixed', top: '0px', left: '0px', transition: 'all 300ms ease' }}/>
@@ -199,14 +284,20 @@ const ProjectModal = (props) => {
             </div>
             <div ref={contentRef} className="snap-y scroll-smooth" style={{ overflowY: 'scroll', height: '100%' }} onScroll={handleScroll}>
                 { props.resume ? <Resume/> : <>
-                    <ProjectEntry description={descriptions.sustainably} height={height} active name="Sustainably" src={sustainably2} onClick={() => handleOpen(<Sustainably/>)}/>
-                    <ProjectEntry description={descriptions.java_arm} height={height} active name="Java for ARM" src={javaarm1} onClick={() => handleOpen(<JavaARM/>)}/>
-                    <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={sociable1} onClick={() => handleOpen(<Sociable/>)}/>
-                    <ProjectEntry description={descriptions.traffic_rl} height={height} active name="Traffic Deep RL" src={trafficrl1} onClick={() => handleOpen(<TrafficRL/>)}/>
-                    <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant/>)}/>
-                    <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep/>)}/>
-                    <ProjectEntry description={descriptions.communicode} height={height} date='3/18' name="Communicode" src={communicode1}  onClick={() => handleOpen(<Communicode/>)}/>
-                    <ProjectEntry mobileHover description={descriptions.tbc} height={height} date='3/18' name="Under Construction™"/>
+                    {
+                        projects.map((project, i) => {
+                            const Component = project.component
+                            return <ProjectEntry key={i} description={project.description} height={height} active={project.active} name={project.name} mobileHover={project.mobileHover} src={project.src} onClick={() => handleOpen(<Component key={project.key}/>)}/>
+                        })
+                    }
+                    {/* <ProjectEntry description={projects.sustainably.description} height={height} active name="Sustainably" src={sustainably2} onClick={() => handleOpen(<Sustainably key={'sustainably'}/>)}/>
+                    <ProjectEntry description={projects.java_arm.} height={height} active name="Java for ARM" src={javaarm1} onClick={() => handleOpen(<JavaARM key={'java-for-arm'}/>)}/>
+                    <ProjectEntry description={descriptions.sociable} height={height} active name="sociable" src={sociable1} onClick={() => handleOpen(<Sociable key={'sociable'}/>)}/>
+                    <ProjectEntry description={descriptions.traffic_rl} height={height} active name="Traffic Deep RL" src={trafficrl1} onClick={() => handleOpen(<TrafficRL key={'traffic-rl'}/>)}/>
+                    <ProjectEntry description={descriptions.traveling_merchant} height={height} date='12/21' name="Traveling Merchant" src={travelingMerchant2} onClick={() => handleOpen(<TravelingMerchant key={'traveling-merchant'}/>)}/>
+                    <ProjectEntry description={descriptions.zookeep} height={height} date='12/21' name="Zookeep" src={zookeep1}  onClick={() => handleOpen(<Zookeep key={'zookeep'}/>)}/>
+                    <ProjectEntry description={descriptions.communicode} height={height} date='3/18' name="Communicode" src={communicode1}  onClick={() => handleOpen(<Communicode key={'communicode'}/>)}/>
+                    <ProjectEntry mobileHover description={descriptions.tbc} height={height} date='3/18' name="Under Construction™"/> */}
                     <ProjectEntryModal component={project} open={projectOpen}/>
                 </> }
             </div>
