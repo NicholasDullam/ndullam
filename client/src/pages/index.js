@@ -15,6 +15,7 @@ import NewHome from './NewHome'
 import JavaARM from './JavaARM'
 import Sociable from './Sociable'
 import TrafficRL from './TrafficRL'
+import LoanDefaultPrediction from './LoanDefaultPrediction'
 
 export { 
     Home,
@@ -33,5 +34,6 @@ export {
     NewHome,
     JavaARM,
     Sociable,
-    TrafficRL
+    TrafficRL,
+    LoanDefaultPrediction
 }
