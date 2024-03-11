@@ -129,7 +129,7 @@ const getNextCode = async (req, res) => {
   const index = curr[_seed] || 0;
   const code = codes[index];
   curr[_seed] = index + 1;
-  return res.status(200).text(`Code ${index + 1}: ${code}`);
+  return res.status(200).send(`Code ${index + 1}: ${code}`);
 };
 
 module.exports = {
