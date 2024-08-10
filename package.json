@@ -2,14 +2,15 @@
   "name": "ndullam",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
+  "packageManager": "pnpm@9.0.1",
   "scripts": {
-    "postinstall": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "pnpm install --prefix server && pnpm install --prefix client && pnpm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "stagger-text-reveal-animation": "^1.0.0"
+  "devDependencies": {
+    "typescript": "^5.5.4"
   }
 }
