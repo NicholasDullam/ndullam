@@ -1,8 +1,9 @@
-const Script = require("../models/script");
-const path = require("path");
-const fs = require("fs");
+import { Request, Response } from "express";
+import fs from "fs";
+import path from "path";
+import { ScriptModel } from "../models/script";
 
-const run = (dir) =>
+export const run = (dir: string) =>
   new Promise((success, failure) => {
     const { spawn } = require("child_process");
     const start = Date.now();
@@ -10,30 +11,37 @@ const run = (dir) =>
       path.join(__dirname, "..", "python", "tester.py"),
       dir,
     ]);
-    program.stdout.on("data", (response) =>
+    program.stdout.on("data", (response: string) =>
       success({ response, time: Date.now() - start })
     );
-    program.stderr.on("data", (error) => failure(error.toString()));
+    program.stderr.on("data", (error: string) => failure(error.toString()));
   });
 
-const createScript = async (req, res) => {
+export const createScript = async (req: Request, res: Response) => {
   const { _id, type, description, code, args, language } = req.body;
   try {
     if (process.env.NODE_ENV === "production")
       throw new Error("Scripts can only be added in the devkit");
-    const target = await Script.findById(_id);
+    const target = await ScriptModel.findById(_id);
     if (target) throw new Error("Script already exists");
-    let script = new Script({ _id, type, description, code, args, language });
+    let script = new ScriptModel({
+      _id,
+      type,
+      description,
+      code,
+      args,
+      language,
+    });
     script = await script.save();
     return res.status(200).json(script);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({ error: error.message });
   }
 };
 
-const getScriptById = async (req, res) => {
+export const getScriptById = async (req: Request, res: Response) => {
   const { _id } = req.params;
-  Script.findById(_id)
+  ScriptModel.findById(_id)
     .then((response) => {
       return res.status(200).json(response);
     })
@@ -42,14 +50,12 @@ const getScriptById = async (req, res) => {
     });
 };
 
-const getScripts = async (req, res) => {
+export const getScripts = async (req: Request, res: Response) => {
   let query = { ...req.query },
     reserved = ["sort", "skip", "limit"],
     pipeline = [];
   reserved.forEach((el) => delete query[el]);
-
   pipeline.push({ $match: query });
-  if (req.query.sort) pipeline.push({ $sort: getSort(req.query.sort) });
   pipeline.push({
     $project: {
       password: 0,
@@ -77,7 +83,7 @@ const getScripts = async (req, res) => {
     },
   });
 
-  Script.aggregate(pipeline)
+  ScriptModel.aggregate(pipeline)
     .then((response) => {
       return res.status(200).json({
         ...response[0],
@@ -94,11 +100,10 @@ const getScripts = async (req, res) => {
     });
 };
 
-const runScript = async (req, res) => {
+export const runScript = async (req: Request, res: Response) => {
   const { _id } = req.params;
-
   try {
-    const target = await Script.findById(_id);
+    const target = await ScriptModel.findById(_id);
     if (!target) throw new Error("Script does not exist");
     let tmp = path.join(__dirname, "..", "..", "tmp");
     let dir = path.join(tmp, _id);
@@ -107,35 +112,12 @@ const runScript = async (req, res) => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
     fs.writeFileSync(file, target.code);
     fs.writeFileSync(path.join(dir, "data.json"), JSON.stringify(req.body));
-    let response = await run(dir);
+    let response: any = await run(dir);
     fs.rmSync(dir, { recursive: true, force: true });
     return res
       .status(200)
       .json({ response: response.response.toString(), time: response.time });
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
     return res.status(400).json({ error: error.message || error });
   }
-};
-
-let curr = {};
-const codes = fs
-  .readFileSync(path.join(__dirname, "..", "codes.txt"))
-  .toString()
-  .split("\n");
-
-const getNextCode = async (req, res) => {
-  const { _seed } = req.params;
-  const index = curr[_seed] || 0;
-  const code = codes[index];
-  curr[_seed] = index + 1;
-  return res.status(200).send(`Code ${index + 1}: ${code}`);
-};
-
-module.exports = {
-  createScript,
-  getScriptById,
-  getScripts,
-  runScript,
-  getNextCode,
 };
