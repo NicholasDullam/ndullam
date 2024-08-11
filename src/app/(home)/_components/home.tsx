@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Wave } from "../../components";
+import { Wave } from "../../../components";
 import { Footer } from "./footer";
 
 export type HomeProps = {};

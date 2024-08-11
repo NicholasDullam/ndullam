@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DashboardLink } from "../../components";
+import { DashboardLink } from "../../../components";
 import { Element } from "./element";
 
 export type FooterProps = {};

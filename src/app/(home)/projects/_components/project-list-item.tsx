@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
-import { hasTouch } from "../../../util/has-touch";
+import { hasTouch } from "../../../../util/has-touch";
 
 export type ProjectListItemProps = {
   name: string;
