@@ -1,30 +1,30 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Loading, Wave } from "../components"
 import { FiArrowUpRight } from 'react-icons/fi'
+import { Loading, Wave } from "../../client/src/components"
 
 import Communicode from "./Communicode"
-import Sustainably from "./Sustainably"
-import TravelingMerchant from "./TravelingMerchant"
-import Zookeep from "./Zookeep"
 import JavaARM from "./JavaARM"
 import Sociable from "./Sociable"
+import Sustainably from "./Sustainably"
 import TrafficRL from "./TrafficRL"
+import TravelingMerchant from "./TravelingMerchant"
+import Zookeep from "./Zookeep"
 
 import communicode1 from '../images/communicode1.jpeg'
-import sustainably2 from '../images/sustainably2.png'
-import travelingMerchant2 from '../images/travelingmerchant2.png'
-import trafficrl1 from '../images/trafficrl1.png'
-import zookeep1 from '../images/Zookeep1.jpeg'
 import javaarm1 from '../images/javaarm1.png'
-import sociable1 from '../images/sociable1.jpg'
 import loandefault1 from '../images/loandefault1.png'
 import resume from '../images/resume.pdf'
+import sociable1 from '../images/sociable1.jpg'
+import sustainably2 from '../images/sustainably2.png'
+import trafficrl1 from '../images/trafficrl1.png'
+import travelingMerchant2 from '../images/travelingmerchant2.png'
+import zookeep1 from '../images/Zookeep1.jpeg'
 
-import Resume from "./Resume"
 import { useHistory } from "react-router"
+import Resume from "./Resume"
 
-import styled from "styled-components"
 import { useLocation } from "react-router-dom/cjs/react-router-dom"
+import styled from "styled-components"
 import LoanDefaultPrediction from "./LoanDefaultPrediction"
 
 const ArrowContainer = styled.div`

@@ -1,6 +1,13 @@
 "use client";
 
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import {
+  RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 type Neighbors = [boolean, boolean, boolean, boolean];
 
@@ -8,9 +15,9 @@ type Pixel = number;
 type PixelGrid = Pixel[][];
 
 export type WaveProps = {
-  scale: number;
-  interval: number;
-  spread: [number, number, number, number];
+  scale?: number;
+  interval?: number;
+  spread?: [number, number, number, number];
   containerRef: RefObject<HTMLDivElement>;
 };
 
@@ -18,15 +25,17 @@ export const Wave = ({
   containerRef,
   scale = 10,
   interval = 50,
-  spread = [0.1, 0.4, 0.1, 0.9],
+  spread: _spread,
 }: WaveProps) => {
+  const spread = useMemo(() => _spread ?? [0.1, 0.4, 0.1, 0.9], [_spread]);
+
   const [pixels, setPixels] = useState<PixelGrid>([]);
 
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState<number>(0);
+  const [height, setHeight] = useState<number>(0);
 
-  const [xUnits, setXUnits] = useState(Math.ceil(window.innerWidth / scale));
-  const [yUnits, setYUnits] = useState(Math.ceil(window.innerHeight / scale));
+  const [xUnits, setXUnits] = useState<number>(0);
+  const [yUnits, setYUnits] = useState<number>(0);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pixelsRef = useRef<typeof pixels>(pixels);
@@ -47,87 +56,39 @@ export const Wave = ({
 
     setXUnits(Math.ceil(box.width / scale));
     setYUnits(Math.ceil(box.height / scale));
-  }, []);
+  }, [scale]);
 
   useEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
   const initialize = useCallback(() => {
-    if (!canvasRef.current) return;
-    const context = canvasRef.current.getContext("2d");
+    const context = canvasRef.current?.getContext("2d");
     if (!context) return;
     context.clearRect(0, 0, width, height);
-    context.fillStyle = "#FFFFFF";
-    context.fillRect(scale, scale, 1, 1);
     const temp = new Array(yUnits).fill(0);
     temp.forEach((_, i) => (temp[i] = new Array(xUnits).fill(0)));
-    temp[0][0] = 1;
+    if (xUnits > 0 && yUnits > 0) temp[0][0] = 1;
     setPixels(temp);
   }, [width, height, scale, xUnits, yUnits]);
 
-  const draw = useCallback(() => {
-    if (!canvasRef.current) return;
-    const context = canvasRef.current.getContext("2d");
-    context?.clearRect(0, 0, width, height);
-    pixels?.forEach((row, i) => {
-      row.forEach((_, j) => {
-        if (pixels[i][j] <= 0 || !context) return;
-        context.fillStyle = `rgba(255,255,255, ${1 - pixels[i][j] / 20})`;
-        context.fillRect((j + 1) * scale, (i + 1) * scale, 1, 1);
-      });
-    });
-  }, [width, height, scale, pixels]);
-
-  const generateFrame = useCallback(() => {
-    const _pixels = [...pixelsRef.current];
-    pixelsRef.current.forEach((row, i) => {
-      row.forEach((_, j) => {
-        if (pixelsRef.current[i][j] > 20) pixelsRef.current[i][j] = 0;
-        else if (pixelsRef.current[i][j] == 0) return;
-        else pixelsRef.current[i][j] += 1;
-
-        const neighbors = getNeighbors(pixelsRef.current, i, j);
-        neighbors.forEach((isNeighbor, i) => {
-          switch (i) {
-            case 0:
-              if (isNeighbor && Math.random() < spread[0] && i > 0)
-                _pixels[i - 1][j] = 1;
-              break;
-            case 1:
-              if (
-                isNeighbor &&
-                Math.random() < spread[1] &&
-                j < pixels[i].length - 1
-              )
-                _pixels[i][j + 1] = 1;
-              break;
-            case 2:
-              if (
-                isNeighbor &&
-                Math.random() < spread[2] &&
-                i < pixels.length - 1
-              )
-                _pixels[i + 1][j] = 1;
-              break;
-            case 3:
-              if (isNeighbor && Math.random() < spread[3] && j > 0)
-                _pixels[i][j - 1] = 1;
-              break;
-          }
+  const draw = useCallback(
+    (pixels: PixelGrid) => {
+      const context = canvasRef.current?.getContext("2d");
+      if (!context) return;
+      context.clearRect(0, 0, width, height);
+      pixels.forEach((row, i) => {
+        row.forEach((_, j) => {
+          if (pixels[i][j] <= 0) return;
+          context.fillStyle = `rgba(255,255,255, ${1 - pixels[i][j] / 20})`;
+          context.fillRect((j + 1) * scale, (i + 1) * scale, 1, 1);
         });
       });
-    });
-
-    setPixels(_pixels);
-  }, []);
-
-  useEffect(() => {
-    initialize();
-    const id = setInterval(generateFrame, interval);
-    return () => clearInterval(id);
-  }, [draw, interval, initialize, generateFrame]);
+    },
+    [width, height, scale]
+  );
 
   const getNeighbors = useCallback(
     (pixels: PixelGrid, i: number, j: number) => {
@@ -141,9 +102,43 @@ export const Wave = ({
     []
   );
 
+  const generateFrame = useCallback(() => {
+    if (!pixelsRef.current) return;
+    const _pixels = [...pixelsRef.current.map((row) => [...row])];
+    pixelsRef.current.forEach((row, i) => {
+      row.forEach((_, j) => {
+        if (pixelsRef.current[i][j] > 20) _pixels[i][j] = 0;
+        else if (pixelsRef.current[i][j] == 0) return;
+        else _pixels[i][j] += 1;
+
+        const rand = Math.random();
+        const [hasNorth, hasEast, hasSouth, hasWest] = getNeighbors(
+          pixelsRef.current,
+          i,
+          j
+        );
+
+        if (!hasNorth && rand < spread[0] && i > 0) _pixels[i - 1][j] = 1;
+        if (!hasEast && rand < spread[1] && j < row.length - 1)
+          _pixels[i][j + 1] = 1;
+        if (!hasSouth && rand < spread[2] && i < pixelsRef.current.length - 1)
+          _pixels[i + 1][j] = 1;
+        if (!hasWest && rand < spread[3] && j > 0) _pixels[i][j - 1] = 1;
+      });
+    });
+
+    setPixels(_pixels);
+  }, [getNeighbors, spread]);
+
   useEffect(() => {
-    draw();
-  }, [draw]);
+    initialize();
+    const id = setInterval(generateFrame, interval);
+    return () => clearInterval(id);
+  }, [interval, initialize, generateFrame]);
+
+  useEffect(() => {
+    draw(pixels);
+  }, [draw, pixels]);
 
   return <canvas ref={canvasRef} />;
 };

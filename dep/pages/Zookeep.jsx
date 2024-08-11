@@ -1,8 +1,6 @@
 import React from 'react'
+import { Social, Tag } from '../../client/src/components'
 import zookeep1 from '../images/Zookeep1.jpeg'
-import { FiLink } from 'react-icons/fi'
-import { Button, Tag, Social } from '../components'
-import { BsGithub } from 'react-icons/bs'
 
 const Zookeep = (props) => {
     return (

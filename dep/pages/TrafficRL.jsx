@@ -1,6 +1,6 @@
 import React from 'react'
+import { Social, Tag } from '../../client/src/components'
 import trafficrl1 from '../images/trafficrl1.png'
-import { Social, Tag } from '../components'
 
 import modelingreport from '../images/modelingreport.pdf'
 

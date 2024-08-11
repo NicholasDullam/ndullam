@@ -1,7 +1,6 @@
 import React from 'react'
-import { FiLink } from 'react-icons/fi'
+import { Social, Tag } from '../../client/src/components'
 import sustainably2 from '../images/sustainably2.png'
-import { Button, Tag, Social } from '../components'
 
 const Sustainably = (props) => {
     return (

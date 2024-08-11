@@ -1,9 +1,9 @@
-import React from 'react'
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
-import resume from '../images/resume.pdf'
-import { FiDownload } from 'react-icons/fi'
-import { LoadingIcon } from '../components';
+import React from 'react';
+import { FiDownload } from 'react-icons/fi';
+import { LoadingIcon } from '../../client/src/components';
+import resume from '../images/resume.pdf';
 
 const Resume = (props) => {
     return (

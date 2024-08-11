@@ -1,8 +1,6 @@
 import React from 'react'
-import { FiLink } from 'react-icons/fi'
-import { BsGithub } from 'react-icons/bs'
+import { Social, Tag } from '../../client/src/components'
 import travelingMerchant2 from '../images/travelingmerchant2.png'
-import { Button, Tag, Social } from '../components'
 
 const TravelingMerchant = (props) => {
     return (

@@ -1,6 +1,5 @@
 import React from 'react'
-import Communicode1 from '../images/communicode1.jpeg'
-import { Tag, Social } from '../components'
+import { Social, Tag } from '../../client/src/components'
 
 import sociable1 from '../images/sociable1.jpg'
 
