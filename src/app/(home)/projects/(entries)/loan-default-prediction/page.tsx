@@ -1,8 +1,8 @@
 import { DashboardLink, Tag } from "@/components";
+import { TagList } from "@/components/tag-list";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { TagList } from "../_components/tag-list";
 
 export const metadata: Metadata = {
   title: "Nicholas Dullam - Loan Default Prediction",
