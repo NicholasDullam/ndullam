@@ -30,7 +30,9 @@ export const Footer = ({}: FooterProps) => {
 
         {/* Navigation */}
         <div className="flex flex-col">
-          <Element name="Projects" />
+          <Link href="/projects">
+            <Element name="Projects" />
+          </Link>
           <Element name="Sandbox" />
           <Element name="Contact" />
         </div>

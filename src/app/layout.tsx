@@ -10,9 +10,9 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="h-dvh w-full bg-black">
-        <Home />
+      <body>
         {children}
+        <Home />
       </body>
     </html>
   );

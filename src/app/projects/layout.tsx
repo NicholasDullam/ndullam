@@ -6,8 +6,10 @@ type LayoutProps = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  <>
-    {children}
-    <ProjectListDialog />
-  </>;
+  return (
+    <>
+      {children}
+      <ProjectListDialog />
+    </>
+  );
 }
