@@ -1,11 +1,11 @@
 "use client";
 
+import { hasTouch } from "@/lib/has-touch";
 import clsx from "clsx";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
-import { hasTouch } from "../../../../util/has-touch";
 
 export type ProjectListItemProps = {
   name: string;
