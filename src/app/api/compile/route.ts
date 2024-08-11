@@ -12,7 +12,7 @@ type BodyParsed = {
 export async function POST(request: NextRequest) {
   const body: BodyParsed = await request.json();
   try {
-    const tmp = path.join(__dirname, "..", "..", "tmp");
+    const tmp = path.join(__dirname, "../../../..", "tmp");
     const dir = path.join(tmp, Date.now().toString());
     const file = path.join(dir, "expr.java");
 

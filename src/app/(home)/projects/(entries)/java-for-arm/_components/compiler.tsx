@@ -45,35 +45,35 @@ export const Compiler = ({}: CompilerProps) => {
         body: JSON.stringify({ code }),
       });
 
-      if (!response.ok) throw new Error(response.statusText);
+      if (!response.ok) throw new Error((await response.json()).error);
       const data = await response.json();
 
       setOutput(data.response);
       setResponseTime(`${data.time}ms`);
     } catch (error) {
-      console.log(error);
+      setOutput((error as Error).message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [code]);
 
   return (
-    <div className="relative">
+    <div className="relative text-xs">
       <Editor
         value={code}
         onValueChange={setCode}
         highlight={(code) => highlight(code, languages.java, "java")}
         padding={12}
         tabSize={4}
-        className="p-0 border border-zinc-800 rounded-md mt-5 bg-black hover:outline-none shadow-none text-xs"
+        className="p-0 border border-zinc-900 rounded-md mt-5 bg-black hover:outline-none shadow-none text-xs"
       />
       <div
         style={{ height: height + 18 }}
-        className="relative z[-1] bg-black w-full border border-zinc-800 rounded-b-md p-2 pt-2 -mt-1 outline-none transition-all overflow-hidden"
+        className="relative z[-1] bg-black w-full border border-zinc-900 rounded-b-md p-2 pt-2 -mt-1 outline-none transition-all overflow-hidden"
       >
         <div ref={contentRef}>
           <div className="flex items-center">
-            <span className="text-xs opacity-50">Output</span>
+            <span className="opacity-50">Output</span>
             <div className="ml-auto">
               {loading ? <LoadingIcon size={3} /> : responseTime}
             </div>

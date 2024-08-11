@@ -1,6 +1,7 @@
 import { Tag } from "@/components";
 import { Metadata } from "next";
 import Image from "next/image";
+import { TagList } from "../_components/tag-list";
 
 export const metadata: Metadata = {
   title: "Nicholas Dullam - Communicode",
@@ -25,7 +26,7 @@ export default function Page({}: PageProps) {
         <div className="my-5">
           <h1 className="mb-0"> Communicode </h1>
         </div>
-        <div className="flex overflow-x-scroll">
+        <TagList>
           <Tag>Python</Tag>
           <Tag>Numpy</Tag>
           <Tag>GCP</Tag>
@@ -34,7 +35,7 @@ export default function Page({}: PageProps) {
           <Tag>Node.js</Tag>
           <Tag>React.js</Tag>
           <Tag>Express.js</Tag>
-        </div>
+        </TagList>
         <blockquote>
           A startup with an aim of connecting developers with non-profits in
           need.

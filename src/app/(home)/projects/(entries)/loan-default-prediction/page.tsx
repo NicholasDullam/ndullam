@@ -2,6 +2,7 @@ import { DashboardLink, Tag } from "@/components";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TagList } from "../_components/tag-list";
 
 export const metadata: Metadata = {
   title: "Nicholas Dullam - Loan Default Prediction",
@@ -33,9 +34,9 @@ export default function Page({}: PageProps) {
             </Link>
           </div>
         </div>
-        <div className="flex overflow-x-scroll">
+        <TagList>
           <Tag>Python</Tag>
-        </div>
+        </TagList>
         <blockquote>An ML investigation on the defaulting of loans.</blockquote>
         <h4> Description </h4>
         <p>

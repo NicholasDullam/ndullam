@@ -2,6 +2,7 @@ import { DashboardLink, Tag } from "@/components";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TagList } from "../_components/tag-list";
 import { Compiler } from "./_components/compiler";
 
 export const metadata: Metadata = {
@@ -33,12 +34,12 @@ export default function Page({}: PageProps) {
             <DashboardLink name="GitHub" />
           </Link>
         </div>
-        <div className="flex overflow-x-scroll">
+        <TagList>
           <Tag>C</Tag>
           <Tag>C++</Tag>
           <Tag>Lex</Tag>
           <Tag>Yacc</Tag>
-        </div>
+        </TagList>
         <blockquote>
           A from-scratch compiler built to support a subset of Java for ARM.
         </blockquote>

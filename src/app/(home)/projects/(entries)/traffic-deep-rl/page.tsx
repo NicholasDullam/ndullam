@@ -2,6 +2,7 @@ import { DashboardLink, Tag } from "@/components";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TagList } from "../_components/tag-list";
 
 export const metadata: Metadata = {
   title: "Nicholas Dullam - Traffic Deep RL",
@@ -25,13 +26,13 @@ export default function Page({}: PageProps) {
         <div className="my-5 flex items-center gap-4">
           <h1 className="mb-0"> Traffic Deep RL </h1>
         </div>
-        <div className="flex overflow-x-auto">
+        <TagList>
           <Tag>Python</Tag>
           <Tag>Numpy</Tag>
           <Tag>Rllib</Tag>
           <Tag>SUMO</Tag>
           <Tag>SUMORL</Tag>
-        </div>
+        </TagList>
         <blockquote>
           A project aimed at optimizing traffic-light patterns for improved
           realistic throughput of intersections.

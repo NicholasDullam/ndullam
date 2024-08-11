@@ -2,6 +2,7 @@ import { DashboardLink, Tag } from "@/components";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TagList } from "../_components/tag-list";
 
 export const metadata: Metadata = {
   title: "Nicholas Dullam - ZooKeep",
@@ -33,13 +34,13 @@ export default function Page({}: PageProps) {
             <DashboardLink name="GitHub" />
           </Link>
         </div>
-        <div className="flex overflow-x-scroll">
+        <TagList>
           <Tag>Heroku</Tag>
           <Tag>MongoDB</Tag>
           <Tag>Node.js</Tag>
           <Tag>React.js</Tag>
           <Tag>Express.js</Tag>
-        </div>
+        </TagList>
         <blockquote>
           An experimental project, seeking to test the integrations of
           information systems through an intuitive admin-level user experience.

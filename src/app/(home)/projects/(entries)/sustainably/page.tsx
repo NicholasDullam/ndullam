@@ -2,6 +2,7 @@ import { DashboardLink, Tag } from "@/components";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TagList } from "../_components/tag-list";
 
 export const metadata: Metadata = {
   title: "Nicholas Dullam - Sustainably",
@@ -33,7 +34,7 @@ export default function Page({}: PageProps) {
             <DashboardLink name="Visit" />
           </Link>
         </div>
-        <div className="flex overflow-x-scroll">
+        <TagList>
           <Tag>Heroku</Tag>
           <Tag>AWS</Tag>
           <Tag>MongoDB</Tag>
@@ -41,7 +42,7 @@ export default function Page({}: PageProps) {
           <Tag>React.js</Tag>
           <Tag>Express.js</Tag>
           <Tag>Stripe</Tag>
-        </div>
+        </TagList>
         <blockquote>
           A wellness-driven startup with an aim to help those on their fitness
           journey.

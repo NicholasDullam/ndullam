@@ -9,10 +9,11 @@ export type CompileResponse = {
 export const compile = async (dir: string) =>
   new Promise<CompileResponse>((resolve, reject) => {
     const baseline = Date.now();
+    const cwd = path.join(__dirname, "../../../../..");
     return exec(
       `./codegen ${dir}`,
       {
-        cwd: path.join(__dirname, "../../../../../.."),
+        cwd,
       },
       (error, stdout, stderr) => {
         if (error) return reject(stderr.toString());
