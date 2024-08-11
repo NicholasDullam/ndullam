@@ -15,19 +15,18 @@ export default function Page({}: PageProps) {
           className="object-cover"
         />
       </div>
-      <div className="p-8 pt-3">
-        <div
-          className="my-5"
-          style={{ display: "flex", alignItems: "center", overflowX: "scroll" }}
-        >
-          <h1 className="text-2xl font-bold mb-0"> Sustainably </h1>
-          <div style={{ color: "white", marginLeft: "auto" }}>
-            <Link href="https://app.stnbly.io/dashboard" target="_blank">
-              <DashboardLink name="Visit" />
-            </Link>
-          </div>
+      <div className="p-8 pt-0 prose prose-invert prose-sm">
+        <div className="my-5 flex items-center gap-4">
+          <h1 className="mb-0"> Sustainably </h1>
+          <Link
+            href="https://app.stnbly.io/dashboard"
+            target="_blank"
+            className="ml-auto no-underline"
+          >
+            <DashboardLink name="Visit" />
+          </Link>
         </div>
-        <div className="flex mb-5 overflow-x-scroll">
+        <div className="flex overflow-x-scroll">
           <Tag>Heroku</Tag>
           <Tag>AWS</Tag>
           <Tag>MongoDB</Tag>
@@ -36,23 +35,21 @@ export default function Page({}: PageProps) {
           <Tag>Express.js</Tag>
           <Tag>Stripe</Tag>
         </div>
-        <h6 className="text-sm mt-5">
+        <blockquote>
           A wellness-driven startup with an aim to help those on their fitness
           journey.
-        </h6>
-        <h3 className="text-md font-bold mt-5 mb-2"> Description </h3>
+        </blockquote>
+        <h4> Description </h4>
         <p>
           Sustainably is a SaaS web app geared towards helping people reach
           their fitness goal. It expands my client's personal training business
           into a more affordable and scalable method of giving his customers the
           tools necessary to get to where they want to be.
         </p>
-        <h3 className="text-md font-bold mt-5 mb-2">
-          Role |{" "}
-          <span className="text-md opacity-50 font-normal">
-            Development Lead
-          </span>
-        </h3>
+        <h4>
+          Role |&nbsp;
+          <span className="opacity-50 font-normal">Development Lead</span>
+        </h4>
         <p>
           At Sustainably, I continue to serve as the Development Lead, creating
           and managing our MVP while introducing various functional iterations
@@ -61,7 +58,7 @@ export default function Page({}: PageProps) {
           users, while ensuring backend scalability and version control through
           a Github organization.
         </p>
-        <h3 className="text-md font-bold mt-5 mb-2"> Creating a SaaS </h3>
+        <h4> Creating a SaaS </h4>
         <p>
           When developing Sustainably as my first paid-access model, it was
           important to note the efficacy of design. When creating the sign-up,
@@ -69,7 +66,7 @@ export default function Page({}: PageProps) {
           increasing user interactions and overall retention; reducing churn
           through our subsequent functional iterations.
         </p>
-        <h3 className="text-md font-bold mt-5 mb-2"> Key Takeaways </h3>
+        <h4> Key Takeaways </h4>
         <p>
           Working at Sustainably was my first full-time experience managing an
           industry-level project, contracted for a client of mine. I realized

@@ -15,19 +15,21 @@ export default function Page({}: PageProps) {
           className="object-cover"
         />
       </div>
-      <div className="p-8 pt-3">
+      <div className="p-8 pt-0 prose prose-invert prose-sm">
         <div
-          className="my-5"
+          className="my-5 flex items-center gap-4"
           style={{ display: "flex", alignItems: "center", overflowX: "scroll" }}
         >
-          <h1 className="text-2xl font-bold mb-0"> sociable </h1>
-          <div style={{ color: "white", marginLeft: "auto" }}>
-            <Link href="mailto:npdullam@gmail.com" target="_blank">
-              <DashboardLink name="Request" />
-            </Link>
-          </div>
+          <h1 className="mb-0"> sociable </h1>
+          <Link
+            href="mailto:npdullam@gmail.com"
+            target="_blank"
+            className="ml-auto no-underline"
+          >
+            <DashboardLink name="Request" />
+          </Link>
         </div>
-        <div className="flex mb-5 overflow-x-scroll">
+        <div className="flex overflow-x-scroll">
           <Tag>Node.js</Tag>
           <Tag>Express.js</Tag>
           <Tag>MongoDB</Tag>
@@ -36,10 +38,10 @@ export default function Page({}: PageProps) {
           <Tag>Socket.io</Tag>
           <Tag>Azure</Tag>
         </div>
-        <h6 className="mt-5 text-sm">
+        <blockquote>
           A platform for students to explore what's active on their campus.
-        </h6>
-        <h3 className="text-md font-bold mt-5 mb-2"> Description </h3>
+        </blockquote>
+        <h4> Description </h4>
         <p>
           College education can often be overwhelming and stressful with
           assignments and exams, amongst other tedious life situations. Social
@@ -54,9 +56,10 @@ export default function Page({}: PageProps) {
           students to stay involved and socialize. As a capstone project for CS
           407, we tasked ourselves to building sociable.
         </p>
-        <h3 className="text-md font-bold mt-5 mb-2">
-          Role | <span className="font-normal opacity-50">Scrum Master</span>
-        </h3>
+        <h4>
+          Role |&nbsp;
+          <span className="font-normal opacity-50">Scrum Master</span>
+        </h4>
         <p>
           Working on sociable I served as the Scrum Master for the latter sprint
           of the project, working with a team of four other developers under
@@ -64,9 +67,7 @@ export default function Page({}: PageProps) {
           pull requests, and hold our weekly standups for any notable changes
           made.
         </p>
-        <h3 className="text-md font-bold mt-5 mb-2">
-          Creating a Social Network
-        </h3>
+        <h4>Creating a Social Network</h4>
         <p>
           When working on what would prove to hold the fundamentals of a social
           network, we focused on two main points -- ease of scalability, and
@@ -81,7 +82,7 @@ export default function Page({}: PageProps) {
           and a reverse proxy, allowing for independent scaling of compute for
           content distribution (given our live features of the platform).
         </p>
-        <h3 className="text-md font-bold mt-5 mb-2"> Key Takeaways </h3>
+        <h4> Key Takeaways </h4>
         <p>
           Working on a native-first project was a new challenge for our group --
           but by falling into eachothers strength, whether it be frontend,

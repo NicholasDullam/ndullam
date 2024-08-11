@@ -1,3 +1,7 @@
+const { plugins } = require("prismjs");
+const { transform } = require("typescript");
+const { content, theme } = require("./tailwind.config");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -41,5 +45,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

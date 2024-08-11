@@ -19,11 +19,49 @@ const PROJECTS = [
     active: true,
   },
   {
+    name: "Java for ARM",
+    path: "/projects/java-for-arm",
+    description: "A from-scratch compiler for a subset of Java for ARM.",
+    src: "/assets/images/java-arm-1.png",
+  },
+  {
     name: "Sociable",
     path: "/projects/sociable",
     description:
       "A platform for students to explore what's active on their campus.",
     src: "/assets/images/sociable-1.jpg",
+  },
+  {
+    name: "Traffic Deep RL",
+    path: "/projects/traffic-rl",
+    description: "A project aimed at optimizing traffic-light patterns.",
+    src: "/assets/images/traffic-rl-1.png",
+  },
+  {
+    name: "Traveling Merchant",
+    path: "/projects/traveling-merchant",
+    description: "A hub for any sales gone virtual.",
+    src: "/assets/images/traveling-merchant-2.png",
+  },
+  {
+    name: "ZooKeep",
+    path: "/projects/zookeep",
+    description:
+      "An experimental project, seeking to test the integrations of information systems.",
+    src: "/assets/images/zookeep-1.jpeg",
+  },
+  {
+    name: "Loan Default Prediction",
+    path: "/projects/loan-default-prediction",
+    description: "An ML investigation on the defaulting of loans.",
+    src: "/assets/images/loan-default-1.png",
+  },
+  {
+    name: "Communicode",
+    path: "/projects/communicode",
+    description:
+      "A startup with an aim of connecting developers with non-profits.",
+    src: "/assets/images/communicode-1.jpeg",
   },
 ] as const satisfies Project[];
 
