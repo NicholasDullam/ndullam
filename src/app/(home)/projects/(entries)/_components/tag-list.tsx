@@ -1,12 +1,12 @@
 "use client";
 
 import {
-    ReactNode,
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from "react";
 
 export type TagListProps = {
@@ -46,7 +46,7 @@ export const TagList = ({ children }: TagListProps) => {
       data-scrolled-to-end={scrolledToEnd}
       className="group relative"
     >
-      <div className="absolute top-0 left-0 w-5 h-full bg-gradient-to-r from-black to-transparent opacity-0 group-data-[scrolled=true]:opacity-100" />
+      <div className="absolute top-0 left-0 w-5 h-full bg-gradient-to-r from-black to-transparent opacity-0 pointer-events-none group-data-[scrolled=true]:opacity-100" />
       <div className="absolute top-0 right-0 w-5 h-full bg-gradient-to-l from-black to-transparent opacity-0 pointer-events-none group-data-[scrollable=true]:opacity-100 group-data-[scrollable=true]:group-data-[scrolled-to-end=true]:opacity-0 transition-all" />
       <div
         className="w-full overflow-x-auto flex items-center gap-2"
