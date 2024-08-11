@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body,
-html {
-  margin: 0;
-}
-
 * {
   font-family: "Menlo", monospace;
   -webkit-font-smoothing: antialiased;
