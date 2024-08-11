@@ -34,7 +34,9 @@ export const Footer = ({}: FooterProps) => {
             <Element name="Projects" />
           </Link>
           <Element name="Sandbox" />
-          <Element name="Contact" />
+          <Link href="/assets/documents/resume.pdf">
+            <Element name="Resume" />
+          </Link>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { hasTouch } from "../../../../util/has-touch";
@@ -9,6 +10,7 @@ import { hasTouch } from "../../../../util/has-touch";
 export type ProjectListItemProps = {
   name: string;
   height: number;
+  path: string;
   active?: boolean;
   description?: string;
   src?: string;
@@ -17,6 +19,7 @@ export type ProjectListItemProps = {
 
 export const ProjectListItem = ({
   name,
+  path,
   height,
   active,
   description,
@@ -26,6 +29,8 @@ export const ProjectListItem = ({
   const [contentHeight, setContentHeight] = useState<number>(0);
   const [hovered, setHovered] = useState<boolean>(false);
   const [touch, setTouch] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLParagraphElement>(null);
@@ -41,15 +46,21 @@ export const ProjectListItem = ({
 
   return (
     <div
+      onClick={() => router.push(path)}
       onMouseEnter={onMouseEnter}
       onMouseLeave={() => setHovered(false)}
       data-touch={touch}
       className="snap-center relative cursor-pointer border-b border-black group text-sm sm:text-xs"
       style={{ height }}
     >
-      <div className="bg-black group-hover:data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
+      <div className="bg-black z-10 group-hover:data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
       {!!src && (
-        <Image src={src} alt={name} className="object-cover w-full h-full" />
+        <Image
+          src={src}
+          alt={name}
+          className="object-cover w-full h-full"
+          fill
+        />
       )}
       <div
         ref={containerRef}
@@ -65,7 +76,7 @@ export const ProjectListItem = ({
           <span className="border-b border-white h-[1px] absolute bottom-0 left-0 transition-all w-0 group-hover:group-data-[touch=false]:w-full" />
         </p>
         <div
-          className="transition-all"
+          className="transition-all max-w-[200px]"
           style={{ height: hovered ? contentHeight : 0 }}
         >
           <p ref={contentRef}>{description}</p>
