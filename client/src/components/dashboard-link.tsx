@@ -3,14 +3,14 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 export type DashboardLinkProps = {
   name: string;
-} & Omit<HTMLAttributes<HTMLAnchorElement>, "children">;
+} & Omit<HTMLAttributes<HTMLDivElement>, "children">;
 
 export const DashboardLink = ({ name, ...props }: DashboardLinkProps) => {
   return (
-    <a className="flex relative group" {...props}>
-      {name}
+    <div className="flex relative group text-sm sm:text-xs" {...props}>
+      <span>{name}</span>
       <FiArrowUpRight />
-      <span className="border-b border-white h-[1px] group-hover:w-full w-0 transition-all duration-300" />
-    </a>
+      <span className="border-b border-white h-[1px] group-hover:w-full w-0 transition-all duration-300 absolute bottom-0 left-0" />
+    </div>
   );
 };
