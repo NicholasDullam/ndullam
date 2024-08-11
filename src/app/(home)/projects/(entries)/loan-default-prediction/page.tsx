@@ -1,6 +1,12 @@
 import { DashboardLink, Tag } from "@/components";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Nicholas Dullam - Loan Default Prediction",
+  description: "An ML investigation on the defaulting of loans",
+};
 
 type PageProps = {};
 

@@ -1,6 +1,13 @@
 import { DashboardLink, Tag } from "@/components";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Nicholas Dullam - sociable",
+  description:
+    "A platform for students to explore what's active on their campus",
+};
 
 export type PageProps = {};
 

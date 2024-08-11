@@ -1,5 +1,12 @@
 import { Tag } from "@/components";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Nicholas Dullam - Communicode",
+  description:
+    "A startup with an aim of connecting developers with non-profits",
+};
 
 type PageProps = {};
 

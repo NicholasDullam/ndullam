@@ -33,7 +33,7 @@ const PROJECTS = [
   },
   {
     name: "Traffic Deep RL",
-    path: "/projects/traffic-rl",
+    path: "/projects/traffic-deep-rl",
     description: "A project aimed at optimizing traffic-light patterns.",
     src: "/assets/images/traffic-rl-1.png",
   },
@@ -119,7 +119,7 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
           className="snap-y scroll-smooth overflow-y-auto h-full w-full"
         >
           {PROJECTS.map((project) => (
-            <ProjectListItem {...project} height={height} />
+            <ProjectListItem key={project.path} {...project} height={height} />
           ))}
         </div>
       </div>
