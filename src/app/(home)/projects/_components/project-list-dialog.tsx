@@ -15,8 +15,15 @@ const PROJECTS = [
     path: "/projects/sustainably",
     description:
       "A wellness-driven startup with an aim to help those on their fitness journey.",
-    src: "/assets/images/sustainably-2.png",
+    src: "/assets/images/sustainably-1.png",
     active: true,
+  },
+  {
+    name: "Sociable",
+    path: "/projects/sociable",
+    description:
+      "A platform for students to explore what's active on their campus.",
+    src: "/assets/images/sociable-1.jpg",
   },
 ] as const satisfies Project[];
 

@@ -41,28 +41,34 @@ export default function Page({}: PageProps) {
           journey.
         </h6>
         <h3 className="text-md font-bold mt-5 mb-2"> Description </h3>
-        Sustainably is a SaaS web app geared towards helping people reach their
-        fitness goal. It expands my client's personal training business into a
-        more affordable and scalable method of giving his customers the tools
-        necessary to get to where they want to be.
+        <p>
+          Sustainably is a SaaS web app geared towards helping people reach
+          their fitness goal. It expands my client's personal training business
+          into a more affordable and scalable method of giving his customers the
+          tools necessary to get to where they want to be.
+        </p>
         <h3 className="text-md font-bold mt-5 mb-2">
           Role |{" "}
           <span className="text-md opacity-50 font-normal">
             Development Lead
           </span>
         </h3>
-        At Sustainably, I continue to serve as the Development Lead, creating
-        and managing our MVP while introducing various functional iterations as
-        the company's matured. While programming the product in it's entirety, I
-        designed an intuitive user experience for new and power users, while
-        ensuring backend scalability and version control through a Github
-        organization.
+        <p>
+          At Sustainably, I continue to serve as the Development Lead, creating
+          and managing our MVP while introducing various functional iterations
+          as the company's matured. While programming the product in it's
+          entirety, I designed an intuitive user experience for new and power
+          users, while ensuring backend scalability and version control through
+          a Github organization.
+        </p>
         <h3 className="text-md font-bold mt-5 mb-2"> Creating a SaaS </h3>
-        When developing Sustainably as my first paid-access model, it was
-        important to note the efficacy of design. When creating the sign-up, the
-        sign-in, even the in-app experiences, I drove the design towards
-        increasing user interactions and overall retention; reducing churn
-        through our subsequent functional iterations.
+        <p>
+          When developing Sustainably as my first paid-access model, it was
+          important to note the efficacy of design. When creating the sign-up,
+          the sign-in, even the in-app experiences, I drove the design towards
+          increasing user interactions and overall retention; reducing churn
+          through our subsequent functional iterations.
+        </p>
         <h3 className="text-md font-bold mt-5 mb-2"> Key Takeaways </h3>
         <p>
           Working at Sustainably was my first full-time experience managing an
