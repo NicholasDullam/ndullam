@@ -49,15 +49,7 @@ export const WaveSpreadController = ({}: WaveSpreadControllerProps) => {
                   name={`spread.${index}`}
                   render={({ field }) => (
                     <FormItem>
-                      <Input
-                        {...field}
-                        key={index}
-                        className="col-span-2"
-                        type="number"
-                        step={0.1}
-                        min={0}
-                        max={1}
-                      />
+                      <Input {...field} key={index} type="number" step={0.1} />
                     </FormItem>
                   )}
                 />
@@ -126,7 +118,7 @@ export const WaveForm = ({}: WaveFormProps) => {
 
   return (
     <Form {...form}>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 max-w-[200px]">
         <div className="space-y-2">
           <Label>Preset</Label>
           <Select onValueChange={setPreset} value={preset}>

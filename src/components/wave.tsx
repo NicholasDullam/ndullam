@@ -15,7 +15,7 @@ type Neighbors = [boolean, boolean, boolean, boolean];
 type Pixel = number;
 type PixelGrid = Pixel[][];
 
-const spreadItemSchema = z.coerce.number().min(0).max(1);
+const spreadItemSchema = z.coerce.number().positive().max(1);
 
 export const wavePropsSchema = z.object({
   scale: z.coerce.number().int().positive().max(100).default(10),
