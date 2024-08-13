@@ -10,11 +10,21 @@ import {
     FormItem,
     FormLabel,
     Input,
+    Label,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useEffect, useMemo } from "react";
 import { useForm, useFormContext } from "react-hook-form";
-import { useWaveProviderContext } from "./wave-provider";
+import {
+    CONFIGURATION_PRESET_TYPES,
+    CONFIGURATION_PRESETS,
+    useWaveProviderContext,
+} from "./wave-provider";
 
 export type WaveSpreadControllerProps = {};
 const SPREAD_DEFINITION = [0, 1, 2, 3] as const;
@@ -63,7 +73,8 @@ export const WaveSpreadController = ({}: WaveSpreadControllerProps) => {
 export type WaveFormProps = {};
 
 export const WaveForm = ({}: WaveFormProps) => {
-  const { setConfiguration, configuration } = useWaveProviderContext();
+  const { setConfiguration, configuration, preset, setPreset } =
+    useWaveProviderContext();
 
   const configurationParsed = useMemo(
     () => wavePropsSchema.parse(configuration),
@@ -76,7 +87,14 @@ export const WaveForm = ({}: WaveFormProps) => {
     defaultValues,
   });
 
-  const { control, watch, handleSubmit, reset } = form;
+  const {
+    control,
+    watch,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = form;
+
   useEffect(() => {
     reset(configurationParsed);
   }, [configurationParsed]);
@@ -86,16 +104,44 @@ export const WaveForm = ({}: WaveFormProps) => {
       if (type === "change") handleSubmit(setConfiguration)();
     });
     return () => trigger.unsubscribe();
-  }, [watch]);
+  }, [watch, handleSubmit, setConfiguration]);
 
   const onReset = useCallback(() => {
     reset(defaultValues);
     setConfiguration(defaultValues);
-  }, [defaultValues]);
+  }, [defaultValues, reset, setConfiguration]);
+
+  useEffect(() => {
+    if (isDirty) setPreset("Custom");
+  }, [isDirty, setPreset]);
+
+  useEffect(() => {
+    if (preset === "Custom") return;
+    reset(CONFIGURATION_PRESETS[preset], {
+      keepDefaultValues: true,
+      keepDirty: false,
+    });
+    setConfiguration(CONFIGURATION_PRESETS[preset]);
+  }, [preset, reset, setConfiguration]);
 
   return (
     <Form {...form}>
       <div className="flex flex-col gap-4">
+        <div className="space-y-2">
+          <Label>Preset</Label>
+          <Select onValueChange={setPreset} value={preset}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {CONFIGURATION_PRESET_TYPES.map((preset) => (
+                <SelectItem key={preset} value={preset}>
+                  {preset}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
         <ControlledInput
           name="scale"
           control={control}
