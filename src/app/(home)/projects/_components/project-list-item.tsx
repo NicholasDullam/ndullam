@@ -53,7 +53,7 @@ export const ProjectListItem = ({
       className="snap-center relative cursor-pointer border-b border-black group text-sm sm:text-xs"
       style={{ height }}
     >
-      <div className="bg-black z-10 group-hover:data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
+      <div className="bg-black z-10 group-hover:group-data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
       {!!src && (
         <Image
           src={src}

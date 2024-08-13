@@ -141,19 +141,41 @@ export const WaveForm = ({}: WaveFormProps) => {
           type="number"
           step={1}
         />
-        <ControlledInput
+        <FormField
+          control={control}
           name="interval"
-          control={control}
-          label="Interval"
-          type="number"
-          step={1}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Interval</FormLabel>
+              <div className="relative">
+                <FormControl className="relative">
+                  <Input {...field} className="pr-7" type="number" step={1} />
+                </FormControl>
+                <div className="absolute top-0 right-3 transform translate-y-1/2">
+                  <span className="text-xs text-muted-foreground">ms</span>
+                </div>
+              </div>
+            </FormItem>
+          )}
         />
-        <ControlledInput
-          name="lifespan"
+        <FormField
           control={control}
-          label="Lifespan"
-          type="number"
-          step={1}
+          name="lifespan"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Interval</FormLabel>
+              <div className="relative">
+                <FormControl className="relative">
+                  <Input {...field} className="pr-20" type="number" step={1} />
+                </FormControl>
+                <div className="absolute top-0 right-3 transform translate-y-1/2">
+                  <span className="text-xs text-muted-foreground">
+                    iterations
+                  </span>
+                </div>
+              </div>
+            </FormItem>
+          )}
         />
         <WaveSpreadController />
         <Button variant={"outline"} type="reset" size={"sm"} onClick={onReset}>
