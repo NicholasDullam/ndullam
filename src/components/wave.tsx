@@ -8,26 +8,47 @@ import {
   useRef,
   useState,
 } from "react";
+import { z } from "zod";
 
 type Neighbors = [boolean, boolean, boolean, boolean];
 
 type Pixel = number;
 type PixelGrid = Pixel[][];
 
-export type WaveProps = {
-  scale?: number;
-  interval?: number;
-  spread?: [number, number, number, number];
+export const wavePropsSchema = z.object({
+  scale: z.coerce.number().int().positive().max(100).default(10),
+  interval: z.coerce.number().int().positive().default(50),
+  spread: z
+    .tuple([
+      z.coerce.number().min(0).max(1),
+      z.coerce.number().min(0).max(1),
+      z.coerce.number().min(0).max(1),
+      z.coerce.number().min(0).max(1),
+    ])
+    .default([0.1, 0.4, 0.1, 0.9]),
+});
+
+export type WavePropsSchema = z.infer<typeof wavePropsSchema>;
+
+export type WaveProps = WavePropsSchema & {
   containerRef: RefObject<HTMLDivElement>;
 };
 
 export const Wave = ({
   containerRef,
-  scale = 10,
-  interval = 50,
   spread: _spread,
+  interval: _interval,
+  scale: _scale,
 }: WaveProps) => {
-  const spread = useMemo(() => _spread ?? [0.1, 0.4, 0.1, 0.9], [_spread]);
+  const { scale, interval, spread } = useMemo(
+    () =>
+      wavePropsSchema.parse({
+        spread: _spread,
+        interval: _interval,
+        scale: _scale,
+      }),
+    [_spread, _interval, _scale]
+  );
 
   const [pixels, setPixels] = useState<PixelGrid>([]);
 
