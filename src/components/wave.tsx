@@ -15,15 +15,17 @@ type Neighbors = [boolean, boolean, boolean, boolean];
 type Pixel = number;
 type PixelGrid = Pixel[][];
 
+const spreadItemSchema = z.coerce.number().min(0).max(1);
+
 export const wavePropsSchema = z.object({
   scale: z.coerce.number().int().positive().max(100).default(10),
   interval: z.coerce.number().int().positive().default(50),
   spread: z
     .tuple([
-      z.coerce.number().min(0).max(1),
-      z.coerce.number().min(0).max(1),
-      z.coerce.number().min(0).max(1),
-      z.coerce.number().min(0).max(1),
+      spreadItemSchema,
+      spreadItemSchema,
+      spreadItemSchema,
+      spreadItemSchema,
     ])
     .default([0.1, 0.4, 0.1, 0.9]),
 });
