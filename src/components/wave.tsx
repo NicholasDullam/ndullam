@@ -20,6 +20,7 @@ const spreadItemSchema = z.coerce.number().min(0).max(1);
 export const wavePropsSchema = z.object({
   scale: z.coerce.number().int().positive().max(100).default(10),
   interval: z.coerce.number().int().positive().default(50),
+  lifespan: z.coerce.number().int().positive().default(20),
   spread: z
     .tuple([
       spreadItemSchema,
@@ -41,15 +42,17 @@ export const Wave = ({
   spread: _spread,
   interval: _interval,
   scale: _scale,
+  lifespan: _lifespan,
 }: WaveProps) => {
-  const { scale, interval, spread } = useMemo(
+  const { scale, interval, spread, lifespan } = useMemo(
     () =>
       wavePropsSchema.parse({
         spread: _spread,
         interval: _interval,
         scale: _scale,
+        lifespan: _lifespan,
       }),
-    [_spread, _interval, _scale]
+    [_spread, _interval, _scale, _lifespan]
   );
 
   const [pixels, setPixels] = useState<PixelGrid>([]);
@@ -105,12 +108,14 @@ export const Wave = ({
       pixels.forEach((row, i) => {
         row.forEach((_, j) => {
           if (pixels[i][j] <= 0) return;
-          context.fillStyle = `rgba(255,255,255, ${1 - pixels[i][j] / 20})`;
+          context.fillStyle = `rgba(255,255,255, ${
+            1 - pixels[i][j] / lifespan
+          })`;
           context.fillRect((j + 1) * scale, (i + 1) * scale, 1, 1);
         });
       });
     },
-    [width, height, scale]
+    [width, height, scale, lifespan]
   );
 
   const getNeighbors = useCallback(
@@ -130,28 +135,33 @@ export const Wave = ({
     const _pixels = [...pixelsRef.current.map((row) => [...row])];
     pixelsRef.current.forEach((row, i) => {
       row.forEach((_, j) => {
-        if (pixelsRef.current[i][j] > 20) _pixels[i][j] = 0;
+        if (pixelsRef.current[i][j] > lifespan) _pixels[i][j] = 0;
         else if (pixelsRef.current[i][j] == 0) return;
         else _pixels[i][j] += 1;
 
-        const rand = Math.random();
         const [hasNorth, hasEast, hasSouth, hasWest] = getNeighbors(
           pixelsRef.current,
           i,
           j
         );
 
-        if (!hasNorth && rand < spread[0] && i > 0) _pixels[i - 1][j] = 1;
-        if (!hasEast && rand < spread[1] && j < row.length - 1)
+        if (!hasNorth && Math.random() < spread[0] && i > 0)
+          _pixels[i - 1][j] = 1;
+        if (!hasEast && Math.random() < spread[1] && j < row.length - 1)
           _pixels[i][j + 1] = 1;
-        if (!hasSouth && rand < spread[2] && i < pixelsRef.current.length - 1)
+        if (
+          !hasSouth &&
+          Math.random() < spread[2] &&
+          i < pixelsRef.current.length - 1
+        )
           _pixels[i + 1][j] = 1;
-        if (!hasWest && rand < spread[3] && j > 0) _pixels[i][j - 1] = 1;
+        if (!hasWest && Math.random() < spread[3] && j > 0)
+          _pixels[i][j - 1] = 1;
       });
     });
 
     setPixels(_pixels);
-  }, [getNeighbors, spread]);
+  }, [getNeighbors, spread, lifespan]);
 
   useEffect(() => {
     initialize();

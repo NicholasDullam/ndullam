@@ -27,7 +27,9 @@ export const WaveSpreadController = ({}: WaveSpreadControllerProps) => {
       name="spread"
       render={() => (
         <FormItem>
-          <FormLabel>Spread</FormLabel>
+          <FormLabel>
+            Spread <span className="opacity-50">(N/E|S/W)</span>
+          </FormLabel>
           <FormControl>
             <div className="grid grid-cols-2 gap-2">
               {SPREAD_DEFINITION.map((index) => (
@@ -105,6 +107,13 @@ export const WaveForm = ({}: WaveFormProps) => {
           name="interval"
           control={control}
           label="Interval"
+          type="number"
+          step={1}
+        />
+        <ControlledInput
+          name="lifespan"
+          control={control}
+          label="Lifespan"
           type="number"
           step={1}
         />
