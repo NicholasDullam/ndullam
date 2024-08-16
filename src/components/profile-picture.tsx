@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 
 const STATIC_COLORS = ["black", "red", "green", "blue"] as const;
 type Color = (typeof STATIC_COLORS)[number];
@@ -60,7 +60,7 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
       coordinatesRef.current.x = event.clientX - rect.left;
       coordinatesRef.current.y = event.clientY - rect.top;
     },
-    []
+    [],
   );
 
   const onMouseDown = useCallback<MouseEventHandler<HTMLCanvasElement>>(
@@ -75,12 +75,12 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
         coordinatesRef.current.x,
         coordinatesRef.current.y,
         2,
-        2
+        2,
       );
       context.closePath();
       setDirty(true);
     },
-    [getCoordinates, color]
+    [getCoordinates, color],
   );
 
   const onMouseMove = useCallback<MouseEventHandler<HTMLCanvasElement>>(
@@ -89,7 +89,7 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
       getCoordinates(event);
       draw();
     },
-    [draw]
+    [draw],
   );
 
   const onSave = useCallback(() => {
@@ -131,7 +131,7 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
         >
           Clear
         </button>
-        <Button disabled={!dirty} onClick={onSave}>
+        <Button variant="outline" disabled={!dirty} onClick={onSave}>
           Save
         </Button>
       </div>
