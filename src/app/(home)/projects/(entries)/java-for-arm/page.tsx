@@ -23,7 +23,7 @@ export default function Page({}: PageProps) {
           className="object-cover"
         />
       </div>
-      <div className="p-8 pt-0 prose prose-invert prose-sm">
+      <div className="p-8 pt-0 prose prose-invert prose-sm max-w-full">
         <div className="my-5 flex items-center gap-4">
           <h1 className="mb-0"> Java for ARM </h1>
           <Link

@@ -22,7 +22,7 @@ export default function Page({}: PageProps) {
           className="object-cover"
         />
       </div>
-      <div className="p-8 pt-0 prose prose-invert prose-sm">
+      <div className="p-8 pt-0 prose prose-invert prose-sm max-w-full">
         <div className="my-5">
           <h1 className="mb-0"> Communicode </h1>
         </div>
