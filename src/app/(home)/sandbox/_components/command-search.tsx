@@ -10,7 +10,7 @@ import {
 } from "@/components/ui";
 import { CardStackIcon, TransformIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const TRANSITION_DURATION = 150 as const;
@@ -18,25 +18,14 @@ const TRANSITION_DURATION = 150 as const;
 export type CommandSearchProps = {};
 
 export const CommandSearch = ({}: CommandSearchProps) => {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const querySearchParam = searchParams.get("q");
-
-  const [search, setSearch] = useState<string>(querySearchParam ?? "");
+  const [search, setSearch] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setOpen(true);
   }, []);
-
-  useEffect(() => {
-    window.history.replaceState(
-      null,
-      "",
-      `?${new URLSearchParams({ q: search }).toString()}`,
-    );
-  }, [search]);
 
   const onClose = useCallback(() => {
     setOpen(false);
