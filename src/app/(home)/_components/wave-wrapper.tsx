@@ -1,15 +1,17 @@
 "use client";
 
 import { Wave } from "@/components";
-import { ComponentProps } from "react";
+import { useRef } from "react";
 import { useWaveProviderContext } from "./wave-provider";
 
-export type WaveWrapperProps = Pick<
-  ComponentProps<typeof Wave>,
-  "containerRef"
->;
+export type WaveWrapperProps = {};
 
-export const WaveWrapper = ({ containerRef }: WaveWrapperProps) => {
+export const WaveWrapper = ({}: WaveWrapperProps) => {
   const { configuration } = useWaveProviderContext();
-  return <Wave containerRef={containerRef} {...configuration} />;
+  const containerRef = useRef<HTMLDivElement>(null);
+  return (
+    <div className="grow" ref={containerRef}>
+      <Wave containerRef={containerRef} {...configuration} />
+    </div>
+  );
 };

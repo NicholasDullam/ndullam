@@ -3,6 +3,7 @@
 import { hasTouch } from "@/lib/has-touch";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -45,52 +46,54 @@ export const ProjectListItem = ({
   }, [touch]);
 
   return (
-    <div
-      onClick={() => router.push(path)}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={() => setHovered(false)}
-      data-touch={touch}
-      className="snap-center relative cursor-pointer border-b border-black group text-sm sm:text-xs"
-      style={{ height }}
-    >
-      <div className="bg-black z-10 group-hover:group-data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
-      {!!src && (
-        <Image
-          src={src}
-          alt={name}
-          className="object-cover w-full h-full"
-          fill
-        />
-      )}
+    <Link href={path}>
       <div
-        ref={containerRef}
-        className="absolute bottom-3 left-3 z-50 text-white overflow-hidden"
+        onClick={() => router.push(path)}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={() => setHovered(false)}
+        data-touch={touch}
+        className="snap-center relative cursor-pointer border-b border-black group text-sm sm:text-xs"
+        style={{ height }}
       >
-        <p
-          className={clsx("flex relative transition-all", {
-            "group-hover:group-data-[touch=false]:mb-2 pb-[2px]": hovered,
-          })}
-        >
-          <span>{name}</span>
-          <FiArrowUpRight />
-          <span className="border-b border-white h-[1px] absolute bottom-0 left-0 transition-all w-0 group-hover:group-data-[touch=false]:w-full" />
-        </p>
+        <div className="bg-black z-10 group-hover:group-data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
+        {!!src && (
+          <Image
+            src={src}
+            alt={name}
+            className="object-cover w-full h-full"
+            fill
+          />
+        )}
         <div
-          className="transition-all max-w-[200px]"
-          style={{ height: hovered ? contentHeight : 0 }}
+          ref={containerRef}
+          className="absolute bottom-3 left-3 z-50 text-white overflow-hidden"
         >
-          <p ref={contentRef}>{description}</p>
-        </div>
-      </div>
-      {!!active && (
-        <div className="absolute bottom-3 right-3 z-50 flex items-center gap-3 text-white transition-all">
-          <p>Active</p>
-          <div className="relative">
-            <div className="h-2 w-2 rounded-full bg-green-400" />
-            <div className="absolute top-0 left-0 h-2 w-2 rounded-full bg-green-400 animate-ping" />
+          <p
+            className={clsx("flex relative transition-all", {
+              "group-hover:group-data-[touch=false]:mb-2 pb-[2px]": hovered,
+            })}
+          >
+            <span>{name}</span>
+            <FiArrowUpRight />
+            <span className="border-b border-white h-[1px] absolute bottom-0 left-0 transition-all w-0 group-hover:group-data-[touch=false]:w-full" />
+          </p>
+          <div
+            className="transition-all max-w-[200px]"
+            style={{ height: hovered ? contentHeight : 0 }}
+          >
+            <p ref={contentRef}>{description}</p>
           </div>
         </div>
-      )}
-    </div>
+        {!!active && (
+          <div className="absolute bottom-3 right-3 z-50 flex items-center gap-3 text-white transition-all">
+            <p>Active</p>
+            <div className="relative">
+              <div className="h-2 w-2 rounded-full bg-green-400" />
+              <div className="absolute top-0 left-0 h-2 w-2 rounded-full bg-green-400 animate-ping" />
+            </div>
+          </div>
+        )}
+      </div>
+    </Link>
   );
 };

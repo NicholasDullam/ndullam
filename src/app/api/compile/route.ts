@@ -3,15 +3,17 @@
 import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
+import { z } from "zod";
 import { compile } from "./_util/compile";
 
-type BodyParsed = {
-  code: string;
-};
+const bodySchema = z.object({
+  code: z.string(),
+});
 
 export async function POST(request: NextRequest) {
-  const body: BodyParsed = await request.json();
   try {
+    const body = bodySchema.parse(await request.json());
+
     const tmp = path.join(__dirname, "../../../..", "tmp");
     const dir = path.join(tmp, Date.now().toString());
     const file = path.join(dir, "expr.java");
@@ -28,7 +30,7 @@ export async function POST(request: NextRequest) {
     fs.rmSync(dir, { recursive: true, force: true });
     return NextResponse.json(
       { response: compiled.toString(), time: response.time },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ error }, { status: 400 });
