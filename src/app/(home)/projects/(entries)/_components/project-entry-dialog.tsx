@@ -37,7 +37,7 @@ export const ProjectEntryDialog = ({ children }: ProjectEntryDialogProps) => {
         data-state={open ? "open" : "closed"}
         style={{ transitionDuration: `${TRANSITION_DURATION}ms` }}
         className={clsx(
-          "fixed z-[60] overflow-x-hidden overflow-y-auto right-0 top-0 h-full w-[500px] max-w-full bg-black transform transition-all data-[state=closed]:translate-x-full",
+          "fixed z-[60] overflow-x-hidden overflow-y-auto right-0 top-0 h-full w-[650px] max-w-full bg-black transform transition-all data-[state=closed]:translate-x-full",
           {
             "w-full flex justify-center": readerMode,
           },

@@ -13,7 +13,6 @@ export const Footer = ({}: FooterProps) => {
           <h4 className="text-md opacity-50">Development Lead</h4>
         </div>
         <div className="flex gap-2">
-          {/* Socials */}
           <div className="flex flex-col">
             <Link href="https://github.com/NicholasDullam" target="_blank">
               <DashboardLink name="GitHub" />
@@ -29,7 +28,6 @@ export const Footer = ({}: FooterProps) => {
             </Link>
           </div>
 
-          {/* Navigation */}
           <div className="flex flex-col">
             <Link href="/projects">
               <Element name="Projects" />

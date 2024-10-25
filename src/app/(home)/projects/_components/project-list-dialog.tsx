@@ -104,7 +104,7 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
       <div
         data-state={open ? "open" : "closed"}
         style={{ transitionDuration: `${TRANSITION_DURATION}ms` }}
-        className="fixed z-50 overflow-hidden right-0 top-0 h-full w-[500px] max-w-full bg-black transform transition-all data-[state=closed]:translate-x-full"
+        className="fixed z-50 overflow-hidden right-0 top-0 h-full w-[650px] max-w-full bg-black transform transition-all data-[state=closed]:translate-x-full"
       >
         <div
           ref={contentRef}

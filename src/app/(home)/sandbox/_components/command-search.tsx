@@ -8,8 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui";
-import { CardStackIcon, TransformIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+import { CodeIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -58,7 +57,13 @@ export const CommandSearch = ({}: CommandSearchProps) => {
           <CommandList>
             <CommandEmpty>No results found</CommandEmpty>
             <CommandGroup>
-              <CommandItem value="golf" asChild>
+              <CommandItem value="under-construction" asChild>
+                <div className="flex items-center gap-2">
+                  <CodeIcon />
+                  <span>Under Construction</span>
+                </div>
+              </CommandItem>
+              {/* <CommandItem value="golf" asChild>
                 <Link href="/sandbox/golf" className="flex items-center gap-2">
                   <CardStackIcon />
                   <span>Golf</span>
@@ -70,7 +75,7 @@ export const CommandSearch = ({}: CommandSearchProps) => {
               >
                 <TransformIcon />
                 <span>Simulator</span>
-              </CommandItem>
+              </CommandItem> */}
             </CommandGroup>
           </CommandList>
         </Command>
