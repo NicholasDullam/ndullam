@@ -65,7 +65,7 @@ export default function Page({}: PageProps) {
         </Link>
         <h4> Creating a Compiler </h4>
         <p>
-          While the general approach to building a compiler follows the steps of
+          {`While the general approach to building a compiler follows the steps of
           syntax, typechecking, codegen, and optimization, I took a few
           different with each step. Syntax-checking came in the form of first,
           top-down parsing with just Lex, followed by an implementation of
@@ -79,16 +79,16 @@ export default function Page({}: PageProps) {
           AST, finally parsing to ARM assembly with the allocation of stack
           offsets and registers. Currently, I'm focusing on scalability of code
           generation with changes in instruction sets, alongside register and
-          stack optimizations.
+          stack optimizations.`}
         </p>
         <Compiler />
         <h4> Key Takeaways </h4>
         <p>
-          This easily became one of my proudest projects I've worked on. Rather
+          {`This easily became one of my proudest projects I've worked on. Rather
           than taking an abstracted view of processes behind modern languages,
           the project used low-level approaches to solve to the problems at hand
           -- further reenforcing my interest in gathering a deeper understanding
-          of existing problems and their solutions.
+          of existing problems and their solutions.`}
         </p>
       </div>
     </div>

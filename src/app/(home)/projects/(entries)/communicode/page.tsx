@@ -72,12 +72,12 @@ export default function Page({}: PageProps) {
         </p>
         <h4> Key Takeaways </h4>
         <p>
-          Working at Communicode was one of my first real-world application of
+          {`Working at Communicode was one of my first real-world application of
           what I've learned throughout my life programming. I had never been
           exposed to web development, nor an outside work environment before
           this point. What I learned here pushed me into where I am today,
           studying Computer Science, Data Science, and Applied Statistics at
-          Purdue.
+          Purdue.`}
         </p>
       </div>
     </div>

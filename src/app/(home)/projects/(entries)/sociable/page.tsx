@@ -47,11 +47,11 @@ export default function Page({}: PageProps) {
           <Tag>Azure</Tag>
         </TagList>
         <blockquote>
-          A platform for students to explore what's active on their campus.
+          {`A platform for students to explore what's active on their campus.`}
         </blockquote>
         <h4> Description </h4>
         <p>
-          College education can often be overwhelming and stressful with
+          {`College education can often be overwhelming and stressful with
           assignments and exams, amongst other tedious life situations. Social
           events allow for healthy releases of this stress and anxiety; however,
           it can be difficult to find these events since invitations are
@@ -62,7 +62,7 @@ export default function Page({}: PageProps) {
           create and join these events individually or on the behalf of their
           organizations, sociable brings to the market a new, easy way for
           students to stay involved and socialize. As a capstone project for CS
-          407, we tasked ourselves to building sociable.
+          407, we tasked ourselves to building sociable.`}
         </p>
         <h4>
           Role |&nbsp;
@@ -77,7 +77,7 @@ export default function Page({}: PageProps) {
         </p>
         <h4>Creating a Social Network</h4>
         <p>
-          When working on what would prove to hold the fundamentals of a social
+          {`When working on what would prove to hold the fundamentals of a social
           network, we focused on two main points -- ease of scalability, and
           ease of access. For all schema under the project, we would held the
           first question on what could be expected of the collection under
@@ -88,13 +88,13 @@ export default function Page({}: PageProps) {
           important aspect of scaling, or next step was infrastructure. While we
           didn't aim to deploy in excess, we planned around the use of Redis,
           and a reverse proxy, allowing for independent scaling of compute for
-          content distribution (given our live features of the platform).
+          content distribution (given our live features of the platform).`}
         </p>
         <h4> Key Takeaways </h4>
         <p>
-          Working on a native-first project was a new challenge for our group --
+          {`Working on a native-first project was a new challenge for our group --
           but by falling into eachothers strength, whether it be frontend,
-          backend, or fullstack, we met our "MVP" effectively.
+          backend, or fullstack, we met our "MVP" effectively.`}
         </p>
       </div>
     </div>

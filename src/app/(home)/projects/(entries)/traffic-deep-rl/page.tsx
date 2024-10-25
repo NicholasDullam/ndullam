@@ -39,9 +39,9 @@ export default function Page({}: PageProps) {
         </blockquote>
         <h4> Description </h4>
         <p>
-          As a capstone project for CS 490, my team and I worked alongside a
+          {`As a capstone project for CS 490, my team and I worked alongside a
           professor from Purdue's department of Civil Engineering to optimize
-          traffic patterns with deep-reinforcement learning principles.
+          traffic patterns with deep-reinforcement learning principles.`}
         </p>
         <h4>
           Role |<span className="font-normal opacity-50"> Member </span>
@@ -54,7 +54,7 @@ export default function Page({}: PageProps) {
         </p>
         <h4> Modeling with Deep RL </h4>
         <p>
-          In our case, given our use of reinforcement learning, it's important
+          {`In our case, given our use of reinforcement learning, it's important
           to note how we managed the state and environment. Based on 15 minutes
           of data from Lankershim boulevard, we created baseline aggregates,
           like turning volume, to use an a simulation tool known as SUMO -- this
@@ -65,7 +65,7 @@ export default function Page({}: PageProps) {
           of these models was tested with two value functions to optimize
           throughout, one with judgement on aggregate vehicle delay, and the
           other on total vehicle stops. Results for our initial findings can
-          also be found below.
+          also be found below.`}
         </p>
         <div className="flex flex-col gap-2">
           <Link
@@ -85,13 +85,13 @@ export default function Page({}: PageProps) {
         </div>
         <h4> Key Takeaways </h4>
         <p>
-          As a project heavy in development, understanding, and repeatability,
+          {`As a project heavy in development, understanding, and repeatability,
           it was important to cycle changes -- for instance, once we've
           developed a solution, but develop a new understanding of the data,
           it's crucial to cycle back and reflect the new understanding in the
           development process. As for repeatability, with things constantly
           changing, it's necessary to document the entire process to ensure any
-          results can be matched by a reviewing third-party.
+          results can be matched by a reviewing third-party.`}
         </p>
       </div>
     </div>

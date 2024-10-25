@@ -51,11 +51,11 @@ export default function Page({}: PageProps) {
           Role |&nbsp;<span className="opacity-50 font-normal">Member</span>
         </h4>
         <p>
-          Working on the project, I acted as a team member alongside two other
+          {`Working on the project, I acted as a team member alongside two other
           students to follow through on our goal of accurately predicting a
           borrower's defaulting behavior. As teammates, we all followed through
           on our strengths, collaborating on the direction of the project and
-          ensuring representative results with regular code reviews.
+          ensuring representative results with regular code reviews.`}
         </p>
         <h4> Creating a Model </h4>
         <p>

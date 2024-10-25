@@ -49,22 +49,22 @@ export default function Page({}: PageProps) {
         </blockquote>
         <h4> Description </h4>
         <p>
-          Sustainably is a SaaS web app geared towards helping people reach
+          {`Sustainably is a SaaS web app geared towards helping people reach
           their fitness goal. It expands my client's personal training business
           into a more affordable and scalable method of giving his customers the
-          tools necessary to get to where they want to be.
+          tools necessary to get to where they want to be.`}
         </p>
         <h4>
           Role |&nbsp;
           <span className="opacity-50 font-normal">Development Lead</span>
         </h4>
         <p>
-          At Sustainably, I continue to serve as the Development Lead, creating
+          {`At Sustainably, I continue to serve as the Development Lead, creating
           and managing our MVP while introducing various functional iterations
           as the company's matured. While programming the product in it's
           entirety, I designed an intuitive user experience for new and power
           users, while ensuring backend scalability and version control through
-          a Github organization.
+          a Github organization.`}
         </p>
         <h4> Creating a SaaS </h4>
         <p>
