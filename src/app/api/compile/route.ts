@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 
   const tmp = path.join(
     process.env.NODE_ENV === "development" ? process.cwd() : "",
-    "tmp",
+    "/tmp",
   );
   const dir = path.join(tmp, Date.now().toString());
   const file = path.join(dir, "expr.java");
