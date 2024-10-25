@@ -1,6 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui";
 import clsx from "clsx";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 
@@ -11,7 +13,7 @@ export type ProjectEntryDialogProps = {
 };
 
 export const ProjectEntryDialog = ({ children }: ProjectEntryDialogProps) => {
-  const [readerMode] = useState<boolean>(false);
+  const [readerMode, _setReaderMode] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -33,6 +35,13 @@ export const ProjectEntryDialog = ({ children }: ProjectEntryDialogProps) => {
         style={{ transitionDuration: `${TRANSITION_DURATION}ms` }}
         className="h-full w-full bg-black fixed z-30 top-0 left-0 transition-all opacity-0 data-[state=closed]:pointer-events-none data-[state=open]:opacity-30"
       />
+      <Button
+        variant={"outline"}
+        className="fixed top-2 left-2 p-1.5 h-auto z-[100]"
+        onClick={onClose}
+      >
+        <X size={12} />
+      </Button>
       <div
         data-state={open ? "open" : "closed"}
         style={{ transitionDuration: `${TRANSITION_DURATION}ms` }}

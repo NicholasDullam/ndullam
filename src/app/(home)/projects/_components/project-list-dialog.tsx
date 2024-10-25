@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui";
+import { ArrowDown, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ProjectListItem } from "./project-list-item";
 
 export const TRANSITION_DURATION = 150 as const;
@@ -15,7 +17,6 @@ const PROJECTS = [
     description:
       "A wellness-driven startup with an aim to help those on their fitness journey.",
     src: "/assets/images/sustainably-1.png",
-    active: true,
   },
   {
     name: "Java for ARM",
@@ -70,12 +71,13 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [height, setHeight] = useState<number>(0);
 
+  const [hasMore, setHasMore] = useState<boolean>(false);
+
   useEffect(() => {
     setOpen(true);
   }, []);
 
-  const contentRef = useRef<HTMLDivElement>(null);
-
+  const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const onResize = useCallback(() => {
     setHeight(window.innerHeight / 3);
   }, []);
@@ -93,6 +95,22 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
     setTimeout(() => router.push("/"), TRANSITION_DURATION);
   }, [router]);
 
+  const onScroll = useCallback(() => {
+    if (!contentRef) return;
+    const contentRect = contentRef.getBoundingClientRect();
+    setHasMore(
+      contentRef.scrollTop + contentRect.height < contentRef.scrollHeight,
+    );
+  }, [contentRef]);
+
+  useEffect(() => {
+    const _content = contentRef;
+    if (!_content) return;
+    onScroll();
+    _content.addEventListener("scroll", onScroll);
+    return () => _content.removeEventListener("scroll", onScroll);
+  }, [contentRef, onScroll]);
+
   return (
     <>
       <div
@@ -106,8 +124,23 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
         style={{ transitionDuration: `${TRANSITION_DURATION}ms` }}
         className="fixed z-50 overflow-hidden right-0 top-0 h-full w-[650px] max-w-full bg-black transform transition-all data-[state=closed]:translate-x-full"
       >
+        <Button
+          variant={"outline"}
+          className="fixed top-2 left-2 p-1.5 h-auto z-[100]"
+          onClick={onClose}
+        >
+          <X size={12} />
+        </Button>
+        <Button
+          variant={"outline"}
+          data-has-more={hasMore ? "true" : "false"}
+          className="fixed bottom-0 right-2 p-1.5 h-auto z-[100] text-xs flex items-center gap-1 transition-all data-[has-more=true]:bottom-2 data-[has-more=false]:translate-y-full"
+        >
+          <ArrowDown size={12} />
+          <span>More Below</span>
+        </Button>
         <div
-          ref={contentRef}
+          ref={setContentRef}
           className="snap-y scroll-smooth overflow-y-auto h-full w-full"
         >
           {PROJECTS.map((project) => (
