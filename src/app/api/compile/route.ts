@@ -16,7 +16,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: _body.error }, { status: 400 });
   const body = _body.data;
 
-  const tmp = path.join(process.cwd(), "tmp");
+  const tmp = path.join(
+    process.env.NODE_ENV === "development" ? process.cwd() : "",
+    "tmp",
+  );
   const dir = path.join(tmp, Date.now().toString());
   const file = path.join(dir, "expr.java");
 
