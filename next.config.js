@@ -2,7 +2,11 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  experimental: {
+    outputFileTracingIncludes: {
+      "api/compile": ["./codegen"],
+    },
+  },
 };
 
 module.exports = nextConfig;
