@@ -11,28 +11,32 @@ const bodySchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  const _body = bodySchema.safeParse(await request.json());
+  if (!_body.success)
+    return NextResponse.json({ error: _body.error }, { status: 400 });
+  const body = _body.data;
+
+  const tmp = path.join(process.cwd(), "tmp");
+  const dir = path.join(tmp, Date.now().toString());
+  const file = path.join(dir, "expr.java");
+
   try {
-    const body = bodySchema.parse(await request.json());
-
-    const tmp = path.join(__dirname, "../../../..", "tmp");
-    const dir = path.join(tmp, Date.now().toString());
-    const file = path.join(dir, "expr.java");
-
     if (!fs.existsSync(tmp)) fs.mkdirSync(tmp);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 
     fs.writeFileSync(file, body.code);
-    fs.writeFileSync(path.join(dir, "data.json"), JSON.stringify(body));
 
     const response = await compile(file);
-    const compiled = fs.readFileSync(path.join(dir, "expr.s"));
-
-    fs.rmSync(dir, { recursive: true, force: true });
     return NextResponse.json(
-      { response: compiled.toString(), time: response.time },
+      {
+        response: fs.readFileSync(path.join(dir, "expr.s")).toString(),
+        time: response.time,
+      },
       { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ error }, { status: 400 });
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
   }
 }
