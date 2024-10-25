@@ -23,13 +23,13 @@ export type ConfigurationPreset = (keyof typeof CONFIGURATION_PRESETS)[number];
 
 export type WaveProviderContext = {
   preset: ConfigurationPresetType;
-  setPreset: (preset: ConfigurationPresetType) => void;
   configuration: WavePropsSchema;
+  setPreset: (preset: ConfigurationPresetType) => void;
   setConfiguration: (configuration: WavePropsSchema) => void;
 };
 
 export const WaveProviderContext = createContext<WaveProviderContext>(
-  {} as WaveProviderContext
+  {} as WaveProviderContext,
 );
 
 export const useWaveProviderContext = () => useContext(WaveProviderContext);
@@ -40,12 +40,16 @@ export type WaveProviderProps = {
 
 export const WaveProvider = ({ children }: WaveProviderProps) => {
   const defaults = useMemo(() => wavePropsSchema.parse({}), []);
+
   const [configuration, setConfiguration] = useState<WavePropsSchema>(defaults);
   const [preset, setPreset] = useState<ConfigurationPresetType>("Default");
+
+  const context = useMemo(
+    () => ({ preset, configuration, setPreset, setConfiguration }),
+    [preset, configuration, setPreset, setConfiguration],
+  );
   return (
-    <WaveProviderContext.Provider
-      value={{ preset, setPreset, configuration, setConfiguration }}
-    >
+    <WaveProviderContext.Provider value={context}>
       {children}
     </WaveProviderContext.Provider>
   );

@@ -52,7 +52,7 @@ export const Wave = ({
         scale: _scale,
         lifespan: _lifespan,
       }),
-    [_spread, _interval, _scale, _lifespan]
+    [_spread, _interval, _scale, _lifespan],
   );
 
   const [pixels, setPixels] = useState<PixelGrid>([]);
@@ -82,7 +82,7 @@ export const Wave = ({
 
     setXUnits(Math.ceil(box.width / scale));
     setYUnits(Math.ceil(box.height / scale));
-  }, [scale]);
+  }, [scale, containerRef]);
 
   useEffect(() => {
     handleResize();
@@ -98,7 +98,7 @@ export const Wave = ({
     temp.forEach((_, i) => (temp[i] = new Array(xUnits).fill(0)));
     if (xUnits > 0 && yUnits > 0) temp[0][0] = 1;
     setPixels(temp);
-  }, [width, height, scale, xUnits, yUnits]);
+  }, [width, height, xUnits, yUnits]);
 
   const draw = useCallback(
     (pixels: PixelGrid) => {
@@ -115,7 +115,7 @@ export const Wave = ({
         });
       });
     },
-    [width, height, scale, lifespan]
+    [width, height, scale, lifespan],
   );
 
   const getNeighbors = useCallback(
@@ -127,7 +127,7 @@ export const Wave = ({
       if (j > 0 && pixels[i][j - 1]) neighbors[3] = true; // west
       return neighbors;
     },
-    []
+    [],
   );
 
   const generateFrame = useCallback(() => {
@@ -142,7 +142,7 @@ export const Wave = ({
         const [hasNorth, hasEast, hasSouth, hasWest] = getNeighbors(
           pixelsRef.current,
           i,
-          j
+          j,
         );
 
         if (!hasNorth && Math.random() < spread[0] && i > 0)

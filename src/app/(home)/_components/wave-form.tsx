@@ -3,27 +3,27 @@
 import { wavePropsSchema, WavePropsSchema } from "@/components";
 import { ControlledInput } from "@/components/controlled/controlled-input";
 import {
-    Button,
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    Input,
-    Label,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useEffect, useMemo } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import {
-    CONFIGURATION_PRESET_TYPES,
-    CONFIGURATION_PRESETS,
-    useWaveProviderContext,
+  CONFIGURATION_PRESET_TYPES,
+  CONFIGURATION_PRESETS,
+  useWaveProviderContext,
 } from "./wave-provider";
 
 export type WaveSpreadControllerProps = {};
@@ -70,7 +70,7 @@ export const WaveForm = ({}: WaveFormProps) => {
 
   const configurationParsed = useMemo(
     () => wavePropsSchema.parse(configuration),
-    [configuration]
+    [configuration],
   );
 
   const defaultValues = useMemo(() => wavePropsSchema.parse({}), []);
@@ -89,7 +89,7 @@ export const WaveForm = ({}: WaveFormProps) => {
 
   useEffect(() => {
     reset(configurationParsed);
-  }, [configurationParsed]);
+  }, [configurationParsed, reset]);
 
   useEffect(() => {
     const trigger = watch((_, { type }) => {

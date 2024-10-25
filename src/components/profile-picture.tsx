@@ -29,16 +29,16 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
 
   const drawingRef = useRef(false);
 
-  useEffect(() => {
-    if (canvasRef.current) initialFill();
-  }, []);
-
   const initialFill = useCallback(() => {
     const context = canvasRef.current?.getContext("2d");
     if (!context || !canvasRef.current) return;
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   }, []);
+
+  useEffect(() => {
+    if (canvasRef.current) initialFill();
+  }, [initialFill]);
 
   const draw = useCallback(() => {
     const context = canvasRef.current?.getContext("2d");
@@ -89,7 +89,7 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
       getCoordinates(event);
       draw();
     },
-    [draw],
+    [draw, getCoordinates],
   );
 
   const onSave = useCallback(() => {
@@ -106,6 +106,7 @@ export const ProfilePicture = ({ onSave: _onSave }: ProfilePictureProps) => {
           {STATIC_COLORS.map((color) => {
             return (
               <button
+                key={color}
                 onClick={() => setColor(color)}
                 className="h-5 w-5 border-2 border-white rounded-full transition-all duration-300"
               />

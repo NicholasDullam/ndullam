@@ -11,7 +11,7 @@ export type ProjectEntryDialogProps = {
 };
 
 export const ProjectEntryDialog = ({ children }: ProjectEntryDialogProps) => {
-  const [readerMode, setReaderMode] = useState<boolean>(false);
+  const [readerMode] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {

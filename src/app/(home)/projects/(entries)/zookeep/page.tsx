@@ -72,11 +72,11 @@ export default function Page({}: PageProps) {
         </p>
         <h4> Key Takeaways </h4>
         <p>
-          Working on ZooKeep, I've understood the importance of concrete data
+          {`Working on ZooKeep, I've understood the importance of concrete data
           construction for scalability, alongside the necessary precautions when
           integrating a user-experience to admin-level data manipulation.
           Ensuring DB transactions and isolation levels are properly seated are
-          also steps that must be taken when dealing with concurrent changes.
+          also steps that must be taken when dealing with concurrent changes.`}
         </p>
       </div>
     </div>

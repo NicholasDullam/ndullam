@@ -84,7 +84,7 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [onResize]);
 
   const router = useRouter();
 

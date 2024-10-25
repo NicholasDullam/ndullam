@@ -3,13 +3,13 @@
 import { ComponentProps } from "react";
 import { FieldValues } from "react-hook-form";
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-    Input,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
 } from "../ui";
 
 export type InputProps = ComponentProps<typeof Input>;
@@ -30,6 +30,7 @@ export const ControlledInput = <T extends FieldValues>({
   return (
     <FormField
       name={name}
+      control={control}
       render={({ field }) => (
         <FormItem>
           {!!label && <FormLabel>{label}</FormLabel>}
