@@ -134,7 +134,7 @@ export const ProjectListDialog = ({}: ProjectListDialogProps) => {
         <Button
           variant={"outline"}
           data-has-more={hasMore ? "true" : "false"}
-          className="fixed bottom-0 right-2 p-1.5 h-auto z-[100] text-xs flex items-center gap-1 transition-all data-[has-more=true]:bottom-2 data-[has-more=false]:translate-y-full"
+          className="fixed bottom-0 right-2 p-1.5 h-auto z-[100] text-xs flex items-center gap-2 transition-all data-[has-more=true]:bottom-2 data-[has-more=false]:translate-y-full"
         >
           <ArrowDown size={12} />
           <span>More Below</span>
