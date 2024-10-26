@@ -17,6 +17,7 @@ export default function Page({}: PageProps) {
       <div className="w-full h-[200px] relative">
         <Image
           fill
+          priority
           alt="traffic rl"
           src={"/assets/images/traffic-rl-1.png"}
           className="object-cover"

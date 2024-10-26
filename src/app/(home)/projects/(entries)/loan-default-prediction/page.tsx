@@ -17,6 +17,7 @@ export default function Page({}: PageProps) {
       <div className="w-full h-[200px] relative">
         <Image
           fill
+          priority
           src={"/assets/images/loan-default-1.png"}
           alt="loan default prediction"
           className="object-cover"

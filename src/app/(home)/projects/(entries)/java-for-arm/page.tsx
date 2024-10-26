@@ -18,6 +18,7 @@ export default function Page({}: PageProps) {
       <div className="w-full h-[200px] relative">
         <Image
           fill
+          priority
           alt="sustainably"
           src={"/assets/images/java-arm-1.png"}
           className="object-cover"

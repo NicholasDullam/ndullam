@@ -18,6 +18,7 @@ export default function Page({}: PageProps) {
       <div className="w-full h-[200px] relative">
         <Image
           fill
+          priority
           src={"/assets/images/zookeep-1.jpeg"}
           alt="zookeep"
           className="object-cover"

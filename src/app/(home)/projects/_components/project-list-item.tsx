@@ -58,10 +58,11 @@ export const ProjectListItem = ({
         <div className="bg-black z-10 group-hover:group-data-[touch=false]:opacity-50 opacity-80 h-full w-full absolute transition-all" />
         {!!src && (
           <Image
+            fill
+            priority
             src={src}
             alt={name}
             className="object-cover w-full h-full"
-            fill
           />
         )}
         <div
