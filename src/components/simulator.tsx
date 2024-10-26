@@ -39,11 +39,6 @@ export const Simulator = ({
   const prevRenderRef = useRef(prevRender);
 
   useEffect(() => {
-    let interval = setInterval(draw, 1);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
     particlesRef.current = particles;
   }, [particles]);
 
@@ -83,21 +78,24 @@ export const Simulator = ({
         particle.radius,
         0,
         Math.PI * 2,
-        true
+        true,
       );
       context.closePath();
       context.fill();
     });
   }, []);
 
-  const updateParticles = useCallback((particles: Particle[], time: number) => {
-    return particles.map((particle) => ({
-      ...particle,
-      velocityY: particle.velocityY + gravity,
-      nextX: particle.posX + particle.velocityX * (time / 1000),
-      nextY: particle.posY + particle.velocityY * (time / 1000),
-    }));
-  }, []);
+  const updateParticles = useCallback(
+    (particles: Particle[], time: number) => {
+      return particles.map((particle) => ({
+        ...particle,
+        velocityY: particle.velocityY + gravity,
+        nextX: particle.posX + particle.velocityX * (time / 1000),
+        nextY: particle.posY + particle.velocityY * (time / 1000),
+      }));
+    },
+    [gravity],
+  );
 
   const wallCollisions = useCallback((particles: Particle[]) => {
     return particles
@@ -123,45 +121,25 @@ export const Simulator = ({
   }, []);
 
   const areCollided = useCallback((particle: Particle, collider: Particle) => {
-    let dx = particle.nextX - collider.nextX;
-    let dy = particle.nextY - collider.nextY;
-    let distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+    const distance = Math.sqrt(
+      Math.pow(particle.nextX - collider.nextX, 2) +
+        Math.pow(particle.nextY - collider.nextY, 2),
+    );
     return distance <= particle.radius + collider.radius;
   }, []);
-
-  const unitCollisions = useCallback(
-    (particles: Particle[], time: number) => {
-      let col = 0;
-      for (let i = 0; i < particles.length; i++) {
-        let particle = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          let collider = particles[j];
-          if (areCollided(particle, collider)) {
-            col += 1;
-            const result = calcCollision(particle, collider, time);
-            particles[i] = result[0];
-            particles[j] = result[1];
-          }
-        }
-      }
-      setCollisions((c) => c + col);
-      return particles;
-    },
-    [areCollided]
-  );
 
   const calcCollision = useCallback(
     (particle: Particle, collider: Particle, time: number) => {
       const dx = particle.nextX - collider.nextX;
       const dy = particle.nextY - collider.nextY;
 
-      var collisionAngle = Math.atan2(dy, dx);
+      const collisionAngle = Math.atan2(dy, dx);
 
       const speed1 = Math.sqrt(
-        Math.pow(particle.velocityX, 2) + Math.pow(particle.velocityY, 2)
+        Math.pow(particle.velocityX, 2) + Math.pow(particle.velocityY, 2),
       );
       const speed2 = Math.sqrt(
-        Math.pow(collider.velocityX, 2) + Math.pow(collider.velocityY, 2)
+        Math.pow(collider.velocityX, 2) + Math.pow(collider.velocityY, 2),
       );
 
       const direction1 = Math.atan2(particle.velocityY, particle.velocityX);
@@ -204,13 +182,34 @@ export const Simulator = ({
 
       return [particle, collider];
     },
-    []
+    [],
+  );
+
+  const unitCollisions = useCallback(
+    (particles: Particle[], time: number) => {
+      let col = 0;
+      for (let i = 0; i < particles.length; i++) {
+        const particle = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const collider = particles[j];
+          if (areCollided(particle, collider)) {
+            col += 1;
+            const result = calcCollision(particle, collider, time);
+            particles[i] = result[0];
+            particles[j] = result[1];
+          }
+        }
+      }
+      setCollisions((c) => c + col);
+      return particles;
+    },
+    [areCollided, calcCollision],
   );
 
   const draw = useCallback(() => {
     const context = canvasRef.current?.getContext("2d");
     if (!context || !canvasRef.current) return;
-    let time = Date.now();
+    const time = Date.now();
     setComputeTime(time - prevRenderRef.current);
     context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     let render = [...particlesRef.current, ...generateParticles()];
@@ -221,7 +220,19 @@ export const Simulator = ({
     renderParticles(render);
     setParticles(render);
     setPrevRender(time);
-  }, [unitCollisions, wallCollisions, generateParticles, updateParticles]);
+  }, [
+    unitCollisions,
+    wallCollisions,
+    generateParticles,
+    updateParticles,
+    collision,
+    renderParticles,
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(draw, 1);
+    return () => clearInterval(interval);
+  }, [draw]);
 
   return (
     <div
