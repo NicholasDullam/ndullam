@@ -7,7 +7,7 @@ import { WaveProvider } from "./_components/wave-provider";
 import { WaveWrapper } from "./_components/wave-wrapper";
 
 export const metadata: Metadata = {
-  title: "Nicholas Dullam - Development Lead",
+  title: "Nicholas Dullam - Lead Engineer",
   description: "A portfolio by Nicholas Dullam",
 };
 
