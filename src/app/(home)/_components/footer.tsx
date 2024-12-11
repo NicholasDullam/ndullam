@@ -10,7 +10,7 @@ export const Footer = ({}: FooterProps) => {
       <div>
         <div className="flex flex-col mb-3">
           <h4 className="text-lg -mb-1">Nicholas Dullam</h4>
-          <h4 className="text-md opacity-50">Lead Engineer</h4>
+          <h4 className="text-md opacity-50">Senior Software Engineer</h4>
         </div>
         <div className="flex gap-2">
           <div className="flex flex-col">
